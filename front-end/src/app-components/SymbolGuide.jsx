@@ -7,7 +7,7 @@ export default function SymbolGuide() {
   return (
     <>
     <Heading>SymbolGuide here</Heading>
-    <Image src={symbol1} alt="stand in image"/>
+    <Image src={symbol1} alt="stand in symbol image"/>
     </>
   )
 }
