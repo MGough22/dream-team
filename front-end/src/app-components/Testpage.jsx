@@ -4,6 +4,7 @@ import React from 'react'
 import { css, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Box, Button, Text } from '@chakra-ui/react';
+import { addDream } from '../utils/api';
 
 
 //Emotion css custom reusable component, declaring a component by writing 'styled.' in front of a normal html element ie. 'styled.button'
