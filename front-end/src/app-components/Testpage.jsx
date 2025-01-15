@@ -98,7 +98,7 @@ ${theme.breakpoints.mobile}) {
   </div>
 
   {/* This custom button is a variable we defined above in this file, but it could be imported from anywhere.  */}
-  <MyCustomButton>A custom reusable button styled with Emotion</MyCustomButton>
+  <MyCustomButton onClick={() => addDream("testid","test dream text", 'test interp','test theme tag')}>A custom reusable button styled with Emotion</MyCustomButton>
         </ThemeProvider> 
 
 
