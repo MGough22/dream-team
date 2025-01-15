@@ -17,6 +17,8 @@ import DreamResponse from './app-components/DreamResponse';
 import { UserContext } from './contexts/UserContext';
 import PublicDreamJournal from './app-components/PublicDreamJournal';
 import Testpage from './app-components/Testpage'
+import SignUp from './app-components/SignUp';
+import LoginLogout from './app-components/LoginLogout';
 
 
 function App() {
@@ -34,6 +36,9 @@ function App() {
       <Route path ="/symbolguide" element={<SymbolGuide/>}/>
       <Route path ="/about" element={<About/>}/>
       <Route path ="/:user/settings" element={<UserSettings/>}/>
+      <Route path ="/signup" element={<SignUp/>}/>
+      <Route path ="/login" element={<LoginLogout/>}/>
+
     </Routes>
    <NavBar2></NavBar2>
    {/* If you want to understand how Chakra and Emotion work, uncomment the Testpage below to see how it renders in the app - and check the Testpage component in the app-components folder. */}

@@ -15,7 +15,7 @@ export default function UserDreamJournal() {
               <Button variant="outline">Delete</Button>
               <Button variant="outline">Favourite</Button>
             </Card.Footer>
-          </Card.Root>
+          </Card.Root> 
     </Box>
     <Box bg="white" border="1px solid">
     <Card.Root width="auto" >
