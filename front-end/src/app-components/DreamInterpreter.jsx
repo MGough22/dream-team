@@ -29,7 +29,7 @@ export default function DreamInterpreter() {
   <Switch p="5vh" checked={checked} onCheckedChange={(e) => setChecked(e.checked)} size="lg">Submit dream to public gallery</Switch>
   
   <HStack gap="1">
-  <Heading p="5vh" size="md">Response style</Heading>
+  <Heading  size="md">Response style</Heading>
   <Button size="sm" color="black" >Jungian</Button>
   <Button size="sm" color="black" >Mystic</Button>
   <Button size="sm" color="black" >Balance</Button>

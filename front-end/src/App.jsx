@@ -15,6 +15,7 @@ import About from './app-components/About';
 import UserSettings from './app-components/UserSettings';
 import DreamResponse from './app-components/DreamResponse';
 import { UserContext } from './contexts/UserContext';
+import PublicDreamJournal from './app-components/PublicDreamJournal';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path ="/interpreter" element={<DreamInterpreter/>}/>
       <Route path ={`/${user}/response/:parametric-response-key`} element={<DreamResponse/>}/>
       <Route path ="/:user/dreamjournal" element={<UserDreamJournal/>}/>
+      <Route path ="/publicdreamjournal" element={<PublicDreamJournal/>}/>
       <Route path ="/symbolguide" element={<SymbolGuide/>}/>
       <Route path ="/about" element={<About/>}/>
       <Route path ="/:user/settings" element={<UserSettings/>}/>
