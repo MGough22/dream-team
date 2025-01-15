@@ -1,4 +1,4 @@
-import { Button, Container, Heading, HStack, Box} from '@chakra-ui/react'
+import { Button, Container, Heading, HStack, Box, Text} from '@chakra-ui/react'
 import { SkeletonText } from '../components/ui/skeleton'
 import {Blockquote} from '../components/ui/blockquote'
 import React from 'react'
@@ -39,6 +39,7 @@ export default function DreamResponse() {
       <Button size="sm" color="black" >Favourite</Button>
       </HStack>
       <Button width="30vw" color="black" size="xl" mx="auto" display="block" m="3vh" >Interpret again???</Button>
+      
     
       </Container>
   )

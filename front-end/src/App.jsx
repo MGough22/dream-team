@@ -16,6 +16,7 @@ import UserSettings from './app-components/UserSettings';
 import DreamResponse from './app-components/DreamResponse';
 import { UserContext } from './contexts/UserContext';
 import PublicDreamJournal from './app-components/PublicDreamJournal';
+import Testpage from './app-components/Testpage'
 
 
 function App() {
