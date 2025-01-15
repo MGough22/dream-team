@@ -1,11 +1,21 @@
 import { Box, Button, Container, Heading, HStack, Input, Text } from '@chakra-ui/react'
 import { Switch } from "../components/ui/switch"
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { Link, useNavigate} from 'react-router-dom'
+import { UserProvider } from '../contexts/UserContext'
+import { UserContext } from '../contexts/UserContext'
+
 
 export default function DreamInterpreter() {
   //public switch state
   const [checked, setChecked] = useState(false)
+  const {user} = useContext(UserContext)
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+   navigate(`/${user}/response/:parametric-response-key`)
+  }
 
 
   return (
@@ -24,7 +34,7 @@ export default function DreamInterpreter() {
   <Button size="sm" color="black" >Mystic</Button>
   <Button size="sm" color="black" >Balance</Button>
   </HStack>
-  <Button width="30vw" color="black" size="xl" mx="auto" display="block" >Interpret</Button>
+  <Button onClick={handleClick} width="30vw" color="black" size="xl" mx="auto" display="block" >Interpret</Button>
 
   </Container>
   
