@@ -9,13 +9,16 @@ import treeoflife from '../assets/dream-tag-symbols/tree-of-life.png'
 import maze from '../assets/dream-tag-symbols/maze.png'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
-import { UserContext } from '../contexts/UserContext'
+import { UserContext } from '../contexts/UserContext' 
+import { addDream } from '../utils/api'
+import { UserIdContext } from '../contexts/UserIdContext'
 
 export default function DreamResponse() {
 const {state} = useLocation()
 const {dream} = state
 const [interpretation, setInterpretation] = useState('')
 const {user} = useContext(UserContext)
+const {userId} = useContext(UserIdContext)
 
 useEffect(() => {
   // Mock API call
@@ -25,6 +28,17 @@ useEffect(() => {
     }, 2000) // Simulate API delay
   }
 }, [dream])
+
+const handleSaveDream = () => {
+  addDream(userId, dream, interpretation, null)
+  .then(()=>{
+    
+  })
+  .catch((error)=>{
+    console.log(error, '<<error saving dream')
+  })
+}
+
 
   return (
     <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
@@ -55,7 +69,11 @@ useEffect(() => {
             src={maze}/>}>Confusion</Tag>
       </HStack>
       <HStack gap="3" p="1vh">
-      <Button size="sm" color="black" >Save to journal</Button>
+      <Button size="sm" 
+      color="black" 
+      onClick={handleSaveDream}
+      disabled={user==='Guest'}>
+        {user === 'Guest' ? 'Log in to save dream': 'Save to journal'}</Button>
       <Button size="sm" color="black" >Favourite</Button>
       </HStack>
       <Button color="black" size="xl" mx="auto" display="block" m="3vh" >Interpret again???</Button>
