@@ -12,29 +12,26 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('')
   
-    const onSubmit = async (e) => {
-      e.preventDefault()
-
-      await createUserWithEmailAndPassword(auth, email, password)
+    const onSubmit = (e) => {
+      e.preventDefault();
+    
+      createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log("user in line 22 of sign up>>>>>", user );
-            //waiting here to navigate to login
-            //displaying a temporary message 'sign up successful'
-            //maybe taking the email/username to the login page automatically so the login entry box is populated already
-            navigate("/login")
-            // ...
+          //successful sign in
+          const user = userCredential.user;
+          console.log("user in line 22 of sign up>>>>>", user);
+          // Navigate to login after successful signup
+          // Display a temporary message 'sign up successful'
+          // Optionally, prefill the login page with the email/username
+          navigate("/login");
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-            // ..
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
         });
-
-
-    }
+    };
+    
   return (
      <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
         <Heading my="1vh" p="1vh">Sign Up</Heading>
