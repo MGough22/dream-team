@@ -11,8 +11,10 @@ export default function SignUp() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('')
+    const [error, setError] = useState('')
+    const [successfulSignUp, setSuccessfulSignUp] = useState('')
   
-    const onSubmit = (e) => {
+    const onSignUp = (e) => {
       e.preventDefault();
     
       createUserWithEmailAndPassword(auth, email, password)
@@ -23,9 +25,11 @@ export default function SignUp() {
           // Navigate to login after successful signup
           // Display a temporary message 'sign up successful'
           // Optionally, prefill the login page with the email/username
-          navigate("/login");
+          setSuccessfulSignUp("You have signed up successfully")
+          navigate("/");
         })
         .catch((error) => {
+          setError("Sign up failure...")
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
@@ -41,7 +45,7 @@ export default function SignUp() {
         <Input as="form" type="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Enter email address" required></Input>
         <Text>Create your password</Text>
         <Input as="form" type="password" value={password} onChange={(e)=> setPassword(e.target.value)} placeholder="Enter password" required></Input>
-        <Button color="black" type="submit" onClick={onSubmit}>Sign up</Button>
+        <Button color="black" type="submit" onClick={onSignUp}>Sign up</Button>
         <Text >Already have an account?</Text><Text as={Link} to={`/login`}>Login</Text>
     </Container>
   )

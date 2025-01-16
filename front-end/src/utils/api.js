@@ -1,5 +1,6 @@
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
+
 export async function addDream(userId, dreamText, interpretations, themeTag) {
   try {
     const docRef = await addDoc(collection(db, "dreams"), {

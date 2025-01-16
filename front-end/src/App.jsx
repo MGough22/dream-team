@@ -51,7 +51,7 @@ function App() {
     <Routes>
       <Route path ="/" element={<Navigate to="/interpreter"/>}/>
       <Route path ="/interpreter" element={<DreamInterpreter/>}/>
-      <Route path ={`/${user}/response/:parametric-response-key`} element={<DreamResponse/>}/>
+      <Route path ={`/response`} element={<DreamResponse/>}/>
       <Route path ="/dreamjournal" element={<UserDreamJournal/>}/>
       <Route path ="/publicdreamjournal" element={<PublicDreamJournal/>}/>
       <Route path ="/symbolguide" element={<SymbolGuide/>}/>
