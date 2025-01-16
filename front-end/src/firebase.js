@@ -20,3 +20,5 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app); // Optional
 export { db, auth };
+
+console.log("Auth instance from firebase.js:", auth);
