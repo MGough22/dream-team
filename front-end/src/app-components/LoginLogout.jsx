@@ -17,6 +17,9 @@ export default function LoginLogout() {
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
+            //wait before navigating to the homepage
+            //message user successfully logged in
+            //then navigate
             navigate("/")
             console.log(user);
         })
@@ -32,10 +35,13 @@ export default function LoginLogout() {
     const handleLogout = () => {               
       signOut(auth).then(() => {
       // Sign-out successful.
+      //wait to navigate to homepage
+      //display message sign-out successful
           navigate("/");
           console.log("Signed out successfully")
       }).catch((error) => {
-      // An error happened.
+      // An error happened
+      console.log(error, "error in logout")
       });
   }
 
