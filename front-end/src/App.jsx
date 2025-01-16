@@ -19,7 +19,9 @@ import PublicDreamJournal from './app-components/PublicDreamJournal';
 import Testpage from './app-components/Testpage'
 import SignUp from './app-components/SignUp';
 import LoginLogout from './app-components/LoginLogout';
-
+import React, {useState, useEffect} from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
 
 function App() {
   const {user} = useContext(UserContext)

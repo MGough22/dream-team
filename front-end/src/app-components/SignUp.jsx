@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../firebase';
-import { Container, Heading, Input } from '@chakra-ui/react';
+import { Button, Container, Heading, Input, Text } from '@chakra-ui/react';
 
 export default function SignUp() {
 
@@ -34,7 +34,12 @@ export default function SignUp() {
   return (
      <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
         <Heading my="1vh" p="1vh">Sign Up</Heading>
-        <Input as="form"></Input>
+        <Text>Enter your email address</Text>
+        <Input as="form" type="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Enter email address"></Input>
+        <Text>Create your password</Text>
+        <Input as="form" type="password" value={password} onChange={(e)=> setPassword(e.target.value)} placeholder="Enter password"></Input>
+        <Button color="black" type="submit" onClick={onSubmit}>Sign up</Button>
+        <Text >Already have an account?</Text><Text as={Link} to={`/login`}>Login</Text>
     </Container>
   )
 }
