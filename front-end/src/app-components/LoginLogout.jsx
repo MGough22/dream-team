@@ -10,6 +10,8 @@ export default function LoginLogout() {
   const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('')
+    const [successfulLogin, setSuccessfulLogin] = useState('')
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -17,13 +19,18 @@ export default function LoginLogout() {
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
+            //wait before navigating to the homepage
+            //message user successfully logged in
+            //then navigate
             navigate("/")
             console.log(user);
+            setSuccessfulLogin("You have logged in successfully")
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage)
+            setError('Login failed')
         });
 
     }
@@ -32,10 +39,13 @@ export default function LoginLogout() {
     const handleLogout = () => {               
       signOut(auth).then(() => {
       // Sign-out successful.
+      //wait to navigate to homepage
+      //display message sign-out successful
           navigate("/");
           console.log("Signed out successfully")
       }).catch((error) => {
-      // An error happened.
+      // An error happened
+      console.log(error, "error in logout")
       });
   }
 

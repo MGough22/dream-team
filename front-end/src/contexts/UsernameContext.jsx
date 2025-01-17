@@ -3,22 +3,21 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
 
-export const UserContext = createContext()
+export const UsernameContext = createContext()
 
-export const UserProvider = ({children}) => {
-    // hardcoded default user
-    // const [user, setUser] = useState("Dreamer69")
+export const UsernameProvider = ({children}) => {
     
-    const [user, setUser] = useState(null);
+    const [username, setUsername] = useState(null);
+   
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
           // User is signed in
-          setUser(user.email)
+          setUsername(user.displayName)
         } else {
           // User is signed out
-          setUser("Guest");
+          setUsername("Guest");
         }
       });
   
@@ -28,8 +27,8 @@ export const UserProvider = ({children}) => {
   
     
     return (
-        <UserContext.Provider value={{user, setUser}}>
+        <UsernameContext.Provider value={{username, setUsername}}>
             {children}
-        </UserContext.Provider>
+        </UsernameContext.Provider>
     )
 }
