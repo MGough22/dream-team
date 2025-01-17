@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {  signInWithEmailAndPassword, signOut   } from 'firebase/auth';
+import {  signInWithEmailAndPassword, signOut, getAuth, deleteUser   } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate, Link } from 'react-router-dom'
 import { Button, Container, Heading, Input, Text } from '@chakra-ui/react';
@@ -49,7 +49,26 @@ export default function LoginLogout() {
       });
   }
 
-  
+
+  // Delete user - only available to logged in users to delete their account
+   
+    const handleDeleteUser = () => {   
+      
+      const auth = getAuth();
+      const user = auth.currentUser;  
+
+      deleteUser(user).then(() => {
+      // User deleted.
+      console.log(`Your account has been deleted`);
+      navigate("/");
+      }).catch((error) => {
+      // An error ocurred
+      console.log('error during account deletion')
+      // ...
+    });
+  }
+
+
   return (
     <>
     <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
@@ -62,12 +81,17 @@ export default function LoginLogout() {
         <Text >No account yet?</Text><Text as={Link} to={`/signup`}>Sign up</Text>
     </Container>
 
-<Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
-<Heading my="1vh" p="1vh">Logout</Heading>
-<Button color="black" onClick={handleLogout}>Logout</Button>
+    <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
+        <Heading my="1vh" p="1vh">Logout</Heading>
+        <Button color="black" onClick={handleLogout}>Logout</Button>
+    </Container>
 
-</Container>
+    <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
+        <Heading my="1vh" p="1vh">Delete Account</Heading>
+        <Button color="black" onClick={handleDeleteUser}>Delete Account</Button>
+    </Container>
 </>
     
-  )
+ )
 }
+
