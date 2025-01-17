@@ -37,6 +37,8 @@ When developing new code, create a new branch from dev for your feature or task:
 git checkout -b feature/<feature-name>
 ```
 
+Note: the naming convention of: feature/placeholder
+
 Examples:
 
 • feature/add-user-auth
@@ -108,7 +110,11 @@ Then next step is to create a PR to merge your code into the dev branch:
 
 • After review and approval, your feature branch will be merged into dev.
 
-# Secondary information:
+#
+
+<details>
+
+  <summary> Secondary information:</summary>
 
 ## 🚀 Releasing to Production
 
@@ -157,3 +163,5 @@ git pull origin main
 ```
 git push origin dev
 ```
+
+</details>
