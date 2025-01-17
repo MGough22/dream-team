@@ -22,6 +22,7 @@ import LoginLogout from './app-components/LoginLogout';
 import React, {useState, useEffect} from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import { Toaster } from './components/ui/toaster';
 
 function App() {
   const {user} = useContext(UserContext)
@@ -42,6 +43,7 @@ function App() {
       <Route path ="/login" element={<LoginLogout/>}/>
 
     </Routes>
+    <Toaster />       {/* Testing Toaster position to preserve Toaster state through re-render*/}
    <NavBar2></NavBar2>
    {/* If you want to understand how Chakra and Emotion work, uncomment the Testpage below to see how it renders in the app - and check the Testpage component in the app-components folder. */}
 
