@@ -16,7 +16,7 @@ export default function DreamInterpreter() {
 
   const onInterpret = (e) => {
     e.preventDefault()
-   navigate('/response/', { state: { dream: enteredDream } })
+   navigate('/response/', { state: { dream: enteredDream, isPublic: checked } })
   }
 
 
