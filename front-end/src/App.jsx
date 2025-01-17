@@ -23,8 +23,8 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { Toaster } from "./components/ui/toaster";
-
 import DeleteAccount from "./app-components/DeleteAccount";
+import RetrievedDreamResponse from "./app-components/RetrievedDreamResponse";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -53,6 +53,7 @@ function App() {
         <Route path="/" element={<Navigate to="/interpreter" />} />
         <Route path="/interpreter" element={<DreamInterpreter />} />
         <Route path={`/response`} element={<DreamResponse />} />
+        <Route path={`/response/:dreamId`} element={<RetrievedDreamResponse/>} />
         <Route path="/dreamjournal" element={<UserDreamJournal />} />
         <Route path="/publicdreamjournal" element={<PublicDreamJournal />} />
         <Route path="/symbolguide" element={<SymbolGuide />} />
