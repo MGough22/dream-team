@@ -22,9 +22,28 @@ import LoginLogout from './app-components/LoginLogout';
 import React, {useState, useEffect} from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import DeleteAccount from './app-components/DeleteAccount';
 
 function App() {
   const {user} = useContext(UserContext)
+
+  //find out who is currently signed-in?
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          // ...
+          console.log("uid", uid)
+        } else {
+          // User is signed out
+          // ...
+          console.log("user is logged out")
+        }
+      });
+
+}, [])
   
   return (
    <Container>
@@ -32,14 +51,15 @@ function App() {
     <Routes>
       <Route path ="/" element={<Navigate to="/interpreter"/>}/>
       <Route path ="/interpreter" element={<DreamInterpreter/>}/>
-      <Route path ={`/${user}/response/:parametric-response-key`} element={<DreamResponse/>}/>
-      <Route path ="/:user/dreamjournal" element={<UserDreamJournal/>}/>
+      <Route path ={`/response`} element={<DreamResponse/>}/>
+      <Route path ="/dreamjournal" element={<UserDreamJournal/>}/>
       <Route path ="/publicdreamjournal" element={<PublicDreamJournal/>}/>
       <Route path ="/symbolguide" element={<SymbolGuide/>}/>
       <Route path ="/about" element={<About/>}/>
-      <Route path ="/:user/settings" element={<UserSettings/>}/>
+      <Route path ="/settings" element={<UserSettings/>}/>
       <Route path ="/signup" element={<SignUp/>}/>
       <Route path ="/login" element={<LoginLogout/>}/>
+      <Route path ="/deleteaccount" element={<DeleteAccount/>}/>
 
     </Routes>
    <NavBar2></NavBar2>
