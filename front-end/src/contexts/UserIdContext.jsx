@@ -11,17 +11,13 @@ export const UserIdProvider = ({children}) => {
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-          // User is signed in
           setUserId(user.uid)
         } else {
-          // User is signed out
           setUserId("guestId");
         } 
       });
-  
-    //   return () => unsubscribe(); // Clean up the listener on unmount
     }, []);
   
   
