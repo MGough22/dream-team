@@ -15,7 +15,7 @@ import { UserIdContext } from '../contexts/UserIdContext'
 
 export default function DreamResponse() {
 const {state} = useLocation()
-const {dream} = state
+const {dream, isPublic} = state
 const [interpretation, setInterpretation] = useState('')
 const {user} = useContext(UserContext)
 const {userId} = useContext(UserIdContext)
@@ -30,7 +30,7 @@ useEffect(() => {
 }, [dream])
 
 const handleSaveDream = () => {
-  addDream(userId, dream, interpretation, null)
+  addDream(userId, dream, interpretation, null, isPublic, null)
   .then(()=>{
     
   })
@@ -41,7 +41,7 @@ const handleSaveDream = () => {
 
 
   return (
-    <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
+    <Container as="section" bg="gray.300" maxW="lg" my="5vh" p="5vh" >
         <Heading my="1vh" p="1vh">Your submitted dream...</Heading>
         <Container bg="white" p="10vh">
         <Blockquote>You dreamt...{dream}</Blockquote>
@@ -68,12 +68,12 @@ const handleSaveDream = () => {
             size="full" 
             src={maze}/>}>Confusion</Tag>
       </HStack>
-      <HStack gap="3" p="1vh">
+      <HStack gap="3" p="1rem">
       <Button size="sm" 
       color="black" 
       onClick={handleSaveDream}
       disabled={user==='Guest'}>
-        {user === 'Guest' ? 'Log in to save dream': 'Save to journal'}</Button>
+        {user === 'Guest' ? 'Log in to save dream' : isPublic ? 'Save to journal and publish to public' : 'Save to journal'}</Button>
       <Button size="sm" color="black" >Favourite</Button>
       </HStack>
       <Button color="black" size="xl" mx="auto" display="block" m="3vh" >Interpret again???</Button>
