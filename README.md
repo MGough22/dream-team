@@ -10,14 +10,23 @@ Welcome to the Team Project repository! This document outlines the workflow, bra
 
 ## 🔄 Workflow Overview
 
-### 1. Cloning the Repository for the first time
+### 1. Using this repo for the first time:
 
-Developers should first clone the repository, and then switch to the dev branch for development:
+Developers should first clone the repository, cd into the correct directroy, install depenencies, and then switch to the dev branch for development,
 
 ```
 git clone https://github.com/MGough22/dream-team.git
 cd dream-team
+cd front-end
+npm install
 git checkout dev
+git pull
+```
+
+To run the code locally:
+
+```
+npm run dev
 ```
 
 ### 2. Creating a Feature Branch
@@ -29,7 +38,9 @@ git checkout -b feature/<feature-name>
 ```
 
 Examples:
+
 • feature/add-user-auth
+
 • feature/create-profile-page
 
 ### 3. Making Changes
@@ -43,15 +54,15 @@ git commit -m "Implemented feature: user authentication"
 
 ### 4. Syncing with dev
 
-To avoid conflicts, regularly pull the latest changes from dev into your feature branch:
+To avoid conflicts, regularly merge the latest changes from dev into your feature branch:
 
 ```
-git pull origin dev
+git merge dev
 ```
 
 ### 5. Pushing Your Feature Branch
 
-When your code is good to go, push your feature branch to it's remote repository:
+When the code on your branch is good to go, make sure to merge with dev, commit the changes, and push your local branch to it's remote repository:
 
 ```
 git push -u origin feature/<feature-name>
@@ -62,6 +73,9 @@ git push -u origin feature/<feature-name>
 Then next step is to create a PR to merge your code into the dev branch:
 
 • Open a PR on GitHub to merge your feature branch into dev.
+
+• Make sure the incoming branch is set to dev rather than main
+
 • Ensure your PR includes a clear description of the feature or fix.
 
 ### 7. Merging Into dev
