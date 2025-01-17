@@ -1,4 +1,4 @@
-import { collection, query, where, orderBy, getDocs, addDoc, Timestamp } from "firebase/firestore";
+import { updateDoc, increment, doc, collection, query, where, orderBy, getDocs, addDoc, Timestamp, deleteDoc} from "firebase/firestore";
 import { db } from "../firebase";
 
 export async function addDream(userId, dreamText, interpretations, themeTag, isPublic, votes) { //adds dream to data base
@@ -93,6 +93,77 @@ export async function getUserDreams(userId, sortBy = "date", order = "desc") { /
     return dreams;
   } catch (error) {
     console.error("Error retrieving user dreams:", error);
+    throw error;
+  }
+}
+
+export async function deleteDream(dreamId) { //delete dream from database
+  try {
+    if (!dreamId) {
+      throw new Error("Dream ID is required.");
+    }
+
+    const dreamRef = doc(db, "dreams", dreamId);
+
+    await deleteDoc(dreamRef);
+
+    console.log(`Dream with ID: ${dreamId} has been deleted.`);
+  } catch (error) {
+    console.error("Error deleting dream:", error);
+    throw error;
+  }
+}
+
+
+export async function updateDreamVotes(dreamId, voteChange) { //Update the dreams votes. voteChange can be negative for downvoting
+  try {
+    if (!dreamId) {
+      throw new Error("Dream ID is required.");
+    }
+    if (typeof voteChange !== "number") {
+      throw new Error("Vote change must be a number.");
+    }
+
+    const dreamRef = doc(db, "dreams", dreamId);
+
+    await updateDoc(dreamRef, {
+      votes: increment(voteChange),
+    });
+
+    console.log(
+      `${voteChange > 0 ? "Added" : "Removed"} ${Math.abs(
+        voteChange
+      )} vote(s) for dream with ID: ${dreamId}`
+    );
+  } catch (error) {
+    console.error("Error updating dream votes:", error);
+    throw error;
+  }
+}
+
+
+export async function updatePublicStatus(dreamId, isPublic) { // update dreams public status, takes dreams id and boolean to change status to.
+  try {
+    if (!dreamId) {
+      throw new Error("Dream ID is required.");
+    }
+    if (typeof isPublic !== "boolean") {
+      throw new Error("isPublic must be a boolean.");
+    }
+
+    // Reference the dream document
+    const dreamRef = doc(db, "dreams", dreamId);
+
+    // Update the isPublic field
+    await updateDoc(dreamRef, {
+      isPublic,
+    });
+
+    console.log(
+      `Public status of dream with ID: ${dreamId} updated to ${isPublic}.`
+    );
+  } catch (error) {
+    console.error("Error updating public status:", error);
     throw error;
   }
 }
