@@ -21,7 +21,6 @@ const handleDeleteAccount = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         const user = userCredential.user;
-  
         //firebase delete user function
         return deleteUser(user);
       })
