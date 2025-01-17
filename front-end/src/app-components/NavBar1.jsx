@@ -14,10 +14,13 @@ const {user} = useContext(UserContext)
     <Spacer/>
 <HStack spacing="1vw" flexWrap="wrap">
 <Box as={Link} to={`/signup`} bg="gray.300" p="1vh" color="white">Create Account</Box>
-<Box as={Link} to={`/dreamjournal`} bg="gray.400" p="1vh" color="white">{`${user}'s Dream Journal`}</Box>
+{user === "Guest" ? 
+<Box as={Link} to={`/login`} bg="gray.400" p="1vh" color="white">{`Login to access your dream journal`}</Box> :
+<Box as={Link} to={`/dreamjournal`} bg="gray.400" p="1vh" color="white">{`${user}'s Dream Journal`}</Box> }
 <Box as={Link} to={`/publicdreamjournal`} bg="gray.500" p="1vh" color="white">Public Dream Journal</Box>
 <Box as={Link} to="/symbolguide" bg="gray.600" p="1vh" color="white">Symbol Guide</Box>
-<Text as={Link} to={`/settings`} bg="gray.700" p="1vh" color="white">Logged in user/settings: Welcome, {user}</Text>
+{user==="Guest" ? null: 
+<Text as={Link} to={`/settings`} bg="gray.700" p="1vh" color="white">Logged in user/settings: Welcome, {user}</Text>}
 <Button as={Link} to={`/login`} bg="gray.800" p="1vh" color="white"> Login/Logout</Button>
 </HStack>
 </Flex>
