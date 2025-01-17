@@ -12,7 +12,7 @@ Welcome to the Team Project repository! This document outlines the workflow, bra
 
 ### 1. Using this repo for the first time:
 
-Developers should first clone the repository, cd into the correct directroy, install depenencies, and then switch to the dev branch for development,
+Developers should first clone the repository, cd into the correct directory, install depenencies, and then switch to the dev branch for development,
 
 ```
 git clone https://github.com/MGough22/dream-team.git
@@ -54,7 +54,27 @@ git commit -m "Implemented feature: user authentication"
 
 ### 4. Syncing with dev
 
-To avoid conflicts, regularly merge the latest changes from dev into your feature branch:
+To avoid conflicts, regularly merge the latest changes from dev into your feature branch, do so this way:
+
+1. Checkout to dev:
+
+```
+git checkout dev
+```
+
+2. Pull the latest changes from remote:
+
+```
+git pull
+```
+
+3. Checkout back into your feature branch:
+
+```
+git checkout feature/<feature-name>
+```
+
+4. Merge the changes into your local feature branch:
 
 ```
 git merge dev
@@ -62,10 +82,16 @@ git merge dev
 
 ### 5. Pushing Your Feature Branch
 
-When the code on your branch is good to go, make sure to merge with dev, commit the changes, and push your local branch to it's remote repository:
+When the code on your branch is good to go, and having made sure to merge with dev, commit your changes, and push your local branch to it's remote repository:
 
 ```
 git push -u origin feature/<feature-name>
+```
+
+Altenrtaively, if you have already pushed to remote, simply push your latest changes from within your feature branch as normal:
+
+```
+git push
 ```
 
 ### 6. Opening a Pull Request (PR)
