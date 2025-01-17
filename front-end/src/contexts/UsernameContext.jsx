@@ -11,17 +11,13 @@ export const UsernameProvider = ({children}) => {
    
 
     useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, (user) => {
         if (user) {
-          // User is signed in
           setUsername(user.displayName)
         } else {
-          // User is signed out
           setUsername("Guest");
         }
       });
-  
-    //   return () => unsubscribe(); // Clean up the listener on unmount
     }, []);
   
   
