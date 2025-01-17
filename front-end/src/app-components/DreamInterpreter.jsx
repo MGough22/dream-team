@@ -33,7 +33,7 @@ export default function DreamInterpreter() {
   <HStack gap="1">
   <Heading  size="md">Response style</Heading>
   <Button size="sm" color="black" >Jungian/Mystic</Button>
-  <Button size="sm" color="black" >Balance</Button>
+  <Button size="sm" color="black"  >Balance</Button>
   </HStack>
   <Button onClick={onInterpret} color="black" size="xl" mx="auto" display="block" >Interpret</Button>
 
