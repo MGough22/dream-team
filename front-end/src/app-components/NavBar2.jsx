@@ -2,9 +2,11 @@ import { Flex, Box } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { UserContext } from '../contexts/UserContext'
 import { Link } from 'react-router-dom'
+import { UsernameContext } from '../contexts/UsernameContext'
 
 export default function NavBar2() {
 const {user} = useContext(UserContext)
+const {username} = useContext(UsernameContext)
 
   return (
     <Flex bg="gray.400" justify="space-between" wrap="wrap" gap="2">

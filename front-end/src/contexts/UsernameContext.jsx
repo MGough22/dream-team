@@ -3,22 +3,22 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
 
-export const UserIdContext = createContext()
+export const UsernameContext = createContext()
 
-export const UserIdProvider = ({children}) => {
-
+export const UsernameProvider = ({children}) => {
     
-    const [userId, setUserId] = useState(null);
+    const [username, setUsername] = useState(null);
+   
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
           // User is signed in
-          setUserId(user.uid)
+          setUsername(user.displayName)
         } else {
           // User is signed out
-          setUserId("guestId");
-        } 
+          setUsername("Guest");
+        }
       });
   
     //   return () => unsubscribe(); // Clean up the listener on unmount
@@ -27,8 +27,8 @@ export const UserIdProvider = ({children}) => {
   
     
     return (
-        <UserIdContext.Provider value={{userId, setUserId}}>
+        <UsernameContext.Provider value={{username, setUsername}}>
             {children}
-        </UserIdContext.Provider>
+        </UsernameContext.Provider>
     )
 }
