@@ -8,7 +8,7 @@ import DreamInterpreter from "./app-components/DreamInterpreter";
 import NavBar1 from "./app-components/NavBar1";
 import NavBar2 from "./app-components/NavBar2";
 import UserDreamJournal from "./app-components/UserDreamJournal";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import SymbolGuide from "./app-components/SymbolGuide";
 import About from "./app-components/About";
@@ -25,6 +25,8 @@ import { auth } from "./firebase";
 import { Toaster } from "./components/ui/toaster";
 import DeleteAccount from "./app-components/DeleteAccount";
 import RetrievedDreamResponse from "./app-components/RetrievedDreamResponse";
+import { AnimatePresence } from "framer-motion";
+import { PageWrapper } from "./utils/PageWrapper";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -46,26 +48,114 @@ function App() {
     });
   }, []);
 
+  const location = useLocation();
+
   return (
     <Container>
       <NavBar1 />
-      <Routes>
-        <Route path="/" element={<Navigate to="/interpreter" />} />
-        <Route path="/interpreter" element={<DreamInterpreter />} />
-        <Route path={`/response`} element={<DreamResponse />} />
-        <Route path={`/response/:dreamId`} element={<RetrievedDreamResponse/>} />
-        <Route path="/dreamjournal" element={<UserDreamJournal />} />
-        <Route path="/publicdreamjournal" element={<PublicDreamJournal />} />
-        <Route path="/symbolguide" element={<SymbolGuide />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/settings" element={<UserSettings />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<LoginLogout />} />
-        <Route path="/deleteaccount" element={<DeleteAccount />} />
-      </Routes>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <PageWrapper>
+                <DreamInterpreter />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/interpreter"
+            element={
+              <PageWrapper>
+                <DreamInterpreter />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path={`/response`}
+            element={
+              <PageWrapper>
+                <DreamResponse />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path={`/response/:dreamId`}
+            element={
+              <PageWrapper>
+                <RetrievedDreamResponse />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/dreamjournal"
+            element={
+              <PageWrapper>
+                <UserDreamJournal />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/publicdreamjournal"
+            element={
+              <PageWrapper>
+                <PublicDreamJournal />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/symbolguide"
+            element={
+              <PageWrapper>
+                <SymbolGuide />{" "}
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <PageWrapper>
+                <About />{" "}
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PageWrapper>
+                <UserSettings />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PageWrapper>
+                <SignUp />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PageWrapper>
+                <LoginLogout />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/deleteaccount"
+            element={
+              <PageWrapper>
+                <DeleteAccount />
+              </PageWrapper>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
       <Toaster />{" "}
       {/* Testing Toaster position to preserve Toaster state through re-render*/}
-      <NavBar2></NavBar2>
+      <NavBar2 />
       {/* If you want to understand how Chakra and Emotion work, uncomment the Testpage below to see how it renders in the app - and check the Testpage component in the app-components folder. */}
       {/* <Testpage></Testpage> */}
     </Container>
