@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Card, SimpleGrid, Box, Button } from '@chakra-ui/react'
+import { Card, SimpleGrid, Box, Button, Text } from '@chakra-ui/react'
 import { UserIdContext } from '../contexts/UserIdContext'
 import { UsernameContext } from '../contexts/UsernameContext'
 import { getUserDreams } from '../utils/api'
@@ -10,7 +10,9 @@ export default function UserDreamJournal() {
   const {userId} = useContext(UserIdContext)
   const [userDreams, setUserDreams] = useState([])
   const [loading, setLoading] = useState(true)
-  
+  const [dreamDeletedMessage, setDreamDeletedMessage] = useState(null)
+  const [dreamDeletedError, setDreamDeletedError] = useState(null)
+ 
   useEffect(() => {
     if (userId) {
       setLoading(true);
@@ -22,7 +24,7 @@ export default function UserDreamJournal() {
         })
         .then((userDreamData) => {
           console.log(userDreamData, "<<<dreamData");
-          setUserDreams(userDreamData);
+          setUserDreams(userDreamData)
         })
         .catch((error) => {
           console.log(error, "<<<<Error in dream journal catch");
@@ -30,13 +32,28 @@ export default function UserDreamJournal() {
     }
   }, [userId]);
 
-if (loading) {return "Loading..."}
+useEffect(()=> {
+  if (dreamDeletedError || dreamDeletedMessage) {
+    setTimeout(()=>{
+      setDreamDeletedError(null)
+      setDreamDeletedMessage(null)
+    }, 1000)
+  }
+}, [dreamDeletedMessage, dreamDeletedError])
 
-  return (
+if (loading) {return "Loading..."}
+if (!userDreams.length) {return "No dreams in your journal yet"}
+  
+return (
+  <>
+        <Text>
+        {dreamDeletedMessage || dreamDeletedError}
+        </Text>
     <SimpleGrid columns={4} gap="10px" minChildWidth={250} p="10px">
       {userDreams.map((currentDream)=>{
-        return <UserDreamCard currentDream={currentDream} key={currentDream.id}/>
+        return <UserDreamCard setUserDreams={setUserDreams} currentDream={currentDream} key={currentDream.id} setDreamDeletedError={setDreamDeletedError} setDreamDeletedMessage={setDreamDeletedMessage}/>
       })}
  </SimpleGrid>
+ </>
   )
 }
