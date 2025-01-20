@@ -6,7 +6,6 @@ import styled from "@emotion/styled";
 import { Container } from "@chakra-ui/react";
 import DreamInterpreter from "./app-components/DreamInterpreter";
 import NavBar1 from "./app-components/NavBar1";
-import NavBar2 from "./app-components/NavBar2";
 import UserDreamJournal from "./app-components/UserDreamJournal";
 import { Navigate, useLocation } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
@@ -155,7 +154,6 @@ function App() {
       </AnimatePresence>
       <Toaster />{" "}
       {/* Testing Toaster position to preserve Toaster state through re-render*/}
-      <NavBar2 />
       {/* If you want to understand how Chakra and Emotion work, uncomment the Testpage below to see how it renders in the app - and check the Testpage component in the app-components folder. */}
       {/* <Testpage></Testpage> */}
     </Container>
