@@ -19,16 +19,18 @@ export default function NavBar1() {
 
   return (
     <Grid as="nav" p="1vw" gap="1vw">
-      <Box as={Link} to="/">
-        <Heading color="black" as="h1">
-          DreamApp
-        </Heading>
-      </Box>
-      <Spacer />
-      <HStack spacing="1vw" flexWrap="wrap">
-        <Box as={Link} to={`/signup`} bg="gray.300" p="1vh" color="white">
-          Create Account
+      <HStack spacing="1vw" flexWrap="wrap" className="navBar">
+        <Box as={Link} to="/">
+          <Heading color="black" as="h1">
+            DreamApp
+          </Heading>
         </Box>
+        <Spacer />
+        {user === "Guest" ? (
+          <Box as={Link} to={`/signup`} bg="gray.300" p="1vh" color="white">
+            Create Account
+          </Box>
+        ) : null}
         {user === "Guest" ? (
           <Box
             as={Link}
