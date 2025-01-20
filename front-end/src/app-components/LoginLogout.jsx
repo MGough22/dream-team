@@ -3,6 +3,7 @@ import {  signInWithEmailAndPassword, signOut   } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate, Link } from 'react-router-dom'
 import { Button, Container, Heading, Input, Text } from '@chakra-ui/react';
+import { toaster } from '../components/ui/toaster';
 
 export default function LoginLogout() {
   
@@ -19,9 +20,10 @@ export default function LoginLogout() {
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            //wait before navigating to the homepage
-            //message user successfully logged in
-            //then navigate
+            toaster.create({
+                        title: "Sign in successful",
+                        type: "success",
+                      });
             navigate("/")
             console.log(user);
             setSuccessfulLogin("You have logged in successfully")
@@ -29,6 +31,10 @@ export default function LoginLogout() {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            toaster.create({
+                      title: `Error: ${errorCode}`,
+                      type: "error",
+                    }); 
             console.log(errorCode, errorMessage)
             setError('Login failed')
         });
@@ -36,17 +42,24 @@ export default function LoginLogout() {
     }
 
     //LogOut code
-    const handleLogout = () => {               
-      signOut(auth).then(() => {
-      // Sign-out successful.
-      //wait to navigate to homepage
-      //display message sign-out successful
+    const handleLogout = () => {  
+      if (auth.currentUser != null) {        // message dependant whether user instance is present
+         signOut(auth);
+         toaster.create({
+            title: "Log out successful.",
+            type: "success",
+        });
+         //wait to navigate to homepage
+         //display message sign-out successful
           navigate("/");
-          console.log("Signed out successfully")
-      }).catch((error) => {
-      // An error happened
-      console.log(error, "error in logout")
-      });
+          console.log("Signed out successfully");
+        } else {
+        toaster.create({
+          title: "No account to log out.",
+          description: "You are in guest mode.",
+          type: "error",
+        });
+      };
   }
 
   
