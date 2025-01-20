@@ -63,7 +63,7 @@ export default function DreamResponse() {
   }
 
   const handleSaveDream = () => {
-    addDream(userId, dream, interpretation, null, isPublic, null)
+    addDream(userId, user, dream, interpretation, null, isPublic, null)
       .then(() => {})
       .catch((error) => {
         console.log(error, "<<error saving dream");

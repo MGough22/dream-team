@@ -1,15 +1,17 @@
 import { updateDoc, increment, doc, collection, query, where, orderBy, getDocs, addDoc, Timestamp, deleteDoc} from "firebase/firestore";
 import { db } from "../firebase";
 
-export async function addDream(userId, dreamText, interpretations, themeTag, isPublic, votes) { //adds dream to data base
+export async function addDream(userId, userName, dreamText, interpretations, themeTag, isPublic, votes, isFavourited = false) { //adds dream to data base
   try {
     const docRef = await addDoc(collection(db, "dreams"), {
-      userId,
+      userId, 
+      userName,
       dreamText,
       interpretations,
       themeTag,
       isPublic,
       votes,
+      isFavourited,
       interpretationDate: Timestamp.now()
     });
     console.log("Dream added with ID: ", docRef.id);
@@ -57,7 +59,8 @@ export async function getPublicDreams(sortBy = "date", order = "desc") { // gets
 }
 
 
-export async function getUserDreams(userId, sortBy = "date", order = "desc") { //gets All dreams for given User. can be sorted by votes or date and in asc/desc order using parameters.
+export async function getUserDreams(userId, onlyFavourites = false,  sortBy = "date", order = "desc", ) { //gets All dreams for given User. can be sorted by votes or date and in asc/desc order using parameters. parameter added to filter by favourites
+
   try {
     if (!userId) {
       throw new Error("User ID is required.");
@@ -67,11 +70,12 @@ export async function getUserDreams(userId, sortBy = "date", order = "desc") { /
 
     const dreamsRef = collection(db, "dreams");
 
-    const q = query(
-      dreamsRef,
-      where("userId", "==", userId), 
-      orderBy(sortField, order) 
-    );
+    const filters = [where("userId", "==", userId)];
+    if (onlyFavourites) {
+      filters.push(where("isFavourited", "==", true)); 
+    }
+
+    const q = query(dreamsRef, ...filters, orderBy(sortField, order));
 
     const querySnapshot = await getDocs(q);
 
@@ -88,14 +92,15 @@ export async function getUserDreams(userId, sortBy = "date", order = "desc") { /
       };
     });
 
-    console.log(`Retrieved ${dreams.length} dreams for user ${userId}.`);
-    console.log(dreams)
+    console.log(`Retrieved ${dreams.length} ${onlyFavourites ? "favorited" : ""} dreams for user ${userId}.`);
+    console.log(dreams);
     return dreams;
   } catch (error) {
     console.error("Error retrieving user dreams:", error);
     throw error;
   }
 }
+
 
 export async function deleteDream(dreamId) { //delete dream from database
   try {
@@ -151,10 +156,8 @@ export async function updatePublicStatus(dreamId, isPublic) { // update dreams p
       throw new Error("isPublic must be a boolean.");
     }
 
-    // Reference the dream document
     const dreamRef = doc(db, "dreams", dreamId);
 
-    // Update the isPublic field
     await updateDoc(dreamRef, {
       isPublic,
     });
