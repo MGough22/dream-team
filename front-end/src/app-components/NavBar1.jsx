@@ -60,7 +60,7 @@ export default function NavBar1() {
         </Box>
         {user === "Guest" ? null : (
           <Text as={Link} to={`/settings`} bg="gray.700" p="1vh" color="white">
-            Logged in user/settings: Welcome, {username}
+            Welcome, {username}
           </Text>
         )}
         <Button as={Link} to={`/login`} bg="gray.800" p="1vh" color="white">

@@ -3,6 +3,7 @@ import {
   Container,
   Heading,
   HStack,
+  VStack,
   Box,
   Text,
 } from "@chakra-ui/react";
@@ -23,44 +24,51 @@ import { fetchDreamResponse } from "../utils/nidra-api";
 
 export default function DreamResponse() {
   const { state } = useLocation();
-  const { dream, isPublic, responseType } = state;
+  const { dream, isPublic, responseType, altResponse } = state;
   const [interpretation, setInterpretation] = useState("");
+  const [currentResponseType, setCurrentResponseType] = useState(responseType);
   const { user } = useContext(UserContext);
   const { userId } = useContext(UserIdContext);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   // Mock API call
-  //   if (dream) {
-  //     setTimeout(() => {
-  //       setInterpretation(`Your dream might signify transformation and growth.`)
-  //     }, 2000) // Simulate API delay
-  //   }
-  // }, [dream])
+  //  Defines which response type to render
+  const responseTypeDisplay = {
+    jungianMystic: "Jungian Mystic",
+    balanced: "balanced",
+  };
 
   useEffect(() => {
-    if (dream) {
-      setLoading(true);
+    let isMounted = true;
+    const fetchDream = async () => {
+      if (dream) {
+        setLoading(true);
+        try {
+          const dreamResponse = await fetchDreamResponse(
+            dream,
+            currentResponseType
+          );
+          if (isMounted) {
+            console.log(dreamResponse, "<--dream response from fetch ");
+            setInterpretation(dreamResponse);
+          }
+        } catch (error) {
+          if (isMounted) {
+            console.log(error, "<<<<Error in dream response catch");
+          }
+        } finally {
+          if (isMounted) {
+            setLoading(false);
+          }
+        }
+      }
+    };
 
-      fetchDreamResponse(dream, responseType)
-        .then((dreamResponse) => {
-          setLoading(false);
-          console.log(dreamResponse, "<--dream response from fetch ");
-          setInterpretation(dreamResponse);
-          return dreamResponse;
-        })
-        // .then((responseData) => {
-        //   console.log(responseData, "<<<second block");
-        // })
-        .catch((error) => {
-          console.log(error, "<<<<Error in dream response catch");
-        });
-    }
-  }, []);
+    fetchDream();
 
-  if (loading) {
-    return "Loading...";
-  }
+    return () => {
+      isMounted = false;
+    };
+  }, [dream, currentResponseType]);
 
   const handleSaveDream = () => {
     addDream(userId, dream, interpretation, null, isPublic, null)
@@ -70,53 +78,87 @@ export default function DreamResponse() {
       });
   };
 
+  const getAlternateResponseType = (currentType) => {
+    return currentType === "jungianMystic" ? "balanced" : "jungianMystic";
+  };
+
+  const handleAltResponse = () => {
+    setLoading(true);
+    setCurrentResponseType(getAlternateResponseType(currentResponseType));
+  };
+
   return (
-    <Container as="section" bg="gray.300" maxW="lg" my="5vh" p="5vh">
-      <Heading my="1vh" p="1vh">
-        Your submitted dream...
-      </Heading>
-      <Container bg="white" p="10vh">
-        <Blockquote>{dream}</Blockquote>
-      </Container>
-      <Heading my="1vh" p="1vh">
-        Your interpretation...
-      </Heading>
-      <Box p="5vh">
-        {interpretation ? (
-          <Text>{interpretation}</Text>
-        ) : (
-          <SkeletonText noOfLines={3} gap="4" />
-        )}
-      </Box>
-      <HStack gap="3" p="1vh">
-        <Tag startElement={<Avatar size="full" src={suncross} />}>
-          Nightmare
-        </Tag>
-        <Tag startElement={<Avatar size="full" src={treeoflife} />}>
-          Life-cycles
-        </Tag>
-        <Tag startElement={<Avatar size="full" src={maze} />}>Confusion</Tag>
-      </HStack>
-      <HStack gap="3" p="1rem">
+    <Container
+      as="section"
+      align="center"
+      bg="gray.300"
+      maxW="lg"
+      my="5vh"
+      p="5vh"
+    >
+      <VStack spacing="1" align="center">
+        <Heading my="1vh" mt="0" p="0" textAlign="center">
+          Your submitted dream...
+        </Heading>
+        <Container bg="white" p="10vh" textAlign="center" align="center">
+          <Blockquote textAlign="center">{dream}</Blockquote>
+        </Container>
+        <Heading my="1vh" mb="-4" p="1">
+          {`Your ${responseTypeDisplay[currentResponseType]} interpretation...`}
+        </Heading>
+        <Box p="4">
+          {interpretation ? (
+            <Text textAlign="center" mt="0">
+              {interpretation}
+            </Text>
+          ) : (
+            <SkeletonText noOfLines={3} gap="4" />
+          )}
+        </Box>
+        <HStack gap="3" p="1vh">
+          <Tag startElement={<Avatar size="full" src={suncross} />}>
+            Nightmare
+          </Tag>
+          <Tag startElement={<Avatar size="full" src={treeoflife} />}>
+            Life-cycles
+          </Tag>
+          <Tag startElement={<Avatar size="full" src={maze} />}>Confusion</Tag>
+        </HStack>
+        <HStack gap="3" p="1rem">
+          <Button
+            size="sm"
+            color="black"
+            onClick={handleSaveDream}
+            disabled={user === "Guest"}
+          >
+            {user === "Guest"
+              ? "Log in to save dream"
+              : isPublic
+              ? "Save to journal and publish to public"
+              : "Save to journal"}
+          </Button>
+          <Button size="sm" color="black">
+            Favourite
+          </Button>
+        </HStack>
         <Button
-          size="sm"
           color="black"
-          onClick={handleSaveDream}
-          disabled={user === "Guest"}
+          size="xl"
+          mx="auto"
+          display="block"
+          m="0"
+          onClick={handleAltResponse}
+          disabled={loading}
         >
-          {user === "Guest"
-            ? "Log in to save dream"
-            : isPublic
-            ? "Save to journal and publish to public"
-            : "Save to journal"}
+          {loading
+            ? "Loading..."
+            : `Try a ${
+                responseTypeDisplay[
+                  getAlternateResponseType(currentResponseType)
+                ]
+              } interpretation`}
         </Button>
-        <Button size="sm" color="black">
-          Favourite
-        </Button>
-      </HStack>
-      <Button color="black" size="xl" mx="auto" display="block" m="3vh">
-        Interpret again???
-      </Button>
+      </VStack>
     </Container>
   );
 }
