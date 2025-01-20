@@ -47,7 +47,7 @@ export default function DreamInterpreter() {
   };
 
   return (
-    <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh">
+    <Container as="section" bg="gray.300" maxW="2xl" my="5vh" p="5vh">
       <VStack spacing="2" align="center">
         <Heading my="0" p="0">
           Interpret your dream
@@ -60,7 +60,8 @@ export default function DreamInterpreter() {
           type="dream"
           my="2"
           // mx="auto"
-          p="5vh 20vh 20vh 5vh"
+          // p="5vh 20vh 20vh 5vh"
+          p="5vh"
           bg="white"
           fontSize="1.3rem"
           lineHeight="2rem"

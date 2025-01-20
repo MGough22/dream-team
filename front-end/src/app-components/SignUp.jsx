@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 import { Button, Container, Heading, Input, Text } from "@chakra-ui/react";
 import { toaster } from "../components/ui/toaster";
+import { UsernameContext } from "../contexts/UsernameContext";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -14,15 +15,19 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [successfulSignUp, setSuccessfulSignUp] = useState("");
 
-  const onSignUp = e => {
+  const { setUsername } = useContext(UsernameContext);
+
+  const onSignUp = (e) => {
     e.preventDefault();
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
+      .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log("user in line 22 of sign up>>>>>", user);
+        // console.log("user in line 22 of sign up>>>>>", user);
         updateProfile(user, { displayName: localUsername }).then(() => {
+          setUsername(localUsername);
+
           setSuccessfulSignUp("You have signed up successfully");
           toaster.create({
             title: "Account creation successful",
@@ -32,7 +37,7 @@ export default function SignUp() {
         });
         // ...
       })
-      .catch(error => {
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -53,7 +58,7 @@ export default function SignUp() {
         as="form"
         type="username"
         value={localUsername}
-        onChange={e => setLocalUsername(e.target.value)}
+        onChange={(e) => setLocalUsername(e.target.value)}
         placeholder="Enter username"
         required
       ></Input>
@@ -62,7 +67,7 @@ export default function SignUp() {
         as="form"
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter email address"
         required
       ></Input>
@@ -71,7 +76,7 @@ export default function SignUp() {
         as="form"
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter password"
         required
       ></Input>

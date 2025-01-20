@@ -16,7 +16,7 @@ export default function UserDreamJournal() {
   useEffect(() => {
     if (userId) {
       setLoading(true);
-  
+
       getUserDreams(userId)
         .then((fetchedUserDreams) => {
           setLoading(false);
@@ -49,7 +49,7 @@ return (
         <Text>
         {dreamDeletedMessage || dreamDeletedError}
         </Text>
-    <SimpleGrid columns={4} gap="10px" minChildWidth={250} p="10px">
+    <SimpleGrid columns={4} gap="20px" minChildWidth={350} p="20px">
       {userDreams.map((currentDream)=>{
         return <UserDreamCard setUserDreams={setUserDreams} currentDream={currentDream} key={currentDream.id} setDreamDeletedError={setDreamDeletedError} setDreamDeletedMessage={setDreamDeletedMessage}/>
       })}
