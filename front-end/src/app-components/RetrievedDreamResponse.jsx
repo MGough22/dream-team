@@ -39,9 +39,9 @@ export default function RetrievedDreamResponse() {
     deleteDream(currentDream.id)
       .then(() => {
         setDreamDeletedMessage("Dream successfully deleted");
-        setDeleteButtonMessage("Successfully Deleted");
+        setDeleteButtonMessage("Deleted");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setDeleteButtonMessage("Delete failed. Try again.");
         setDreamDeletedError(
@@ -70,14 +70,14 @@ export default function RetrievedDreamResponse() {
     >
       <VStack spacing="1" align="center">
         <Container textAlign="center" align="center" p="2">
-          <Text as="h2" fonttextAlign="center">
-            {`"${currentDream.dreamText}"`}
+          <Text as="h2" fonttextAlign="center" lineHeight="1.2">
+            {`" ${currentDream.dreamText}"`}
           </Text>
         </Container>
         <Heading mt="0" p="0" textAlign="center">
           <MysticalDate dateString={currentDream.interpretationDate} />
         </Heading>
-        <Heading as="h3" my="1vh" mb="-4" p="1" textAlign="center">
+        <Heading as="h3" my="1vh" mb="-5" p="1" textAlign="center">
           Interpretation...
         </Heading>
         <Box p="4">
@@ -89,16 +89,6 @@ export default function RetrievedDreamResponse() {
             <SkeletonText noOfLines={3} gap="4" />
           )}
         </Box>
-        {/* Unused icons test */}
-        {/* <HStack gap="3" p="1vh">
-          <Tag startElement={<Avatar size="full" src={suncross} />}>
-            Nightmare
-          </Tag>
-          <Tag startElement={<Avatar size="full" src={treeoflife} />}>
-            Life-cycles
-          </Tag>
-          <Tag startElement={<Avatar size="full" src={maze} />}>Confusion</Tag>
-        </HStack> */}
         <HStack gap="3" p="1rem">
           {userId === currentDream.userId ? (
             <>
@@ -115,7 +105,7 @@ export default function RetrievedDreamResponse() {
               </Button>
             </>
           ) : null}
-          {deleteButtonMessage === "Successfully Deleted" ? (
+          {deleteButtonMessage === "Deleted" ? (
             <Button
               size="sm"
               color="black"
@@ -126,7 +116,7 @@ export default function RetrievedDreamResponse() {
           ) : null}
         </HStack>
       </VStack>
-      <VoteHandler currentDream={currentDream}/>
+      <VoteHandler currentDream={currentDream} />
     </Container>
   );
 }

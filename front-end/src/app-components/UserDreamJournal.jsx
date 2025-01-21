@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, SimpleGrid, Box, Button, Text } from "@chakra-ui/react";
+import { Card, SimpleGrid, Box, Button, Text, Heading } from "@chakra-ui/react";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { UsernameContext } from "../contexts/UsernameContext";
 import { getUserDreams } from "../utils/api";
 import UserDreamCard from "./UserDreamCard";
+import { LoadingAnimation } from "./LoadingAnimation";
 
 export default function UserDreamJournal() {
   const { username } = useContext(UsernameContext);
@@ -42,14 +43,37 @@ export default function UserDreamJournal() {
   }, [dreamDeletedMessage, dreamDeletedError]);
 
   if (loading) {
-    return "Loading...";
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="1vh"
+      >
+        <LoadingAnimation />
+      </Box>
+    );
   }
   if (!userDreams.length) {
-    return "No dreams in your journal yet";
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="1vh"
+        as="h3"
+      >
+        No dreams in your journal yet...
+      </Box>
+    );
   }
 
   return (
     <>
+      <Heading as="h2" textAlign="center" mb="4">
+        {" "}
+        {username}'s' Dream Journal{" "}
+      </Heading>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid
         columns={4}
