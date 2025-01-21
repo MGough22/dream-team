@@ -1,4 +1,4 @@
-import { Box, Button, Card, HStack, Text, Heading } from "@chakra-ui/react";
+import { Box, Button, Card, HStack, Text, Heading, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
@@ -96,6 +96,7 @@ export default function UserDreamCard({
             <MysticalDate dateString={currentDream.interpretationDate} />
           </Box>
           <Card.Footer justifyContent="center" mt="auto">
+            <VStack>
             <HStack spacing={4} flexWrap="wrap" justifyContent="center">
               <Button variant="outline" onClick={onViewDream}>
                 View
@@ -111,8 +112,9 @@ export default function UserDreamCard({
               ) : null}
               {!isPublic ? <Button variant="outline">Favourite</Button> : null}
             </HStack>
+          <VoteHandler currentDream={currentDream}/>
+            </VStack>
           </Card.Footer>
-          <VoteHandler currentDream={currentDream} />
         </Card.Root>
       </Box>
     </>
