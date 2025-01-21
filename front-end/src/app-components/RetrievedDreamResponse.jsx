@@ -40,7 +40,7 @@ export default function RetrievedDreamResponse() {
         setDreamDeletedMessage("Dream successfully deleted");
         setDeleteButtonMessage("Successfully Deleted");
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         setDeleteButtonMessage("Delete failed. Try again.");
         setDreamDeletedError(
@@ -102,18 +102,20 @@ export default function RetrievedDreamResponse() {
         </HStack> */}
         <HStack gap="3" p="1rem">
           {userId === currentDream.userId ? (
-            <Button
-              size="sm"
-              color="black"
-              onClick={handleDeleteClick}
-              disabled={deleteButtonDisabled}
-            >
-              {deleteButtonMessage}
-            </Button>
+            <>
+              <Button
+                size="sm"
+                color="black"
+                onClick={handleDeleteClick}
+                disabled={deleteButtonDisabled}
+              >
+                {deleteButtonMessage}
+              </Button>
+              <Button size="sm" color="black">
+                Favourite
+              </Button>
+            </>
           ) : null}
-          <Button size="sm" color="black">
-            Favourite
-          </Button>
           {deleteButtonMessage === "Successfully Deleted" ? (
             <Button
               size="sm"

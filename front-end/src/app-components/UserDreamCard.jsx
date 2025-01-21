@@ -11,13 +11,14 @@ export default function UserDreamCard({
   setUserDreams,
   setDreamDeletedMessage,
   setDreamDeletedError,
+  isPublic,
 }) {
   const { userId } = useContext(UserIdContext);
   const navigate = useNavigate();
   const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(false);
   const [deleteButtonMessage, setDeletebuttonMessage] = useState("Delete");
 
-  const onViewDream = (e) => {
+  const onViewDream = e => {
     e.preventDefault();
     navigate(`/response/${currentDream.id}`, { state: { currentDream } });
   };
@@ -28,13 +29,13 @@ export default function UserDreamCard({
 
     deleteDream(currentDream.id)
       .then(() => {
-        setUserDreams((dreams) =>
-          dreams.filter((dream) => dream.id !== currentDream.id)
+        setUserDreams(dreams =>
+          dreams.filter(dream => dream.id !== currentDream.id)
         );
         setDreamDeletedMessage("Dream successfully deleted");
         setDeleteButtonDisabled(false);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error, "err in dreamcard delete catch");
         setDeletebuttonMessage("Delete failed. Try again.");
         setDreamDeletedError(
@@ -96,7 +97,7 @@ export default function UserDreamCard({
                   {deleteButtonMessage}
                 </Button>
               ) : null}
-              <Button variant="outline">Favourite</Button>
+              {!isPublic ? <Button variant="outline">Favourite</Button> : null}
               <Button variant="outline">
                 {!currentDream.votes
                   ? `Votes: 0`
