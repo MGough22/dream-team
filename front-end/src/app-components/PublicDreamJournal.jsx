@@ -4,11 +4,13 @@ import { UsernameContext } from '../contexts/UsernameContext'
 import { UserIdContext } from '../contexts/UserIdContext'
 import { getPublicDreams } from '../utils/api'
 import UserDreamCard from './UserDreamCard'
+import {  NativeSelectField, NativeSelectRoot,} from "../components/ui/native-select"
 
 export default function PublicDreamJournal() {
   const {username} = useContext(UsernameContext)
   const {userId} = useContext(UserIdContext)
   const [userDreams, setUserDreams] = useState([])
+  const [value, setValue] = useState("")
   const [loading, setLoading] = useState(true)
   const [dreamDeletedMessage, setDreamDeletedMessage] = useState(null)
   const [dreamDeletedError, setDreamDeletedError] = useState(null)
@@ -42,13 +44,31 @@ export default function PublicDreamJournal() {
     }, [dreamDeletedMessage, dreamDeletedError])
   
   if (loading) {return "Loading..."}
-  
+
+  function customQuery(value) {
+    getPublicDreams(value).then((filteredList) => {
+      setUserDreams(filteredList)
+    })
+    .catch((error) => {
+      console.log(error, "<<<< Error in customQuery catch")
+    })
+    
+  }
   
   return (
     <>
-    <Text>
+        <NativeSelectRoot size="sm" width="240px">
+        <NativeSelectField placeholder="Sort dreams by" variant="outline" 
+             value={value}
+             onChange={(e) => customQuery(e.currentTarget.value)}>
+            <option value="">Newest on Top</option>
+            <option value="">Favourites First</option>
+            <option value="votes">Most Votes</option>
+        </NativeSelectField>
+    </NativeSelectRoot>
+    <Text>    
             {dreamDeletedMessage || dreamDeletedError}
-            </Text>
+    </Text>
     <SimpleGrid columns={4} gap="20px" minChildWidth={350} p="20px">
           {userDreams.map((currentDream)=>{
             return <UserDreamCard setUserDreams={setUserDreams} currentDream={currentDream} key={currentDream.id} setDreamDeletedError={setDreamDeletedError} setDreamDeletedMessage={setDreamDeletedMessage}/>
