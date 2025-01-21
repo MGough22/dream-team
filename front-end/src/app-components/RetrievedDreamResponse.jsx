@@ -17,7 +17,7 @@ import React, { useState, useContext } from "react";
 // import maze from "../assets/dream-tag-symbols/maze.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
-import { deleteDream } from "../utils/api";
+import { deleteDream, updateFavouriteStatus } from "../utils/api";
 import MysticalDate from "./DateDisplay";
 import VoteHandler from "./VoteHandler";
 import { updatePublicStatus } from "../utils/api";
@@ -36,6 +36,9 @@ export default function RetrievedDreamResponse() {
   const [localIsPublic, setLocalIsPublic] = useState(false)
   const [isPublicButtonDisabled, setIsPublicButtonDisabled] = useState(false)
   const [isPublicMessage, setIsPublicMessage] = useState("")
+
+
+  const [currentDreamFavState, setcurrentDreamFavState] = useState(currentDream.isFavourited);
 
   const handleDeleteClick = () => {
     setDeleteButtonDisabled(true);
@@ -76,6 +79,19 @@ export default function RetrievedDreamResponse() {
       console.log(error, "error in public update catch")
     })
   }
+
+  const handleFavouriteClick = () => {
+    const newFavouriteStatus = !currentDreamFavState;
+    setcurrentDreamFavState(newFavouriteStatus); 
+    updateFavouriteStatus(currentDream.id, newFavouriteStatus)
+      .then(() => {
+        currentDream.isFavourited = newFavouriteStatus;
+      })
+      .catch((error) => {
+        console.log("Error updating favourite status: ", error);
+        setIsFavourited(!newFavouriteStatus); 
+      });
+  };
 
   return (
     <Container
@@ -119,8 +135,8 @@ export default function RetrievedDreamResponse() {
               >
                 {deleteButtonMessage}
               </Button>
-              <Button size="sm" color="black">
-                Favourite
+              <Button size="sm" color="black" onClick={handleFavouriteClick}>
+              {currentDreamFavState ? "Unfavourite" : "Favourite"}
               </Button>
             </>
           ) : null}
