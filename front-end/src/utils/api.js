@@ -215,3 +215,27 @@ export async function updatePublicStatus(dreamId, isPublic) {
     throw error;
   }
 }
+
+export async function updateFavouriteStatus(dreamId, isFavourited) { //takes dreamID and boolean.
+  try {
+    if (!dreamId) {
+      throw new Error("Dream ID is required.");
+    }
+    if (typeof isFavourited !== "boolean") {
+      throw new Error("isFavourited must be a boolean.");
+    }
+
+    const dreamRef = doc(db, "dreams", dreamId);
+
+    await updateDoc(dreamRef, {
+      isFavourited,
+    });
+
+    console.log(
+      `Favorite status of dream with ID: ${dreamId} updated to ${isFavourited}.`
+    );
+  } catch (error) {
+    console.error("Error updating favorite status:", error);
+    throw error;
+  }
+}

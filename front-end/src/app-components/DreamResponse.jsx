@@ -22,6 +22,7 @@ import { addDream } from "../utils/api";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { fetchDreamResponse } from "../utils/nidra-api";
 import MysticalDate from "./DateDisplay";
+import { UsernameContext } from "../contexts/UsernameContext";
 
 export default function DreamResponse() {
   const { state } = useLocation();
@@ -33,7 +34,7 @@ export default function DreamResponse() {
   const [loading, setLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-
+  const {username} = useContext(UsernameContext)
   //  Defines which response type to render
   const responseTypeDisplay = {
     jungianMystic: "Jungian Mystic",
@@ -74,7 +75,7 @@ export default function DreamResponse() {
   }, [dream, currentResponseType]);
 
   const handleSaveDream = () => {
-    addDream(userId, dream, interpretation, null, isPublic, null)
+    addDream(userId,username, dream, interpretation, null, isPublic, null)
       .then(() => {
         setIsSaved(true);
       })
