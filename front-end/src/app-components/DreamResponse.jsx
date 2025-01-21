@@ -78,7 +78,7 @@ export default function DreamResponse() {
       .then(() => {
         setIsSaved(true);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error, "<<error saving dream");
       });
   };
@@ -87,7 +87,7 @@ export default function DreamResponse() {
     setIsFavorited(true);
   };
 
-  const getAlternateResponseType = (currentType) => {
+  const getAlternateResponseType = currentType => {
     return currentType === "jungianMystic" ? "balanced" : "jungianMystic";
   };
 
