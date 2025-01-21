@@ -20,6 +20,7 @@ import { UserIdContext } from "../contexts/UserIdContext";
 import { deleteDream } from "../utils/api";
 import MysticalDate from "./DateDisplay";
 import VoteHandler from "./VoteHandler";
+import { updatePublicStatus } from "../utils/api";
 
 export default function RetrievedDreamResponse() {
   const { state } = useLocation();
@@ -31,6 +32,10 @@ export default function RetrievedDreamResponse() {
   const [deleteButtonMessage, setDeleteButtonMessage] = useState("Delete");
   const [dreamDeletedError, setDreamDeletedError] = useState(null);
   const [dreamDeletedMessage, setDreamDeletedMessage] = useState(null);
+  
+  const [localIsPublic, setLocalIsPublic] = useState(false)
+  const [isPublicButtonDisabled, setIsPublicButtonDisabled] = useState(false)
+  const [isPublicMessage, setIsPublicMessage] = useState("")
 
   const handleDeleteClick = () => {
     setDeleteButtonDisabled(true);
@@ -57,6 +62,20 @@ export default function RetrievedDreamResponse() {
   const handleReturnToJournalClick = () => {
     navigate(-1);
   };
+
+  const handlePublishToPublic = () => {
+    setIsPublicButtonDisabled(true)
+    setLocalIsPublic(true)
+    updatePublicStatus(currentDream.id, true)
+    .then(()=>{
+      setIsPublicMessage("Dream publicised!")
+      setTimeout(() => {
+        setIsPublicMessage("");
+      }, 3000)
+    }).catch((error)=>{
+      console.log(error, "error in public update catch")
+    })
+  }
 
   return (
     <Container
@@ -114,9 +133,15 @@ export default function RetrievedDreamResponse() {
               Return to Journal
             </Button>
           ) : null}
+          {currentDream.isPublic ? null : 
+          <Button size="sm"
+          color="black"
+          disabled={isPublicButtonDisabled}
+          onClick={handlePublishToPublic}>{localIsPublic ? 'Published!' : 'Publish to public'}</Button>}
         </HStack>
+          {localIsPublic ? <Text>{isPublicMessage}</Text> : null}
+      <VoteHandler currentDream={currentDream}/>
       </VStack>
-      <VoteHandler currentDream={currentDream} />
     </Container>
   );
 }
