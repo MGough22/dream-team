@@ -74,7 +74,7 @@ export default function DreamResponse() {
   }, [dream, currentResponseType]);
 
   const handleSaveDream = () => {
-    addDream(userId, dream, interpretation, null, isPublic, null)
+    addDream(userId, null, dream, interpretation, null, isPublic, null, null)
       .then(() => {
         setIsSaved(true);
       })
