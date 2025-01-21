@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "@chakra-ui/react";
+import { Text, Heading } from "@chakra-ui/react";
 
 export default function MysticalDate({ dateString }) {
   const convertToRoman = (num) => {
@@ -79,15 +79,8 @@ export default function MysticalDate({ dateString }) {
   };
 
   return (
-    <div
-      className="date-and-time"
-      // fontFamily="serif"
-      // fontSize="lg"
-      //   fontStyle="italic"
-      //   color="gray.600"
-      // text-a
-    >
+    <Heading textAlign="center" as="h3" fontSize={22}>
       {formatMysticalDate(dateString)}
-    </div>
+    </Heading>
   );
 }
