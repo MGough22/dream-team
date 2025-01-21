@@ -19,6 +19,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { deleteDream } from "../utils/api";
 import MysticalDate from "./DateDisplay";
+import VoteHandler from "./VoteHandler";
 
 export default function RetrievedDreamResponse() {
   const { state } = useLocation();
@@ -40,7 +41,7 @@ export default function RetrievedDreamResponse() {
         setDreamDeletedMessage("Dream successfully deleted");
         setDeleteButtonMessage("Successfully Deleted");
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         setDeleteButtonMessage("Delete failed. Try again.");
         setDreamDeletedError(
@@ -100,18 +101,20 @@ export default function RetrievedDreamResponse() {
         </HStack> */}
         <HStack gap="3" p="1rem">
           {userId === currentDream.userId ? (
-            <Button
-              size="sm"
-              color="black"
-              onClick={handleDeleteClick}
-              disabled={deleteButtonDisabled}
-            >
-              {deleteButtonMessage}
-            </Button>
+            <>
+              <Button
+                size="sm"
+                color="black"
+                onClick={handleDeleteClick}
+                disabled={deleteButtonDisabled}
+              >
+                {deleteButtonMessage}
+              </Button>
+              <Button size="sm" color="black">
+                Favourite
+              </Button>
+            </>
           ) : null}
-          <Button size="sm" color="black">
-            Favourite
-          </Button>
           {deleteButtonMessage === "Successfully Deleted" ? (
             <Button
               size="sm"
@@ -123,6 +126,7 @@ export default function RetrievedDreamResponse() {
           ) : null}
         </HStack>
       </VStack>
+      <VoteHandler currentDream={currentDream}/>
     </Container>
   );
 }
