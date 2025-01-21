@@ -2,7 +2,16 @@ import React, { useState, useContext } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
-import { Button, Container, Heading, Input, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Heading,
+  Input,
+  Button,
+  Text,
+  VStack,
+  HStack,
+  Box,
+} from "@chakra-ui/react";
 import { toaster } from "../components/ui/toaster";
 import { UsernameContext } from "../contexts/UsernameContext";
 
@@ -49,44 +58,75 @@ export default function SignUp() {
       });
   };
   return (
-    <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh">
-      <Heading my="1vh" p="1vh">
-        Sign Up
-      </Heading>
-      <Text>Enter your username</Text>
-      <Input
-        as="form"
-        type="username"
-        value={localUsername}
-        onChange={(e) => setLocalUsername(e.target.value)}
-        placeholder="Enter username"
-        required
-      ></Input>
-      <Text>Enter your email address</Text>
-      <Input
-        as="form"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter email address"
-        required
-      ></Input>
-      <Text>Create your password</Text>
-      <Input
-        as="form"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter password"
-        required
-      ></Input>
-      <Button color="black" type="submit" onClick={onSignUp}>
-        Sign up
-      </Button>
-      <Text>Already have an account?</Text>
-      <Text as={Link} to={`/login`}>
-        Login
-      </Text>
+    <Container
+      as="section"
+      bg="gray.300"
+      maxW="md"
+      my="4"
+      p="4"
+      borderRadius="md"
+    >
+      <VStack spacing="4" align="stretch">
+        <Heading size="lg" textAlign="center">
+          Sign Up
+        </Heading>
+
+        <Box>
+          <Text mb="2">Enter your username</Text>
+          <Input
+            type="username"
+            value={localUsername}
+            onChange={(e) => setLocalUsername(e.target.value)}
+            placeholder="Enter username"
+            bg="white"
+            mb="4"
+            required
+          />
+        </Box>
+
+        <Box>
+          <Text mb="2">Enter your email address</Text>
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email address"
+            bg="white"
+            mb="4"
+            required
+          />
+        </Box>
+
+        <Box>
+          <Text mb="2">Create your password</Text>
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+            bg="white"
+            mb="4"
+            required
+          />
+        </Box>
+
+        <Button
+          color="black"
+          type="submit"
+          onClick={onSignUp}
+          width="100%"
+          mt="2"
+        >
+          Sign up
+        </Button>
+
+        <HStack spacing="2" justify="center" pt="2">
+          <Text>Already have an account?</Text>
+          <Text as={Link} to="/login" textDecoration="underline">
+            Login
+          </Text>
+        </HStack>
+      </VStack>
     </Container>
   );
 }

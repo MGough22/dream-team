@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { useContext } from "react";
 import { deleteDream } from "../utils/api";
+import MysticalDate from "./DateDisplay";
 
 export default function UserDreamCard({
   currentDream,
@@ -57,20 +58,32 @@ export default function UserDreamCard({
         maxW="600px"
         mx="auto"
         borderRadius="md"
+        display="flex"
+        flexDirection="column"
+        minHeight="450px"
       >
-        <Card.Root width="auto" variant="unstyled">
-          <Card.Title mb="2" textAlign="center">
-            <b>A dream about:</b> {currentDream.dreamText}
-          </Card.Title>
-          <Card.Description textAlign="center" fontSize="2">
-            <b fontSize="2"> Interpretation:</b>
-            {currentDream.interpretations}
-            <Box mt="4" mb="2">
-              <b> Dreamt on:</b> {currentDream.interpretationDate}
-            </Box>
-          </Card.Description>
-          <Card.Footer justifyContent="center">
-            <HStack spacing={4}>
+        <Card.Root
+          width="auto"
+          variant="unstyled"
+          display="flex"
+          flexDirection="column"
+          height="100%"
+        >
+          <Box flex="1">
+            <Card.Title mb="2" textAlign="center">
+              <b>A dream about:</b> {currentDream.dreamText}
+            </Card.Title>
+            <Card.Description textAlign="center" fontSize="2">
+              <b fontSize="2"> Interpretation:</b>
+              {currentDream.interpretations}
+            </Card.Description>
+          </Box>
+          <Box mt="4" mb="2">
+            {/* <b> Dreamt on:</b> {currentDream.interpretationDate} */}
+            <MysticalDate dateString={currentDream.interpretationDate} />
+          </Box>
+          <Card.Footer justifyContent="center" mt="auto">
+            <HStack spacing={4} flexWrap="wrap" justifyContent="center">
               <Button variant="outline" onClick={onViewDream}>
                 View
               </Button>

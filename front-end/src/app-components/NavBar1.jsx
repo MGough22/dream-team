@@ -22,7 +22,7 @@ export default function NavBar1() {
       <HStack spacing="1vw" flexWrap="wrap" className="navBar">
         <Box as={Link} to="/">
           <Heading color="black" as="h1">
-            DreamApp
+            Nocturne
           </Heading>
         </Box>
         <Spacer />

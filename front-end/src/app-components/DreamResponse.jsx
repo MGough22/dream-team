@@ -21,6 +21,7 @@ import { UserContext } from "../contexts/UserContext";
 import { addDream } from "../utils/api";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { fetchDreamResponse } from "../utils/nidra-api";
+import MysticalDate from "./DateDisplay";
 
 export default function DreamResponse() {
   const { state } = useLocation();
@@ -30,6 +31,8 @@ export default function DreamResponse() {
   const { user } = useContext(UserContext);
   const { userId } = useContext(UserIdContext);
   const [loading, setLoading] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   //  Defines which response type to render
   const responseTypeDisplay = {
@@ -72,10 +75,16 @@ export default function DreamResponse() {
 
   const handleSaveDream = () => {
     addDream(userId, dream, interpretation, null, isPublic, null)
-      .then(() => {})
+      .then(() => {
+        setIsSaved(true);
+      })
       .catch((error) => {
         console.log(error, "<<error saving dream");
       });
+  };
+
+  const handleFavorite = () => {
+    setIsFavorited(true);
   };
 
   const getAlternateResponseType = (currentType) => {
@@ -85,6 +94,8 @@ export default function DreamResponse() {
   const handleAltResponse = () => {
     setLoading(true);
     setCurrentResponseType(getAlternateResponseType(currentResponseType));
+    setIsSaved(false);
+    setIsFavorited(false);
   };
 
   return (
@@ -92,7 +103,7 @@ export default function DreamResponse() {
       as="section"
       align="center"
       bg="gray.300"
-      maxW="lg"
+      maxW="2xl"
       my="5vh"
       p="5vh"
     >
@@ -115,7 +126,7 @@ export default function DreamResponse() {
             <SkeletonText noOfLines={3} gap="4" />
           )}
         </Box>
-        <HStack gap="3" p="1vh">
+        {/* <HStack gap="3" p="1vh">
           <Tag startElement={<Avatar size="full" src={suncross} />}>
             Nightmare
           </Tag>
@@ -123,22 +134,28 @@ export default function DreamResponse() {
             Life-cycles
           </Tag>
           <Tag startElement={<Avatar size="full" src={maze} />}>Confusion</Tag>
-        </HStack>
-        <HStack gap="3" p="1rem">
+        </HStack> */}
+        <HStack gap="3" p="1rem" >
           <Button
             size="sm"
             color="black"
             onClick={handleSaveDream}
-            disabled={user === "Guest"}
+            disabled={user === "Guest" || isSaved}
           >
             {user === "Guest"
               ? "Log in to save dream"
+              : isSaved
+              ? "Dream Saved!"
               : isPublic
               ? "Save to journal and publish to public"
               : "Save to journal"}
           </Button>
-          <Button size="sm" color="black">
-            Favourite
+          <Button
+            variant="outline"
+            onClick={handleFavorite}
+            disabled={isFavorited}
+          >
+            {isFavorited ? "Added to Favorites" : "Favourite"}
           </Button>
         </HStack>
         <Button

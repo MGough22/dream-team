@@ -49,7 +49,7 @@ export default function DreamInterpreter() {
   return (
     <Container as="section" bg="gray.300" maxW="2xl" my="5vh" p="5vh">
       <VStack spacing="2" align="center">
-        <Heading my="0" p="0">
+        <Heading id="interpret-heading" my="0" p="0">
           Interpret your dream
         </Heading>
         <Text mb="2" my="1vh" color="gray.600" fontWeight="bold">
@@ -78,7 +78,7 @@ export default function DreamInterpreter() {
           isInvalid={!!error}
         />
         {error && (
-          <Text color="red.500" fontSize="sm">
+          <Text color="red.600" fontSize="l">
             {error}
           </Text>
         )}
@@ -96,11 +96,13 @@ export default function DreamInterpreter() {
         </VStack>
 
         <VStack align="center" mb="4">
-          <Heading size="md">Response style</Heading>
+          <Heading size="md" as="h3">
+            Response style
+          </Heading>
           <HStack gap="1">
             <Button
               size="sm"
-              color={responseType === "jungianMystic" ? "white" : null}
+              color={responseType === "jungianMystic" ? "black" : "grey"}
               bg={responseType === "jungianMystic" ? "grey" : null}
               onClick={() => handleResponseTypeChange("jungianMystic")}
             >
@@ -108,7 +110,7 @@ export default function DreamInterpreter() {
             </Button>
             <Button
               size="sm"
-              color={responseType === "balanced" ? "white" : null}
+              color={responseType === "balanced" ? "black" : "grey"}
               bg={responseType === "balanced" ? "grey" : null}
               onClick={() => handleResponseTypeChange("balanced")}
             >
@@ -123,6 +125,9 @@ export default function DreamInterpreter() {
           mx="auto"
           display="block"
           mt="4"
+          fontSize="1.5rem"
+          lineHeight={-2}
+          // as="h4"
         >
           Interpret
         </Button>
