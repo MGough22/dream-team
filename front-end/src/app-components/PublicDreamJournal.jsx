@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, SimpleGrid, Box, Button, Text } from "@chakra-ui/react";
+import { Card, SimpleGrid, Box, Button, Text, Heading } from "@chakra-ui/react";
 import { UsernameContext } from "../contexts/UsernameContext";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { getPublicDreams } from "../utils/api";
 import UserDreamCard from "./UserDreamCard";
+import { LoadingAnimation } from "./LoadingAnimation";
 
 export default function PublicDreamJournal() {
   const { username } = useContext(UsernameContext);
@@ -18,15 +19,15 @@ export default function PublicDreamJournal() {
       setLoading(true);
 
       getPublicDreams()
-        .then(fetchedPublicDreams => {
+        .then((fetchedPublicDreams) => {
           setLoading(false);
           return fetchedPublicDreams;
         })
-        .then(publicDreamData => {
+        .then((publicDreamData) => {
           console.log(publicDreamData, "<<<dreamData");
           setUserDreams(publicDreamData);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error, "<<<<Error in dream journal catch");
         });
     }
@@ -42,14 +43,26 @@ export default function PublicDreamJournal() {
   }, [dreamDeletedMessage, dreamDeletedError]);
 
   if (loading) {
-    return "Loading...";
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="1vh"
+      >
+        <LoadingAnimation />
+      </Box>
+    );
   }
-
   return (
     <>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
+      <Heading as="h2" textAlign="center">
+        {" "}
+        Public Dreams{" "}
+      </Heading>
       <SimpleGrid columns={4} gap="20px" minChildWidth={350} p="20px">
-        {userDreams.map(currentDream => {
+        {userDreams.map((currentDream) => {
           return (
             <UserDreamCard
               setUserDreams={setUserDreams}
