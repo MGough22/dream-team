@@ -67,45 +67,57 @@ export default function SignUp() {
       borderRadius="md"
     >
       <VStack spacing="4" align="stretch">
-        <Heading size="lg" textAlign="center">
+        <Heading as="h2" fontSize={40} textAlign="center">
           Sign Up
         </Heading>
 
         <Box>
-          <Text mb="2">Enter your username</Text>
+          <Text mb="0" as="h3" fontSize={25}>
+            Choose a username
+          </Text>
           <Input
             type="username"
             value={localUsername}
             onChange={(e) => setLocalUsername(e.target.value)}
             placeholder="Enter username"
             bg="white"
-            mb="4"
+            as="h4"
+            fontSize={20}
+            mb="2"
             required
           />
         </Box>
 
         <Box>
-          <Text mb="2">Enter your email address</Text>
+          <Text mb="0" as="h3" fontSize={25}>
+            Enter your email address
+          </Text>
           <Input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter email address"
             bg="white"
-            mb="4"
+            as="h4"
+            fontSize={20}
+            mb="2"
             required
           />
         </Box>
 
         <Box>
-          <Text mb="2">Create your password</Text>
+          <Text mb="0" as="h3" fontSize={25}>
+            Create your password
+          </Text>
           <Input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
             bg="white"
-            mb="4"
+            as="h4"
+            fontSize={20}
+            mb="2"
             required
           />
         </Box>
@@ -121,8 +133,10 @@ export default function SignUp() {
         </Button>
 
         <HStack spacing="2" justify="center" pt="2">
-          <Text>Already have an account?</Text>
-          <Text as={Link} to="/login" textDecoration="underline">
+          <Text as="h4" fontSize={20}>
+            Already have an account?
+          </Text>
+          <Text as={Link} to="/login" fontSize={20} textDecoration="none">
             Login
           </Text>
         </HStack>
