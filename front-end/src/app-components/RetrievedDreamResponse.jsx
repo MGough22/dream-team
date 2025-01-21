@@ -19,6 +19,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { deleteDream } from "../utils/api";
 import MysticalDate from "./DateDisplay";
+import VoteHandler from "./VoteHandler";
 
 export default function RetrievedDreamResponse() {
   const { state } = useLocation();
@@ -127,6 +128,7 @@ export default function RetrievedDreamResponse() {
           ) : null}
         </HStack>
       </VStack>
+      <VoteHandler currentDream={currentDream}/>
     </Container>
   );
 }

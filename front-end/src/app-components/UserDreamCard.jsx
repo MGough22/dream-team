@@ -5,6 +5,7 @@ import { UserIdContext } from "../contexts/UserIdContext";
 import { useContext } from "react";
 import { deleteDream } from "../utils/api";
 import MysticalDate from "./DateDisplay";
+import VoteHandler from "./VoteHandler";
 
 export default function UserDreamCard({
   currentDream,
@@ -98,13 +99,9 @@ export default function UserDreamCard({
                 </Button>
               ) : null}
               {!isPublic ? <Button variant="outline">Favourite</Button> : null}
-              <Button variant="outline">
-                {!currentDream.votes
-                  ? `Votes: 0`
-                  : `Votes: ${currentDream.votes}`}
-              </Button>
             </HStack>
           </Card.Footer>
+          <VoteHandler currentDream={currentDream}/>
         </Card.Root>
       </Box>
     </>
