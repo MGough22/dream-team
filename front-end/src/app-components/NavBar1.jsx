@@ -12,61 +12,42 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { UsernameContext } from "../contexts/UsernameContext";
+import NavItemUser from "./NavItemUser";
+import NavItemJournal from "./NavItemJournal";
 
 export default function NavBar1() {
   const { user } = useContext(UserContext);
   const { username } = useContext(UsernameContext);
 
   return (
-    <Grid as="nav" p="1vw" gap="1vw">
-      <Box as={Link} to="/">
-        <Heading color="black" as="h1">
-          DreamApp
-        </Heading>
-      </Box>
-      <Spacer />
-      <HStack spacing="1vw" flexWrap="wrap">
-        <Box as={Link} to={`/signup`} bg="gray.300" p="1vh" color="white">
-          Create Account
+    <Grid as="nav" p="1" gap="1vw">
+      <HStack spacing="1vw" flexWrap="wrap" className="navBar">
+        <Box as={Link} to="/">
+          <Heading color="black" as="h1">
+            Nocturne
+          </Heading>
         </Box>
+        <Spacer />
         {user === "Guest" ? (
-          <Box
-            as={Link}
+          <NavItemUser to={`/signup`}>Create Account</NavItemUser>
+        ) : null}
+        {user === "Guest" ? (
+          <NavItemUser
             to={`/login`}
-            bg="gray.400"
-            p="1vh"
-            color="white"
-          >{`Login to access your dream journal`}</Box>
+          >{`Login to access your dream journal`}</NavItemUser>
         ) : (
-          <Box
-            as={Link}
+          <NavItemJournal
             to={`/dreamjournal`}
-            bg="gray.400"
-            p="1vh"
-            color="white"
-          >{`${username}'s Dream Journal`}</Box>
+          >{`${username}'s Dream Journal`}</NavItemJournal>
         )}
-        <Box
-          as={Link}
-          to={`/publicdreamjournal`}
-          bg="gray.500"
-          p="1vh"
-          color="white"
-        >
-          Public Dream Journal
-        </Box>
-        <Box as={Link} to="/symbolguide" bg="gray.600" p="1vh" color="white">
-          Symbol Guide
-        </Box>
+        <NavItemJournal as={Link} to={`/publicdreamjournal`}>
+          Public Dreams
+        </NavItemJournal>
+        <NavItemJournal to="/symbolguide">Symbol Guide</NavItemJournal>
         {user === "Guest" ? null : (
-          <Text as={Link} to={`/settings`} bg="gray.700" p="1vh" color="white">
-            Logged in user/settings: Welcome, {username}
-          </Text>
+          <NavItemUser to={`/settings`}>{username}'s Account</NavItemUser>
         )}
-        <Button as={Link} to={`/login`} bg="gray.800" p="1vh" color="white">
-          {" "}
-          Login/Logout
-        </Button>
+        <NavItemUser to={`/login`}> Login/Logout</NavItemUser>
       </HStack>
     </Grid>
   );

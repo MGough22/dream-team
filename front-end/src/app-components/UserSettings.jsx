@@ -1,24 +1,40 @@
-import { Button, Container, Text } from '@chakra-ui/react'
-import React,{ useContext, useEffect }from 'react'
-import { Link } from 'react-router-dom'
-import { UserContext } from '../contexts/UserContext'
-import DeleteAccount from './DeleteAccount'
-import { UsernameContext } from '../contexts/UsernameContext'
-import { UserIdContext } from '../contexts/UserIdContext'
+import { Button, Container, Text } from "@chakra-ui/react";
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+// import DeleteAccount from "./DeleteAccount";
+import { UsernameContext } from "../contexts/UsernameContext";
+// import { UserIdContext } from "../contexts/UserIdContext";
+import AccountDeleteButton from "./AccountDeleteButton";
 
 export default function UserSettings() {
-const {user} = useContext(UserContext)
-const {username} = useContext(UsernameContext)
+  const { user } = useContext(UserContext);
+  const { username } = useContext(UsernameContext);
 
-
-//this page needs to render a user delete account button
-//maybe it checks from state the current logged in user?
-//or maybe theres a request to enter username and password to delete account
-    
   return (
-     <Container as="section" bg="gray.300" maxW="md" my="5vh" p="5vh" >
-            <Text>Welcome {username} to your settings</Text>
-            <Button as={Link} to="/deleteaccount" bg="red" color="white">Delete account</Button>
-          </Container>
-  )
+    <Container
+      bg="gray.300"
+      maxW="lg"
+      my="5vh"
+      p="5vh"
+      textAlign="center" // Centers text and inline-block elements
+      as="h3"
+    >
+      <Text as="h2">Welcome {username} to your settings</Text>
+      <AccountDeleteButton
+        as={Link}
+        to="/deleteaccount"
+        bg="red"
+        color="white"
+        mt="2"
+        p="8"
+        // py="2"
+        // px="4"
+        textAlign="center"
+        fontSize={30}
+      >
+        Delete account
+      </AccountDeleteButton>
+    </Container>
+  );
 }
