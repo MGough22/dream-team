@@ -9,6 +9,7 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
+import { Tooltip } from "../components/ui/tooltip";
 import { Switch } from "../components/ui/switch";
 import React from "react";
 import { useState, useContext } from "react";
@@ -24,11 +25,11 @@ export default function DreamInterpreter() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleResponseTypeChange = (type) => {
+  const handleResponseTypeChange = type => {
     setResponseType(type);
   };
 
-  const onInterpret = (e) => {
+  const onInterpret = e => {
     e.preventDefault();
     if (!enteredDream.trim()) {
       setError("Please enter a dream before submitting");
@@ -71,7 +72,7 @@ export default function DreamInterpreter() {
             fontStyle: "italic",
             fontFamily: "cursive",
           }}
-          onChange={(e) => {
+          onChange={e => {
             setEnteredDream(e.target.value);
             if (error) setError("");
           }}
@@ -85,13 +86,29 @@ export default function DreamInterpreter() {
         <VStack align="center" mb="4" mt="0">
           <Text>Make dream public?</Text>
           <HStack spacing="3">
-            <Text color={!checked ? "black" : "gray.400"}>Private</Text>
+            <Tooltip
+              content="You're dream will is anonyonmous, the content will be viewable only to you"
+              positioning={{ placement: "left-end" }}
+              openDelay={500}
+              closeDelay={100}
+              interactive
+            >
+              <Text color={!checked ? "black" : "gray.400"}>Private</Text>
+            </Tooltip>
             <Switch
               checked={checked}
-              onCheckedChange={(e) => setChecked(e.checked)}
+              onCheckedChange={e => setChecked(e.checked)}
               size="lg"
             />
-            <Text color={checked ? "black" : "gray.400"}>Public</Text>
+            <Tooltip
+              content="Your dream will remain anonyonmous, no user persoanl information will be shared, but the content will be viewable to the public"
+              positioning={{ placement: "right-end" }}
+              openDelay={500}
+              closeDelay={100}
+              interactive
+            >
+              <Text color={checked ? "black" : "gray.400"}>Public</Text>
+            </Tooltip>
           </HStack>
         </VStack>
 
@@ -100,22 +117,38 @@ export default function DreamInterpreter() {
             Response style
           </Heading>
           <HStack gap="1">
-            <Button
-              size="sm"
-              color={responseType === "jungianMystic" ? "black" : "grey"}
-              bg={responseType === "jungianMystic" ? "grey" : null}
-              onClick={() => handleResponseTypeChange("jungianMystic")}
+            <Tooltip
+              content="Select this option to explore the mystic dimensions of your dream"
+              positioning={{ placement: "left-end" }}
+              openDelay={500}
+              closeDelay={100}
+              interactive
             >
-              Jungian/Mystic
-            </Button>
-            <Button
-              size="sm"
-              color={responseType === "balanced" ? "black" : "grey"}
-              bg={responseType === "balanced" ? "grey" : null}
-              onClick={() => handleResponseTypeChange("balanced")}
+              <Button
+                size="sm"
+                color={responseType === "jungianMystic" ? "black" : "grey"}
+                bg={responseType === "jungianMystic" ? "grey" : null}
+                onClick={() => handleResponseTypeChange("jungianMystic")}
+              >
+                Mystic
+              </Button>
+            </Tooltip>
+            <Tooltip
+              content="Select this option to for a more balanced assesment of your astral exploits"
+              positioning={{ placement: "right-end" }}
+              openDelay={500}
+              closeDelay={100}
+              interactive
             >
-              Balanced
-            </Button>
+              <Button
+                size="sm"
+                color={responseType === "balanced" ? "black" : "grey"}
+                bg={responseType === "balanced" ? "grey" : null}
+                onClick={() => handleResponseTypeChange("balanced")}
+              >
+                Balanced
+              </Button>
+            </Tooltip>
           </HStack>
         </VStack>
         <Button
