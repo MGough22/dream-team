@@ -69,7 +69,7 @@ export default function LoginLogout() {
         borderRadius="md"
       >
         <VStack spacing="4" align="stretch">
-          <Heading size="lg" textAlign="center">
+          <Heading as="h2" fontSize={40} textAlign="center" mb="-4">
             Login
           </Heading>
 
@@ -85,24 +85,32 @@ export default function LoginLogout() {
           )}
 
           <Box>
-            <Text mb="2">Login email</Text>
+            <Text mb="0" as="h3" fontSize={25}>
+              Email
+            </Text>
             <Input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter email address"
               bg="white"
-              mb="4"
+              as="h4"
+              fontSize={20}
+              mb="2"
             />
           </Box>
 
           <Box>
-            <Text mb="2">Password</Text>
+            <Text mb="0" as="h3" fontSize={25}>
+              Password
+            </Text>
             <Input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter password"
+              as="h4"
+              fontSize={20}
               bg="white"
               mb="4"
             />
@@ -119,8 +127,10 @@ export default function LoginLogout() {
           </Button>
 
           <HStack spacing="2" justify="center" pt="2">
-            <Text>No account yet?</Text>
-            <Text as={Link} to="/signup" textDecoration="underline">
+            <Text as="h4" fontSize={20}>
+              No account yet?
+            </Text>
+            <Text as={Link} to="/signup" textDecoration="none">
               Sign up
             </Text>
           </HStack>
@@ -136,7 +146,6 @@ export default function LoginLogout() {
         borderRadius="md"
       >
         <VStack spacing="4" align="center">
-          <Heading size="lg">Logout</Heading>
           <Button color="black" onClick={handleLogout} width="100%">
             Logout
           </Button>

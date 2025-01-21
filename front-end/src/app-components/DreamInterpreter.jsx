@@ -1,11 +1,11 @@
 import {
-  Box,
+  // Box,
   Button,
   Container,
   Heading,
   HStack,
   VStack,
-  Input,
+  // Input,
   Text,
   Textarea,
 } from "@chakra-ui/react";
@@ -13,13 +13,13 @@ import { Switch } from "../components/ui/switch";
 import React from "react";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserProvider } from "../contexts/UserContext";
+// import { UserProvider } from "../contexts/UserContext";
 import { UserContext } from "../contexts/UserContext";
 
 export default function DreamInterpreter() {
   const [checked, setChecked] = useState(false);
   const [enteredDream, setEnteredDream] = useState("");
-  const [responseType, setResponseType] = useState("jungianMystic"); // sets default mode
+  const [responseType, setResponseType] = useState("jungianMystic");
   const { user } = useContext(UserContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -47,20 +47,32 @@ export default function DreamInterpreter() {
   };
 
   return (
-    <Container as="section" bg="gray.300" maxW="2xl" my="5vh" p="5vh">
+    <Container
+      as="section"
+      bg="gray.300"
+      maxW="2xl"
+      my="2"
+      p="8"
+      borderRadius={10}
+    >
       <VStack spacing="2" align="center">
         <Heading id="interpret-heading" my="0" p="0">
-          Interpret your dream
+          Interpreter of dreams
         </Heading>
-        <Text mb="2" my="1vh" color="gray.600" fontWeight="bold">
+        <Text
+          as="h3"
+          mb="2"
+          my="1vh"
+          fontWeight="bold"
+          fontSize={30}
+          color="black"
+        >
           Describe your dream in a few sentences...
         </Text>
         <Textarea
           as="form"
           type="dream"
           my="2"
-          // mx="auto"
-          // p="5vh 20vh 20vh 5vh"
           p="5vh"
           bg="white"
           fontSize="1.3rem"
@@ -83,15 +95,19 @@ export default function DreamInterpreter() {
           </Text>
         )}
         <VStack align="center" mb="4" mt="0">
-          <Text>Make dream public?</Text>
+          <Text as="h3">Make dream public?</Text>
           <HStack spacing="3">
-            <Text color={!checked ? "black" : "gray.400"}>Private</Text>
+            <Text as="h4" color={!checked ? "black" : "gray.400"}>
+              Private
+            </Text>
             <Switch
               checked={checked}
               onCheckedChange={(e) => setChecked(e.checked)}
               size="lg"
             />
-            <Text color={checked ? "black" : "gray.400"}>Public</Text>
+            <Text as="h4" color={checked ? "black" : "gray.400"}>
+              Public
+            </Text>
           </HStack>
         </VStack>
 
@@ -99,7 +115,7 @@ export default function DreamInterpreter() {
           <Heading size="md" as="h3">
             Response style
           </Heading>
-          <HStack gap="1">
+          <HStack gap="4">
             <Button
               size="sm"
               color={responseType === "jungianMystic" ? "black" : "grey"}
@@ -125,9 +141,8 @@ export default function DreamInterpreter() {
           mx="auto"
           display="block"
           mt="4"
-          fontSize="1.5rem"
-          lineHeight={-2}
-          // as="h4"
+          pt="2.5"
+          fontSize="2rem"
         >
           Interpret
         </Button>

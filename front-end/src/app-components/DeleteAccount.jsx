@@ -2,6 +2,7 @@ import { Button, Container, Heading, Input, Text } from "@chakra-ui/react";
 import { getAuth, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AccountDeleteButton from "./AccountDeleteButton";
 
 export default function DeleteAccount() {
   const [email, setEmail] = useState("");
@@ -36,42 +37,45 @@ export default function DeleteAccount() {
 
   return (
     <Container
-      as="section"
+      // as="section"
       bg="gray.300"
       maxW="md"
       my="1vh"
       p="2vh"
       textAlign="center"
+      as="h3"
     >
-      <Heading my="1vh" p="1vh">
+      <Heading my="1vh" p="1vh" as="h1" fontSize={40}>
         Delete Account
       </Heading>
-      <Text>Email</Text>
+      <Text as="h3">Email</Text>
       <Input
         as="form"
+        fontSize={20}
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter email address"
       ></Input>
-      <Text>Password</Text>
+      <Text as="h3" pt="5">
+        Password
+      </Text>
       <Input
         as="form"
         type="password"
+        fontSize={20}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter password"
       ></Input>
-      <Button
-        as={Link}
-        to="/deleteaccount"
-        bg="red"
-        color="white"
+      <AccountDeleteButton
+        // Added this custom button component
+
         onClick={handleDeleteAccount}
-        mt="3"
+        // isDisabled={!email || !password}
       >
         Delete account
-      </Button>
+      </AccountDeleteButton>
     </Container>
   );
 }

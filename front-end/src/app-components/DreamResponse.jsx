@@ -10,11 +10,11 @@ import {
 import { SkeletonText } from "../components/ui/skeleton";
 import { Blockquote } from "../components/ui/blockquote";
 import React, { useState, useContext } from "react";
-import { Tag } from "../components/ui/tag";
-import { Avatar } from "../components/ui/avatar";
-import suncross from "../assets/dream-tag-symbols/sun-cross.png";
-import treeoflife from "../assets/dream-tag-symbols/tree-of-life.png";
-import maze from "../assets/dream-tag-symbols/maze.png";
+// import { Tag } from "../components/ui/tag";
+// import { Avatar } from "../components/ui/avatar";
+// import suncross from "../assets/dream-tag-symbols/sun-cross.png";
+// import treeoflife from "../assets/dream-tag-symbols/tree-of-life.png";
+// import maze from "../assets/dream-tag-symbols/maze.png";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
@@ -108,13 +108,23 @@ export default function DreamResponse() {
       p="5vh"
     >
       <VStack spacing="1" align="center">
-        <Heading my="1vh" mt="0" p="0" textAlign="center">
+        <Heading
+          // id="interpret-heading"
+          my="1vh"
+          mt="0"
+          p="0"
+          textAlign="center"
+          as="h3"
+          fontSize={30}
+        >
           Your submitted dream...
         </Heading>
-        <Container bg="white" p="10vh" textAlign="center" align="center">
-          <Blockquote textAlign="center">{dream}</Blockquote>
+        <Container p="2" textAlign="center" align="center">
+          <Text as="h2" textAlign="center" fontSize={30}>
+            "{dream}"
+          </Text>
         </Container>
-        <Heading my="1vh" mb="-4" p="1">
+        <Heading my="1vh" mb="-4" p="1" as="h3" fontSize={30}>
           {`Your ${responseTypeDisplay[currentResponseType]} interpretation...`}
         </Heading>
         <Box p="4">
@@ -126,16 +136,7 @@ export default function DreamResponse() {
             <SkeletonText noOfLines={3} gap="4" />
           )}
         </Box>
-        {/* <HStack gap="3" p="1vh">
-          <Tag startElement={<Avatar size="full" src={suncross} />}>
-            Nightmare
-          </Tag>
-          <Tag startElement={<Avatar size="full" src={treeoflife} />}>
-            Life-cycles
-          </Tag>
-          <Tag startElement={<Avatar size="full" src={maze} />}>Confusion</Tag>
-        </HStack> */}
-        <HStack gap="3" p="1rem" >
+        <HStack gap="3" p="1rem">
           <Button
             size="sm"
             color="black"

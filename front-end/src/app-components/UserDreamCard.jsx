@@ -1,4 +1,4 @@
-import { Box, Button, Card, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, Card, HStack, Text, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
@@ -70,12 +70,23 @@ export default function UserDreamCard({
           height="100%"
         >
           <Box flex="1">
-            <Card.Title mb="2" textAlign="center">
-              <b>A dream about:</b> {currentDream.dreamText}
+            <Card.Title
+              mb="2"
+              textAlign="center"
+              as="h1"
+              fontSize={25}
+              color="black"
+            >
+              <b>"{currentDream.dreamText}"</b>
             </Card.Title>
             <Card.Description textAlign="center" fontSize="2">
-              <b fontSize="2"> Interpretation:</b>
-              {currentDream.interpretations}
+              <Heading fontSize="4" as="h3" color="black">
+                {/* {" "} */}
+                Interpretation:
+              </Heading>
+              <Text fontSize={18} color="black">
+                {currentDream.interpretations}
+              </Text>
             </Card.Description>
           </Box>
           <Box mt="4" mb="2">
