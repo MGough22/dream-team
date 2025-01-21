@@ -26,13 +26,14 @@ import DeleteAccount from "./app-components/DeleteAccount";
 import RetrievedDreamResponse from "./app-components/RetrievedDreamResponse";
 import { AnimatePresence } from "framer-motion";
 import { PageWrapper } from "./utils/PageWrapper";
+import ParticlesComponent from "./app-components/Particles";
 
 function App() {
   const { user } = useContext(UserContext);
 
   //find out who is currently signed-in?
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, user => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
@@ -50,113 +51,114 @@ function App() {
   const location = useLocation();
 
   return (
-    <Container>
-      <NavBar1 />
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route
-            path="/"
-            element={
-              <PageWrapper>
-                <DreamInterpreter />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/interpreter"
-            element={
-              <PageWrapper>
-                <DreamInterpreter />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path={`/response`}
-            element={
-              <PageWrapper>
-                <DreamResponse />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path={`/response/:dreamId`}
-            element={
-              <PageWrapper>
-                <RetrievedDreamResponse />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/dreamjournal"
-            element={
-              <PageWrapper>
-                <UserDreamJournal />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/publicdreamjournal"
-            element={
-              <PageWrapper>
-                <PublicDreamJournal />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/symbolguide"
-            element={
-              <PageWrapper>
-                <SymbolGuide />{" "}
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <PageWrapper>
-                <About />{" "}
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <PageWrapper>
-                <UserSettings />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <PageWrapper>
-                <SignUp />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PageWrapper>
-                <LoginLogout />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/deleteaccount"
-            element={
-              <PageWrapper>
-                <DeleteAccount />
-              </PageWrapper>
-            }
-          />
-        </Routes>
-      </AnimatePresence>
-      <Toaster />{" "}
-      {/* Testing Toaster position to preserve Toaster state through re-render*/}
-      {/* If you want to understand how Chakra and Emotion work, uncomment the Testpage below to see how it renders in the app - and check the Testpage component in the app-components folder. */}
-      {/* <Testpage></Testpage> */}
-    </Container>
+    <>
+      <ParticlesComponent id="particlesStyle" />
+
+      <Container>
+        <NavBar1 />
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/"
+              element={
+                <PageWrapper>
+                  <DreamInterpreter />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/interpreter"
+              element={
+                <PageWrapper>
+                  <DreamInterpreter />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path={`/response`}
+              element={
+                <PageWrapper>
+                  <DreamResponse />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path={`/response/:dreamId`}
+              element={
+                <PageWrapper>
+                  <RetrievedDreamResponse />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/dreamjournal"
+              element={
+                <PageWrapper>
+                  <UserDreamJournal />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/publicdreamjournal"
+              element={
+                <PageWrapper>
+                  <PublicDreamJournal />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/symbolguide"
+              element={
+                <PageWrapper>
+                  <SymbolGuide />{" "}
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <PageWrapper>
+                  <About />{" "}
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <PageWrapper>
+                  <UserSettings />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <PageWrapper>
+                  <SignUp />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PageWrapper>
+                  <LoginLogout />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/deleteaccount"
+              element={
+                <PageWrapper>
+                  <DeleteAccount />
+                </PageWrapper>
+              }
+            />
+          </Routes>
+        </AnimatePresence>
+        <Toaster />{" "}
+      </Container>
+    </>
   );
 }
 
