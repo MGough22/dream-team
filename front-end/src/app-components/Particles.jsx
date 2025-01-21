@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 
 import { loadFull } from "tsparticles";
@@ -25,6 +25,11 @@ export default function Particle() {
             zIndex: 1,
           }}
           options={{
+            background: {
+              color: {
+                value: "#000000",
+              },
+            },
             fpsLimit: 120,
             interactivity: {
               events: {
@@ -51,15 +56,17 @@ export default function Particle() {
             particles: {
               color: {
                 // value: "#bae6fd",
-                value: "#415661",
+                // value: "#415661",
+                value: "#ffffff",
               },
               links: {
                 // color: "#e0f2fe",
-                color: "#93a3ad",
+                // color: "#93a3ad",
+                color: "#c9c9c9",
                 distance: 150,
                 enable: true,
-                opacity: 0.5,
-                width: 1,
+                opacity: 1, //0.5
+                width: 0.4,
               },
               move: {
                 direction: "none",
@@ -76,16 +83,16 @@ export default function Particle() {
                   enable: true,
                   area: 800,
                 },
-                value: 160,
+                value: 320, // 160
               },
               opacity: {
-                value: 0.5,
+                value: 1.5, //0.5
               },
               shape: {
                 type: "circle",
               },
               size: {
-                value: { min: 1, max: 5 },
+                value: { min: 0.1, max: 3 },
               },
             },
             detectRetina: true,

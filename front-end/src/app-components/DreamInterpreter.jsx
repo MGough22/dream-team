@@ -25,11 +25,11 @@ export default function DreamInterpreter() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleResponseTypeChange = (type) => {
+  const handleResponseTypeChange = type => {
     setResponseType(type);
   };
 
-  const onInterpret = (e) => {
+  const onInterpret = e => {
     e.preventDefault();
     if (!enteredDream.trim()) {
       setError("Please enter a dream before submitting");
@@ -50,14 +50,28 @@ export default function DreamInterpreter() {
   return (
     <Container
       as="section"
-      bg="gray.300"
+      bg="gray.400/2000"
       maxW="2xl"
       my="2"
       p="8"
-      borderRadius={10}
+      backdropFilter="blur(10px)"
+      borderRadius={15}
+      position="relative"
+      overflow="hidden"
+      _after={{
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "linear-gradient(transparent, rgba(255, 255, 255, 0.2))",
+        zIndex: -10,
+        filter: "blur(90px)",
+      }}
     >
       <VStack spacing="2" align="center">
-        <Heading id="interpret-heading" my="0" p="0">
+        <Heading id="interpret-heading" my="0" p="0" color="white">
           Interpreter of dreams
         </Heading>
         <Text
@@ -66,7 +80,7 @@ export default function DreamInterpreter() {
           my="1vh"
           fontWeight="bold"
           fontSize={30}
-          color="black"
+          color="white"
         >
           Describe your dream in a few sentences...
         </Text>
@@ -84,7 +98,7 @@ export default function DreamInterpreter() {
             fontStyle: "italic",
             fontFamily: "cursive",
           }}
-          onChange={(e) => {
+          onChange={e => {
             setEnteredDream(e.target.value);
             if (error) setError("");
           }}
@@ -105,13 +119,13 @@ export default function DreamInterpreter() {
               closeDelay={100}
               interactive
             >
-              <Text as="h4" color={!checked ? "black" : "gray.400"}>
+              <Text as="h4" color={!checked ? "gray.4" : "gray.400"}>
                 Private
               </Text>
             </Tooltip>
             <Switch
               checked={checked}
-              onCheckedChange={(e) => setChecked(e.checked)}
+              onCheckedChange={e => setChecked(e.checked)}
               size="lg"
             />
             <Tooltip
@@ -121,7 +135,7 @@ export default function DreamInterpreter() {
               closeDelay={100}
               interactive
             >
-              <Text color={checked ? "black" : "gray.400"}>Public</Text>
+              <Text color={checked ? "gray.400" : "gray.4"}>Public</Text>
             </Tooltip>
           </HStack>
         </VStack>

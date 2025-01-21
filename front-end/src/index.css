@@ -61,11 +61,13 @@ a:hover {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: #ffffff;
   font-family: "Almendra SC", serif;
 }
 /* Dream quotes */
 h2 {
   font-size: 2rem;
+  color: #ffffff;
   /* line-height: 1.1; */
   font-family: "Almendra SC", serif;
 }
@@ -73,6 +75,7 @@ h2 {
 /* Info titles */
 h3 {
   font-size: 1.5rem;
+  color: #ffffff;
   /* line-height: 1.1; */
   font-family: "IM Fell DW Pica SC", serif;
 }
@@ -80,6 +83,7 @@ h3 {
 /* Small display */
 h4 {
   font-size: 1.2rem;
+  color: #ffffff;
   /* line-height: 1.1; */
   font-family: "EB Garamond", serif;
 }
@@ -126,7 +130,7 @@ button:focus-visible {
   font-size: 3rem;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -137,7 +141,7 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
 
 #particlesStyle canvas {
   z-index: -1;

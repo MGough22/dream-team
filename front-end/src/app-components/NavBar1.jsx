@@ -23,7 +23,7 @@ export default function NavBar1() {
     <Grid as="nav" p="1" gap="1vw">
       <HStack spacing="1vw" flexWrap="wrap" className="navBar">
         <Box as={Link} to="/">
-          <Heading color="black" as="h1">
+          <Heading color="white" as="h1">
             Nocturne
           </Heading>
         </Box>
