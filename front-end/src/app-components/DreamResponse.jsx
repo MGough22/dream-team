@@ -22,6 +22,7 @@ import { addDream } from "../utils/api";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { fetchDreamResponse } from "../utils/nidra-api";
 import MysticalDate from "./DateDisplay";
+import { LoadingAnimation } from "./LoadingAnimation";
 
 export default function DreamResponse() {
   const { state } = useLocation();
@@ -36,7 +37,7 @@ export default function DreamResponse() {
 
   //  Defines which response type to render
   const responseTypeDisplay = {
-    jungianMystic: "Jungian Mystic",
+    jungianMystic: "Mystic",
     balanced: "balanced",
   };
 
@@ -74,11 +75,20 @@ export default function DreamResponse() {
   }, [dream, currentResponseType]);
 
   const handleSaveDream = () => {
-    addDream(userId, null, dream, interpretation, null, isPublic, null, null)
+    addDream(
+      userId,
+      null,
+      dream,
+      interpretation,
+      null,
+      isPublic,
+      null,
+      isFavorited
+    )
       .then(() => {
         setIsSaved(true);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error, "<<error saving dream");
       });
   };
@@ -87,7 +97,7 @@ export default function DreamResponse() {
     setIsFavorited(true);
   };
 
-  const getAlternateResponseType = currentType => {
+  const getAlternateResponseType = (currentType) => {
     return currentType === "jungianMystic" ? "balanced" : "jungianMystic";
   };
 
@@ -104,14 +114,17 @@ export default function DreamResponse() {
       align="center"
       bg="gray.300"
       maxW="2xl"
-      my="5vh"
+      my="2vh"
       p="5vh"
+      borderRadius={10}
+      // mb="2"
     >
       <VStack spacing="1" align="center">
         <Heading
           // id="interpret-heading"
-          my="1vh"
+          // my="1vh"
           mt="0"
+          mb="-4"
           p="0"
           textAlign="center"
           as="h3"
@@ -120,23 +133,49 @@ export default function DreamResponse() {
           Your submitted dream...
         </Heading>
         <Container p="2" textAlign="center" align="center">
-          <Text as="h2" textAlign="center" fontSize={30}>
+          <Text as="h2" textAlign="center" fontSize={30} lineHeight="1.2">
             "{dream}"
           </Text>
         </Container>
-        <Heading my="1vh" mb="-4" p="1" as="h3" fontSize={30}>
-          {`Your ${responseTypeDisplay[currentResponseType]} interpretation...`}
+        <Heading my="1vh" mb="-2" p="1" as="h3" fontSize={30}>
+          {loading ? "Fetching" : "Your"}{" "}
+          {responseTypeDisplay[currentResponseType]} interpretation...
         </Heading>
-        <Box p="4">
-          {interpretation ? (
+        <Box p="0">
+          {loading ? (
+            <LoadingAnimation />
+          ) : interpretation ? (
             <Text textAlign="center" mt="0">
               {interpretation}
             </Text>
-          ) : (
-            <SkeletonText noOfLines={3} gap="4" />
-          )}
+          ) : null}
         </Box>
-        <HStack gap="3" p="1rem">
+        {!loading && (
+          <HStack gap="3" p="1rem">
+            <Button
+              size="sm"
+              color="black"
+              onClick={handleSaveDream}
+              disabled={user === "Guest" || isSaved}
+            >
+              {user === "Guest"
+                ? "Log in to save dream"
+                : isSaved
+                ? "Dream Saved!"
+                : isPublic
+                ? "Save to journal and publish to public"
+                : "Save to journal"}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleFavorite}
+              disabled={isFavorited}
+            >
+              {isFavorited ? "Added to Favorites" : "Favourite"}
+            </Button>
+          </HStack>
+        )}
+        {/* <HStack gap="3" p="1rem">
           <Button
             size="sm"
             color="black"
@@ -158,7 +197,7 @@ export default function DreamResponse() {
           >
             {isFavorited ? "Added to Favorites" : "Favourite"}
           </Button>
-        </HStack>
+        </HStack> */}
         <Button
           color="black"
           size="xl"
