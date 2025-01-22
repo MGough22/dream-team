@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, SimpleGrid, Box, Button, Text, Heading } from "@chakra-ui/react";
+import {
+  Card,
+  SimpleGrid,
+  Box,
+  Button,
+  Text,
+  Heading,
+  HStack,
+  Flex,
+} from "@chakra-ui/react";
 import { UsernameContext } from "../contexts/UsernameContext";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { getPublicDreams } from "../utils/api";
@@ -24,14 +33,14 @@ export default function PublicDreamJournal() {
       setLoading(true);
 
       getPublicDreams()
-        .then(fetchedPublicDreams => {
+        .then((fetchedPublicDreams) => {
           setLoading(false);
           return fetchedPublicDreams;
         })
-        .then(publicDreamData => {
+        .then((publicDreamData) => {
           setUserDreams(publicDreamData);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error, "<<<<Error in dream journal catch");
         });
     }
@@ -61,30 +70,42 @@ export default function PublicDreamJournal() {
 
   function customQuery(value) {
     getPublicDreams(value)
-      .then(filteredList => {
+      .then((filteredList) => {
         setUserDreams(filteredList);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error, "<<<< Error in customQuery catch");
       });
   }
 
   return (
     <>
-      <NativeSelectRoot size="sm" width="240px">
-        <NativeSelectField
-          placeholder="Sort dreams by:"
-          variant="outline"
-          value={value}
-          onChange={e => customQuery(e.currentTarget.value)}
-        >
-          <option value="">Newest on Top</option>
-          <option value="votes">Most Votes</option>
-        </NativeSelectField>
-      </NativeSelectRoot>
+      <Flex justifyContent="space-between" alignItems="center" width="100%">
+        <Box flex="1" />
+        <Heading textAlign="center">Public Dreams</Heading>
+        <Box flex="1" display="flex" justifyContent="flex-end">
+          <NativeSelectRoot
+            size="m"
+            width="240px"
+            border="2px solid"
+            borderRadius="sm"
+          >
+            <NativeSelectField
+              placeholder="Sort dreams by:"
+              variant="outline"
+              paddingLeft="20px"
+              value={value}
+              onChange={(e) => customQuery(e.currentTarget.value)}
+            >
+              <option value="">Newest on Top</option>
+              <option value="votes">Most Votes</option>
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Box>
+      </Flex>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid columns={4} gap="20px" minChildWidth={350} p="20px">
-        {userDreams.map(currentDream => {
+        {userDreams.map((currentDream) => {
           return (
             <UserDreamCard
               setUserDreams={setUserDreams}
