@@ -19,11 +19,11 @@ export default function DreamInterpreter() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleResponseTypeChange = (type) => {
+  const handleResponseTypeChange = type => {
     setResponseType(type);
   };
 
-  const onInterpret = (e) => {
+  const onInterpret = e => {
     e.preventDefault();
     if (!enteredDream.trim()) {
       setError("Please enter a dream before submitting");
@@ -52,7 +52,7 @@ export default function DreamInterpreter() {
       p="8"
     >
       <VStack spacing="2" align="center">
-        <Heading id="interpret-heading" my="0" p="0">
+        <Heading id="interpret-heading" my="0" p="0" pt="2">
           Interpreter of dreams
         </Heading>
         <Text
@@ -63,24 +63,28 @@ export default function DreamInterpreter() {
           fontSize={30}
           color="black"
         >
-          Describe your dream in a few sentences...
+          Describe your dream in a few sentences:
         </Text>
         <Textarea
+          resize="none"
+          rows="4"
           as="form"
           type="dream"
           my="2"
           p="5vh"
           bg="white/70"
           backdropFilter="blur(7px)"
-          fontSize="1.3rem"
+          // fontSize="1.3rem"
+          fontSize="larger"
           lineHeight="2rem"
-          placeholder="eg: I had a dream that all the Northcoders staff had been replaced by ai..."
+          color="black"
+          placeholder="e.g. I had a dream that all the Northcoders staff had been replaced by ai ..."
           _placeholder={{
             color: "gray.600",
-            // fontStyle: "italic",
             fontFamily: "EB Garamond",
+            fontSize: "larger",
           }}
-          onChange={(e) => {
+          onChange={e => {
             setEnteredDream(e.target.value);
             if (error) setError("");
           }}
@@ -92,7 +96,9 @@ export default function DreamInterpreter() {
           </Text>
         )}
         <VStack align="center" mb="4" mt="0">
-          <Text as="h3">Make dream public?</Text>
+          <Text as="h3" pb="3">
+            Make dream public?
+          </Text>
           <HStack spacing="3" as="h3">
             <Tooltip
               content="You're dream will is anonyonmous, the content will be viewable only to you"
@@ -107,7 +113,7 @@ export default function DreamInterpreter() {
             </Tooltip>
             <Switch
               checked={checked}
-              onCheckedChange={(e) => setChecked(e.checked)}
+              onCheckedChange={e => setChecked(e.checked)}
               size="lg"
             />
             <Tooltip
@@ -123,7 +129,7 @@ export default function DreamInterpreter() {
         </VStack>
 
         <VStack align="center" mb="4">
-          <Heading size="md" as="h3">
+          <Heading size="md" as="h3" pb="5">
             Response style
           </Heading>
           <HStack gap="4">
@@ -137,7 +143,8 @@ export default function DreamInterpreter() {
               <Button
                 size="sm"
                 color={responseType === "jungianMystic" ? "black" : "grey"}
-                bg={responseType === "jungianMystic" ? "grey" : null}
+                bg={responseType === "jungianMystic" ? "null" : "white.400/20"}
+                backdropFilter="blur(7px)"
                 onClick={() => handleResponseTypeChange("jungianMystic")}
               >
                 Mystic
@@ -153,7 +160,8 @@ export default function DreamInterpreter() {
               <Button
                 size="sm"
                 color={responseType === "balanced" ? "black" : "grey"}
-                bg={responseType === "balanced" ? "grey" : null}
+                bg={responseType === "balanced" ? "null" : "white.400/20"}
+                backdropFilter="blur(7px)"
                 onClick={() => handleResponseTypeChange("balanced")}
               >
                 Balanced
@@ -162,6 +170,7 @@ export default function DreamInterpreter() {
           </HStack>
         </VStack>
         <Button
+          id="interpret"
           onClick={onInterpret}
           color="black"
           size="xl"
