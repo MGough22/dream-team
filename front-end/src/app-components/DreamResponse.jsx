@@ -152,7 +152,7 @@ export default function DreamResponse() {
               <Text as="h3">Make dream public?</Text>
               <HStack spacing="3">
                 <Tooltip content="Your dream will be viewable only to you">
-                  <Text as="h4" color={!localIsPublic ? "black" : "gray.400"}>
+                  <Text as="h3" color={!localIsPublic ? "black" : "gray.400"}>
                     Private
                   </Text>
                 </Tooltip>
@@ -162,7 +162,7 @@ export default function DreamResponse() {
                   size="lg"
                 />
                 <Tooltip content="Your dream will remain anonymous but viewable to the public">
-                  <Text color={localIsPublic ? "black" : "gray.400"}>
+                  <Text as="h3" color={localIsPublic ? "black" : "gray.400"}>
                     Public
                   </Text>
                 </Tooltip>

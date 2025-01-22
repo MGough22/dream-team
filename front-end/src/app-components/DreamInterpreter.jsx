@@ -83,14 +83,15 @@ export default function DreamInterpreter() {
           type="dream"
           my="2"
           p="5vh"
-          bg="white"
+          bg="white/70"
+          backdropFilter="blur(7px)"
           fontSize="1.3rem"
           lineHeight="2rem"
           placeholder="eg: I had a dream that all the Northcoders staff had been replaced by ai..."
           _placeholder={{
-            color: "gray.500",
-            fontStyle: "italic",
-            fontFamily: "cursive",
+            color: "gray.600",
+            // fontStyle: "italic",
+            fontFamily: "EB Garamond",
           }}
           onChange={e => {
             setEnteredDream(e.target.value);
@@ -105,7 +106,7 @@ export default function DreamInterpreter() {
         )}
         <VStack align="center" mb="4" mt="0">
           <Text as="h3">Make dream public?</Text>
-          <HStack spacing="3">
+          <HStack spacing="3" as="h3">
             <Tooltip
               content="You're dream will is anonyonmous, the content will be viewable only to you"
               positioning={{ placement: "left-end" }}
@@ -113,7 +114,7 @@ export default function DreamInterpreter() {
               closeDelay={100}
               interactive
             >
-              <Text as="h4" color={!checked ? "black" : "gray.400"}>
+              <Text as="h3" color={!checked ? "black" : "gray.400"}>
                 Private
               </Text>
             </Tooltip>

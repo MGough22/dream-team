@@ -78,6 +78,7 @@ export default function UserDreamCard({
   return (
     <>
       <Box
+        // border={currentDreamFavState ? "2px solid" : null}
         border="2px solid"
         // bg="gray.300"
         p="5"
@@ -112,7 +113,9 @@ export default function UserDreamCard({
             </Card.Title>
             <Card.Description textAlign="center" fontSize="2">
               <Heading fontSize="4" as="h3" color="black">
-                Interpretation:
+                {currentDreamFavState
+                  ? "☆ Interpretation  ☆"
+                  : "Interpretation:"}
               </Heading>
               <Text fontSize={18} color="black">
                 {currentDream.interpretations}
