@@ -52,7 +52,6 @@ export default function UserDreamJournal() {
   function customQuery(userId, isFavourite, value) {
     getUserDreams(userId, isFavourite, value)
       .then(queryResult => {
-        console.log(queryResult);
         setUserDreams(queryResult.length > 0 ? queryResult : prevState);
       })
       .catch(error => {
