@@ -2,13 +2,12 @@ import { Button, HStack, Text } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import { updateDreamVotes } from '../utils/api'
 
-export default function VoteHandler({currentDream, setVoteHappened}) {
+export default function RetrievedVoteHandler({currentDream, voteHappened}) {
 const [localVotes, setLocalVotes] = useState(0)
 const [voteError, setVoteError] = useState(null)
 const [upDisabled, setUpDisabled] = useState(false)
 const [downDisabled, setDownDisabled] = useState(false)
 const [showThankYouMessage, setShowThankYouMessage] = useState(false)
-
 
 const thankYouMessage = () => {
     setShowThankYouMessage(true)
@@ -49,22 +48,12 @@ const handleClickUp = () => {
     setDownDisabled(false)
     })
   }
-  
-  useEffect(() => {
-    setVoteHappened(localVotes === 1 ? 1 : localVotes === -1 ? -1 : 0);
-  }, [localVotes, setVoteHappened])
-
-  // const updateVoteHappened = () => {
-  //   setVoteHappened(localVotes === 1 ? 1 : localVotes === -1 ? -1 : 0);
-  // };
-  // updateVoteHappened()
-
 
   return (
     <HStack>
                 <Text color={upDisabled ? 'green' : null } disable={upDisabled} onClick={handleClickUp} cursor={upDisabled ? 'not-allowed': 'pointer'} fontSize="3xl">⇞</Text>
-              <Text fontWeight="bold" fontSize="xl" color={`${currentDream.votes + localVotes}` >=1 ? 'green' : `${currentDream.votes + localVotes}` <0 ? 'red' : 'black'}>
-                {`${currentDream.votes + localVotes}`}
+              <Text fontWeight="bold" fontSize="xl" color={`${currentDream.votes + localVotes + voteHappened}` >=1 ? 'green' : `${currentDream.votes + localVotes + voteHappened}` <0 ? 'red' : 'black'}>
+                {`${currentDream.votes + localVotes + voteHappened }`}
               </Text>
                  <Text color={downDisabled ? 'red' : null } disable={downDisabled} onClick={handleClickDown} cursor={downDisabled ? 'not-allowed': 'pointer'} fontSize="3xl">⇟</Text>
                  {voteError ? <Text>{voteError}</Text> : null}

@@ -21,10 +21,11 @@ import { deleteDream } from "../utils/api";
 import MysticalDate from "./DateDisplay";
 import VoteHandler from "./VoteHandler";
 import { updatePublicStatus } from "../utils/api";
+import RetrievedVoteHandler from "./RetrievedVoteHandler";
 
 export default function RetrievedDreamResponse() {
   const { state } = useLocation();
-  const { currentDream } = state;
+  const { currentDream, voteHappened } = state;
   const { userId } = useContext(UserIdContext);
   const navigate = useNavigate();
 
@@ -78,7 +79,7 @@ export default function RetrievedDreamResponse() {
   }
 
   return (
-    <Container
+    <Container key={currentDream.id}
       as="section"
       align="center"
       bg="gray.300"
@@ -140,8 +141,9 @@ export default function RetrievedDreamResponse() {
           onClick={handlePublishToPublic}>{localIsPublic ? 'Published!' : 'Publish to public'}</Button>}
         </HStack>
           {localIsPublic ? <Text>{isPublicMessage}</Text> : null}
-      <VoteHandler currentDream={currentDream}/>
+      <RetrievedVoteHandler currentDream={currentDream} voteHappened={voteHappened}/>
       </VStack>
     </Container>
   );
 }
+
