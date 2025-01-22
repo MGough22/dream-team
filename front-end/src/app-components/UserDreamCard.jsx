@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { useContext } from "react";
-import { deleteDream } from "../utils/api";
+import { deleteDream, updateFavouriteStatus } from "../utils/api";
 import MysticalDate from "./DateDisplay";
 import VoteHandler from "./VoteHandler";
 
@@ -26,8 +26,11 @@ export default function UserDreamCard({
   const navigate = useNavigate();
   const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(false);
   const [deleteButtonMessage, setDeletebuttonMessage] = useState("Delete");
+  const [currentDreamFavState, setcurrentDreamFavState] = useState(
+    currentDream.isFavourited
+  );
 
-  const onViewDream = (e) => {
+  const onViewDream = e => {
     e.preventDefault();
     navigate(`/response/${currentDream.id}`, { state: { currentDream } });
   };
@@ -38,13 +41,13 @@ export default function UserDreamCard({
 
     deleteDream(currentDream.id)
       .then(() => {
-        setUserDreams((dreams) =>
-          dreams.filter((dream) => dream.id !== currentDream.id)
+        setUserDreams(dreams =>
+          dreams.filter(dream => dream.id !== currentDream.id)
         );
         setDreamDeletedMessage("Dream successfully deleted");
         setDeleteButtonDisabled(false);
       })
-      .catch((error) => {
+      .catch(error => {
         setDeletebuttonMessage("Delete failed. Try again.");
         setDreamDeletedError(
           "Dream deletion not successful (˃̣̣̥ᯅ˂̣̣̥) please try again!"
@@ -53,6 +56,19 @@ export default function UserDreamCard({
           setDeletebuttonMessage("Delete");
           setDeleteButtonDisabled(false);
         }, 3000);
+      });
+  };
+
+  const handleFavouriteClick = () => {
+    const newFavouriteStatus = !currentDreamFavState;
+    setcurrentDreamFavState(newFavouriteStatus);
+    updateFavouriteStatus(currentDream.id, newFavouriteStatus)
+      .then(() => {
+        currentDream.isFavourited = newFavouriteStatus;
+      })
+      .catch(error => {
+        console.log("Error updating favourite status: ", error);
+        setIsFavourited(!newFavouriteStatus);
       });
   };
 
@@ -116,8 +132,10 @@ export default function UserDreamCard({
                     {deleteButtonMessage}
                   </Button>
                 ) : null}
-                {!isPublic ? (
-                  <Button variant="outline">Favourite</Button>
+                {!isPublic && userId === currentDream.userId ? (
+                  <Button variant="outline" onClick={handleFavouriteClick}>
+                    {currentDreamFavState ? "Unfavourite" : "Favourite"}
+                  </Button>
                 ) : null}
               </HStack>
               <VoteHandler currentDream={currentDream} />

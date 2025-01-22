@@ -7,18 +7,15 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-// import { SkeletonText } from "../components/ui/skeleton";
-// import { Blockquote } from "../components/ui/blockquote";
 import { Tooltip } from "../components/ui/tooltip";
 import { Switch } from "../components/ui/switch";
 import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { addDream } from "../utils/api";
+import { addDream, updateFavouriteStatus } from "../utils/api";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { fetchDreamResponse } from "../utils/nidra-api";
-// import MysticalDate from "./DateDisplay";
 import { LoadingAnimation } from "./LoadingAnimation";
 import DropCap from "./DropCap";
 
@@ -82,23 +79,18 @@ export default function DreamResponse() {
       interpretation,
       null,
       localIsPublic,
-      // isPublic,
       null,
       isFavorited
     )
-      .then(() => {
+      .then(response => {
         setIsSaved(true);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error, "<<error saving dream");
       });
   };
 
-  const handleFavorite = () => {
-    setIsFavorited(true);
-  };
-
-  const getAlternateResponseType = (currentType) => {
+  const getAlternateResponseType = currentType => {
     return currentType === "jungianMystic" ? "balanced" : "jungianMystic";
   };
 
@@ -118,19 +110,9 @@ export default function DreamResponse() {
       my="2vh"
       p="5vh"
       borderRadius={10}
-      // mb="2"
     >
       <VStack spacing="1" align="center">
-        <Heading
-          // id="interpret-heading"
-          // my="1vh"
-          mt="0"
-          mb="-4"
-          p="0"
-          textAlign="center"
-          as="h3"
-          fontSize={30}
-        >
+        <Heading mt="0" mb="-4" p="0" textAlign="center" as="h3" fontSize={30}>
           Your submitted dream...
         </Heading>
         <Container p="2" textAlign="center" align="center">
@@ -160,10 +142,7 @@ export default function DreamResponse() {
                 {interpretation}
               </DropCap>
             </Box>
-          ) : // <Text textAlign="center" mt="0">
-          //   {interpretation}
-          // </Text>
-          null}
+          ) : null}
         </Box>
         {!loading && (
           <>
@@ -177,7 +156,7 @@ export default function DreamResponse() {
                 </Tooltip>
                 <Switch
                   checked={localIsPublic}
-                  onCheckedChange={(e) => setLocalIsPublic(e.checked)}
+                  onCheckedChange={e => setLocalIsPublic(e.checked)}
                   size="lg"
                 />
                 <Tooltip content="Your dream will remain anonymous but viewable to the public">
@@ -202,13 +181,6 @@ export default function DreamResponse() {
                   : localIsPublic
                   ? "Save to journal & make public"
                   : "Save to journal"}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={handleFavorite}
-                disabled={isFavorited}
-              >
-                {isFavorited ? "Added to Favorites" : "Favourite"}
               </Button>
             </HStack>
           </>
