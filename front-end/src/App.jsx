@@ -9,7 +9,6 @@ import NavBar1 from "./app-components/NavBar1";
 import UserDreamJournal from "./app-components/UserDreamJournal";
 import { Navigate, useLocation } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
-import SymbolGuide from "./app-components/SymbolGuide";
 import About from "./app-components/About";
 import UserSettings from "./app-components/UserSettings";
 import DreamResponse from "./app-components/DreamResponse";
@@ -105,14 +104,14 @@ function App() {
                 </PageWrapper>
               }
             />
-            <Route
+            {/* <Route
               path="/symbolguide"
               element={
                 <PageWrapper>
                   <SymbolGuide />{" "}
                 </PageWrapper>
               }
-            />
+            /> */}
             <Route
               path="/about"
               element={
