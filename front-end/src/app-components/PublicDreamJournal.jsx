@@ -73,12 +73,15 @@ export default function PublicDreamJournal() {
     <>
       <NativeSelectRoot size="sm" width="240px">
         <NativeSelectField
-          placeholder="Sort dreams by:"
+          placeholder="Readings sorted by:"
           variant="outline"
           value={value}
-          onChange={e => customQuery(e.currentTarget.value)}
+          onChange={e => {
+            setValue(e.currentTarget.value);
+            customQuery(e.currentTarget.value)
+          }}
         >
-          <option value="">Newest on Top</option>
+          <option value="date">Newest on Top</option>
           <option value="votes">Most Votes</option>
         </NativeSelectField>
       </NativeSelectRoot>
