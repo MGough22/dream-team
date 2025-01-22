@@ -1,35 +1,29 @@
 import {
-  // Box,
   Button,
   Container,
   Heading,
   HStack,
   VStack,
-  // Input,
   Text,
   Textarea,
 } from "@chakra-ui/react";
 import { Tooltip } from "../components/ui/tooltip";
 import { Switch } from "../components/ui/switch";
-import React from "react";
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import { UserProvider } from "../contexts/UserContext";
-import { UserContext } from "../contexts/UserContext";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function DreamInterpreter() {
   const [checked, setChecked] = useState(false);
   const [enteredDream, setEnteredDream] = useState("");
   const [responseType, setResponseType] = useState("jungianMystic");
-  const { user } = useContext(UserContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleResponseTypeChange = type => {
+  const handleResponseTypeChange = (type) => {
     setResponseType(type);
   };
 
-  const onInterpret = e => {
+  const onInterpret = (e) => {
     e.preventDefault();
     if (!enteredDream.trim()) {
       setError("Please enter a dream before submitting");
@@ -50,19 +44,12 @@ export default function DreamInterpreter() {
   return (
     <Container
       as="section"
-      // bg="gray.300"
       maxW="2xl"
-      // my="2"
-      // p="8"
       borderRadius={10}
-      //
       bg="gray.400/20"
       backdropFilter="blur(7px)"
-      // maxW="2xl"
-      my="10"
+      my="2"
       p="8"
-      // border="solid black 0.2px"
-      // borderRadius={15}
     >
       <VStack spacing="2" align="center">
         <Heading id="interpret-heading" my="0" p="0">
@@ -93,7 +80,7 @@ export default function DreamInterpreter() {
             // fontStyle: "italic",
             fontFamily: "EB Garamond",
           }}
-          onChange={e => {
+          onChange={(e) => {
             setEnteredDream(e.target.value);
             if (error) setError("");
           }}
@@ -120,7 +107,7 @@ export default function DreamInterpreter() {
             </Tooltip>
             <Switch
               checked={checked}
-              onCheckedChange={e => setChecked(e.checked)}
+              onCheckedChange={(e) => setChecked(e.checked)}
               size="lg"
             />
             <Tooltip
