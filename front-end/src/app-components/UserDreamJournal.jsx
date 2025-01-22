@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, SimpleGrid, Box, Button, Text } from "@chakra-ui/react";
+import {
+  Card,
+  SimpleGrid,
+  Box,
+  Button,
+  Text,
+  Flex,
+  Heading,
+} from "@chakra-ui/react";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { UsernameContext } from "../contexts/UsernameContext";
 import { getUserDreams } from "../utils/api";
@@ -61,26 +69,40 @@ export default function UserDreamJournal() {
 
   return (
     <>
-      <NativeSelectRoot size="sm" width="240px">
-        <NativeSelectField
-          placeholder="Your readings ordered by:"
-          variant="outline"
-          value={value}
-          onChange={e => {
-            if (e.currentTarget.value !== "favourite") {
-              setValue(e.currentTarget.value);
-              customQuery(userId, false, e.currentTarget.value);
-            } else {
-              setValue(e.currentTarget.value);
-              customQuery(userId, true, value);
-            }
-          }}
-        >
-          <option value="date">Newest on Top</option>
-          <option value="votes">Most Votes</option>
-          <option value="favourite">Favourites Only</option>
-        </NativeSelectField>
-      </NativeSelectRoot>
+      <Flex justifyContent="space-between" alignItems="center" width="100%">
+        <Box flex="1" />
+        <Heading textAlign="center" pb="4">
+          Your Dream Journal
+        </Heading>
+        <Box flex="1" display="flex" justifyContent="flex-end">
+          <NativeSelectRoot
+            size="m"
+            width="240px"
+            border="2px solid"
+            borderRadius="sm"
+          >
+            <NativeSelectField
+              placeholder="Your readings ordered by:"
+              variant="outline"
+              paddingLeft="20px"
+              value={value}
+              onChange={e => {
+                if (e.currentTarget.value !== "favourite") {
+                  setValue(e.currentTarget.value);
+                  customQuery(userId, false, e.currentTarget.value);
+                } else {
+                  setValue(e.currentTarget.value);
+                  customQuery(userId, true, value);
+                }
+              }}
+            >
+              <option value="date">Newest on Top</option>
+              <option value="votes">Most Votes</option>
+              <option value="favourite">Favourites Only</option>
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Box>
+      </Flex>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid
         columns={4}

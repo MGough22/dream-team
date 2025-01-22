@@ -25,11 +25,11 @@ export default function DreamInterpreter() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleResponseTypeChange = (type) => {
+  const handleResponseTypeChange = type => {
     setResponseType(type);
   };
 
-  const onInterpret = (e) => {
+  const onInterpret = e => {
     e.preventDefault();
     if (!enteredDream.trim()) {
       setError("Please enter a dream before submitting");
@@ -50,11 +50,19 @@ export default function DreamInterpreter() {
   return (
     <Container
       as="section"
-      bg="gray.300"
+      // bg="gray.300"
       maxW="2xl"
-      my="2"
-      p="8"
+      // my="2"
+      // p="8"
       borderRadius={10}
+      //
+      bg="gray.400/20"
+      backdropFilter="blur(7px)"
+      // maxW="2xl"
+      my="10"
+      p="8"
+      // border="solid black 0.2px"
+      // borderRadius={15}
     >
       <VStack spacing="2" align="center">
         <Heading id="interpret-heading" my="0" p="0">
@@ -75,16 +83,17 @@ export default function DreamInterpreter() {
           type="dream"
           my="2"
           p="5vh"
-          bg="white"
+          bg="white/70"
+          backdropFilter="blur(7px)"
           fontSize="1.3rem"
           lineHeight="2rem"
           placeholder="eg: I had a dream that all the Northcoders staff had been replaced by ai..."
           _placeholder={{
-            color: "gray.500",
-            fontStyle: "italic",
-            fontFamily: "cursive",
+            color: "gray.600",
+            // fontStyle: "italic",
+            fontFamily: "EB Garamond",
           }}
-          onChange={(e) => {
+          onChange={e => {
             setEnteredDream(e.target.value);
             if (error) setError("");
           }}
@@ -97,7 +106,7 @@ export default function DreamInterpreter() {
         )}
         <VStack align="center" mb="4" mt="0">
           <Text as="h3">Make dream public?</Text>
-          <HStack spacing="3">
+          <HStack spacing="3" as="h3">
             <Tooltip
               content="You're dream will is anonyonmous, the content will be viewable only to you"
               positioning={{ placement: "left-end" }}
@@ -105,13 +114,13 @@ export default function DreamInterpreter() {
               closeDelay={100}
               interactive
             >
-              <Text as="h4" color={!checked ? "black" : "gray.400"}>
+              <Text as="h3" color={!checked ? "black" : "gray.400"}>
                 Private
               </Text>
             </Tooltip>
             <Switch
               checked={checked}
-              onCheckedChange={(e) => setChecked(e.checked)}
+              onCheckedChange={e => setChecked(e.checked)}
               size="lg"
             />
             <Tooltip

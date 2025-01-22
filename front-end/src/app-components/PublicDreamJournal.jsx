@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, SimpleGrid, Box, Button, Text, Heading } from "@chakra-ui/react";
+import {
+  Card,
+  SimpleGrid,
+  Box,
+  Button,
+  Text,
+  Heading,
+  HStack,
+  Flex,
+} from "@chakra-ui/react";
 import { UsernameContext } from "../contexts/UsernameContext";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { getPublicDreams } from "../utils/api";
@@ -71,20 +80,32 @@ export default function PublicDreamJournal() {
 
   return (
     <>
-      <NativeSelectRoot size="sm" width="240px">
-        <NativeSelectField
-          placeholder="Readings sorted by:"
-          variant="outline"
-          value={value}
-          onChange={e => {
-            setValue(e.currentTarget.value);
-            customQuery(e.currentTarget.value)
-          }}
-        >
-          <option value="date">Newest on Top</option>
-          <option value="votes">Most Votes</option>
-        </NativeSelectField>
-      </NativeSelectRoot>
+      <Flex justifyContent="space-between" alignItems="center" width="100%">
+        <Box flex="1" />
+        <Heading textAlign="center">Public Dreams</Heading>
+        <Box flex="1" display="flex" justifyContent="flex-end">
+          <NativeSelectRoot
+            size="m"
+            width="240px"
+            border="2px solid"
+            borderRadius="sm"
+          >
+            <NativeSelectField
+              placeholder="Readings sorted by:"
+              variant="outline"
+              paddingLeft="20px"
+              value={value}
+              onChange={e => {
+                setValue(e.currentTarget.value);
+                customQuery(e.currentTarget.value);
+              }}
+            >
+              <option value="date">Newest on Top</option>
+              <option value="votes">Most Votes</option>
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Box>
+      </Flex>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid columns={4} gap="20px" minChildWidth={350} p="20px">
         {userDreams.map(currentDream => {

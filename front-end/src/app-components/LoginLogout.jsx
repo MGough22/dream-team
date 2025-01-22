@@ -21,10 +21,10 @@ export default function LoginLogout() {
   const [error, setError] = useState("");
   const [successfulLogin, setSuccessfulLogin] = useState("");
 
-  const onLogin = (e) => {
+  const onLogin = e => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(userCredential => {
         // Signed in
         const user = userCredential.user;
         //wait before navigating to the homepage
@@ -34,7 +34,7 @@ export default function LoginLogout() {
         console.log(user);
         setSuccessfulLogin("You have logged in successfully");
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -52,7 +52,7 @@ export default function LoginLogout() {
         navigate("/");
         console.log("Signed out successfully");
       })
-      .catch((error) => {
+      .catch(error => {
         // An error happened
         console.log(error, "error in logout");
       });
@@ -62,11 +62,13 @@ export default function LoginLogout() {
     <>
       <Container
         as="section"
-        bg="gray.300"
+        // bg="gray.300"
         maxW="md"
         my="4"
         p="4"
         borderRadius="md"
+        bg="gray.400/20"
+        backdropFilter="blur(7px)"
       >
         <VStack spacing="4" align="stretch">
           <Heading as="h2" fontSize={40} textAlign="center" mb="-4">
@@ -91,7 +93,7 @@ export default function LoginLogout() {
             <Input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               placeholder="Enter email address"
               bg="white"
               as="h4"
@@ -107,7 +109,7 @@ export default function LoginLogout() {
             <Input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               placeholder="Enter password"
               as="h4"
               fontSize={20}
@@ -139,11 +141,13 @@ export default function LoginLogout() {
 
       <Container
         as="section"
-        bg="gray.300"
+        // bg="gray.300"
         maxW="md"
         mt="4"
         p="8"
         borderRadius="md"
+        bg="gray.400/20"
+        backdropFilter="blur(7px)"
       >
         <VStack spacing="4" align="center">
           <Button color="black" onClick={handleLogout} width="100%">

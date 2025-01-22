@@ -20,7 +20,7 @@ export default function DeleteAccount() {
 
     //sign in again
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(userCredential => {
         const user = userCredential.user;
         //firebase delete user function
         return deleteUser(user);
@@ -29,7 +29,7 @@ export default function DeleteAccount() {
         setSuccessfulDelete("Account deleted successfully.");
         navigate("/");
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err.message);
         setError("Failed to delete account. Please check your credentials.");
       });
@@ -38,12 +38,15 @@ export default function DeleteAccount() {
   return (
     <Container
       // as="section"
-      bg="gray.300"
+      // bg="gray.300"
       maxW="md"
       my="1vh"
       p="2vh"
       textAlign="center"
       as="h3"
+      bg="gray.400/20"
+      backdropFilter="blur(7px)"
+      borderRadius={10}
     >
       <Heading my="1vh" p="1vh" as="h1" fontSize={40}>
         Delete Account
@@ -54,7 +57,7 @@ export default function DeleteAccount() {
         fontSize={20}
         type="email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
         placeholder="Enter email address"
       ></Input>
       <Text as="h3" pt="5">
@@ -65,7 +68,7 @@ export default function DeleteAccount() {
         type="password"
         fontSize={20}
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
         placeholder="Enter password"
       ></Input>
       <AccountDeleteButton
