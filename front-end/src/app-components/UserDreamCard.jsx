@@ -1,16 +1,26 @@
-import { Box, Button, Card, HStack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  HStack,
+  Text,
+  Heading,
+  VStack,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { useContext } from "react";
 import { deleteDream } from "../utils/api";
 import MysticalDate from "./DateDisplay";
+import VoteHandler from "./VoteHandler";
 
 export default function UserDreamCard({
   currentDream,
   setUserDreams,
   setDreamDeletedMessage,
   setDreamDeletedError,
+  isPublic,
 }) {
   const { userId } = useContext(UserIdContext);
   const navigate = useNavigate();
@@ -35,7 +45,6 @@ export default function UserDreamCard({
         setDeleteButtonDisabled(false);
       })
       .catch((error) => {
-        console.log(error, "err in dreamcard delete catch");
         setDeletebuttonMessage("Delete failed. Try again.");
         setDreamDeletedError(
           "Dream deletion not successful (˃̣̣̥ᯅ˂̣̣̥) please try again!"
@@ -50,8 +59,8 @@ export default function UserDreamCard({
   return (
     <>
       <Box
-        bg="white"
-        border="1px solid"
+        border="2px solid"
+        bg="gray.300"
         p="5"
         textAlign="center"
         width="100%"
@@ -70,39 +79,49 @@ export default function UserDreamCard({
           height="100%"
         >
           <Box flex="1">
-            <Card.Title mb="2" textAlign="center">
-              <b>A dream about:</b> {currentDream.dreamText}
+            <Card.Title
+              mb="4"
+              mt="2"
+              textAlign="center"
+              as="h1"
+              fontSize={25}
+              color="black"
+            >
+              <b>"{currentDream.dreamText}"</b>
             </Card.Title>
             <Card.Description textAlign="center" fontSize="2">
-              <b fontSize="2"> Interpretation:</b>
-              {currentDream.interpretations}
+              <Heading fontSize="4" as="h3" color="black">
+                Interpretation:
+              </Heading>
+              <Text fontSize={18} color="black">
+                {currentDream.interpretations}
+              </Text>
             </Card.Description>
           </Box>
           <Box mt="4" mb="2">
-            {/* <b> Dreamt on:</b> {currentDream.interpretationDate} */}
             <MysticalDate dateString={currentDream.interpretationDate} />
           </Box>
           <Card.Footer justifyContent="center" mt="auto">
-            <HStack spacing={4} flexWrap="wrap" justifyContent="center">
-              <Button variant="outline" onClick={onViewDream}>
-                View
-              </Button>
-              {userId === currentDream.userId ? (
-                <Button
-                  variant="outline"
-                  onClick={handleDeleteClick}
-                  disabled={deleteButtonDisabled}
-                >
-                  {deleteButtonMessage}
+            <VStack mb="-2">
+              <HStack spacing={4} flexWrap="wrap" justifyContent="center">
+                <Button variant="outline" onClick={onViewDream}>
+                  View
                 </Button>
-              ) : null}
-              <Button variant="outline">Favourite</Button>
-              <Button variant="outline">
-                {!currentDream.votes
-                  ? `Votes: 0`
-                  : `Votes: ${currentDream.votes}`}
-              </Button>
-            </HStack>
+                {userId === currentDream.userId ? (
+                  <Button
+                    variant="outline"
+                    onClick={handleDeleteClick}
+                    disabled={deleteButtonDisabled}
+                  >
+                    {deleteButtonMessage}
+                  </Button>
+                ) : null}
+                {!isPublic ? (
+                  <Button variant="outline">Favourite</Button>
+                ) : null}
+              </HStack>
+              <VoteHandler currentDream={currentDream} />
+            </VStack>
           </Card.Footer>
         </Card.Root>
       </Box>
