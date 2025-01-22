@@ -7,22 +7,20 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import { SkeletonText } from "../components/ui/skeleton";
-import { Blockquote } from "../components/ui/blockquote";
+// import { SkeletonText } from "../components/ui/skeleton";
+// import { Blockquote } from "../components/ui/blockquote";
+import { Tooltip } from "../components/ui/tooltip";
+import { Switch } from "../components/ui/switch";
 import React, { useState, useContext } from "react";
-// import { Tag } from "../components/ui/tag";
-// import { Avatar } from "../components/ui/avatar";
-// import suncross from "../assets/dream-tag-symbols/sun-cross.png";
-// import treeoflife from "../assets/dream-tag-symbols/tree-of-life.png";
-// import maze from "../assets/dream-tag-symbols/maze.png";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { addDream } from "../utils/api";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { fetchDreamResponse } from "../utils/nidra-api";
-import MysticalDate from "./DateDisplay";
+// import MysticalDate from "./DateDisplay";
 import { LoadingAnimation } from "./LoadingAnimation";
+import DropCap from "./DropCap";
 
 export default function DreamResponse() {
   const { state } = useLocation();
@@ -34,6 +32,8 @@ export default function DreamResponse() {
   const [loading, setLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
+  // Experiment
+  const [localIsPublic, setLocalIsPublic] = useState(isPublic);
 
   //  Defines which response type to render
   const responseTypeDisplay = {
@@ -81,7 +81,8 @@ export default function DreamResponse() {
       dream,
       interpretation,
       null,
-      isPublic,
+      localIsPublic,
+      // isPublic,
       null,
       isFavorited
     )
@@ -145,59 +146,73 @@ export default function DreamResponse() {
           {loading ? (
             <LoadingAnimation />
           ) : interpretation ? (
-            <Text textAlign="center" mt="0">
-              {interpretation}
-            </Text>
-          ) : null}
+            <Box textAlign="left" mt="0" px="4">
+              <DropCap
+                color="inherit"
+                dropCapStyle={{
+                  fontWeight: "500",
+                }}
+                containerStyle={{
+                  width: "4.5rem",
+                  height: "4rem",
+                }}
+              >
+                {interpretation}
+              </DropCap>
+            </Box>
+          ) : // <Text textAlign="center" mt="0">
+          //   {interpretation}
+          // </Text>
+          null}
         </Box>
         {!loading && (
-          <HStack gap="3" p="1rem">
-            <Button
-              size="sm"
-              color="black"
-              onClick={handleSaveDream}
-              disabled={user === "Guest" || isSaved}
-            >
-              {user === "Guest"
-                ? "Log in to save dream"
-                : isSaved
-                ? "Dream Saved!"
-                : isPublic
-                ? "Save to journal and publish to public"
-                : "Save to journal"}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={handleFavorite}
-              disabled={isFavorited}
-            >
-              {isFavorited ? "Added to Favorites" : "Favourite"}
-            </Button>
-          </HStack>
+          <>
+            <VStack align="center" mb="4" mt="0">
+              <Text as="h3">Make dream public?</Text>
+              <HStack spacing="3">
+                <Tooltip content="Your dream will be viewable only to you">
+                  <Text as="h4" color={!localIsPublic ? "black" : "gray.400"}>
+                    Private
+                  </Text>
+                </Tooltip>
+                <Switch
+                  checked={localIsPublic}
+                  onCheckedChange={(e) => setLocalIsPublic(e.checked)}
+                  size="lg"
+                />
+                <Tooltip content="Your dream will remain anonymous but viewable to the public">
+                  <Text color={localIsPublic ? "black" : "gray.400"}>
+                    Public
+                  </Text>
+                </Tooltip>
+              </HStack>
+            </VStack>
+
+            <HStack gap="3" p="1rem">
+              <Button
+                size="sm"
+                color="black"
+                onClick={handleSaveDream}
+                disabled={user === "Guest" || isSaved}
+              >
+                {user === "Guest"
+                  ? "Log in to save dream"
+                  : isSaved
+                  ? "Dream Saved!"
+                  : localIsPublic
+                  ? "Save to journal & make public"
+                  : "Save to journal"}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleFavorite}
+                disabled={isFavorited}
+              >
+                {isFavorited ? "Added to Favorites" : "Favourite"}
+              </Button>
+            </HStack>
+          </>
         )}
-        {/* <HStack gap="3" p="1rem">
-          <Button
-            size="sm"
-            color="black"
-            onClick={handleSaveDream}
-            disabled={user === "Guest" || isSaved}
-          >
-            {user === "Guest"
-              ? "Log in to save dream"
-              : isSaved
-              ? "Dream Saved!"
-              : isPublic
-              ? "Save to journal and publish to public"
-              : "Save to journal"}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={handleFavorite}
-            disabled={isFavorited}
-          >
-            {isFavorited ? "Added to Favorites" : "Favourite"}
-          </Button>
-        </HStack> */}
         <Button
           color="black"
           size="xl"
