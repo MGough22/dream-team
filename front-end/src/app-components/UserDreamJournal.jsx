@@ -52,7 +52,8 @@ export default function UserDreamJournal() {
   function customQuery(userId, isFavourite, value) {
     getUserDreams(userId, isFavourite, value)
       .then(queryResult => {
-        setUserDreams(queryResult);
+        console.log(queryResult);
+        setUserDreams(queryResult.length > 0 ? queryResult : prevState);
       })
       .catch(error => {
         console.log(error, "<<<< Error in customQuery catch");
@@ -67,13 +68,13 @@ export default function UserDreamJournal() {
           variant="outline"
           value={value}
           onChange={e => {
-            if(e.currentTarget.value !== "favourite"){
-            setValue(e.currentTarget.value);  
-            customQuery(userId, false, e.currentTarget.value);
-          } else {
-            setValue(e.currentTarget.value);
-            customQuery(userId, true, value);
-          }
+            if (e.currentTarget.value !== "favourite") {
+              setValue(e.currentTarget.value);
+              customQuery(userId, false, e.currentTarget.value);
+            } else {
+              setValue(e.currentTarget.value);
+              customQuery(userId, true, value);
+            }
           }}
         >
           <option value="date">Newest on Top</option>
@@ -90,7 +91,7 @@ export default function UserDreamJournal() {
         mt="-10"
         pt="10"
         pb="12px"
-              >
+      >
         {userDreams.map(currentDream => {
           return (
             <UserDreamCard
