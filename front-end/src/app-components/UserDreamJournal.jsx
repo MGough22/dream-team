@@ -28,14 +28,14 @@ export default function UserDreamJournal() {
       setLoading(true);
 
       getUserDreams(userId)
-        .then((fetchedUserDreams) => {
+        .then(fetchedUserDreams => {
           setLoading(false);
           return fetchedUserDreams;
         })
-        .then((userDreamData) => {
+        .then(userDreamData => {
           setUserDreams(userDreamData);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error, "<<<<Error in dream journal catch");
         });
     }
@@ -57,12 +57,12 @@ export default function UserDreamJournal() {
     return "No dreams in your journal yet";
   }
 
-  function customQuery(value) {
-    getUserDreams(userId, null, value)
-      .then((queryResult) => {
-        setUserDreams(queryResult);
+  function customQuery(userId, isFavourite, value) {
+    getUserDreams(userId, isFavourite, value)
+      .then(queryResult => {
+        setUserDreams(queryResult.length > 0 ? queryResult : prevState);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error, "<<<< Error in customQuery catch");
       });
   }
@@ -82,15 +82,23 @@ export default function UserDreamJournal() {
             borderRadius="sm"
           >
             <NativeSelectField
-              placeholder="Sort dreams by:"
+              placeholder="Your readings ordered by:"
               variant="outline"
               paddingLeft="20px"
               value={value}
-              onChange={(e) => customQuery(e.currentTarget.value)}
+              onChange={e => {
+                if (e.currentTarget.value !== "favourite") {
+                  setValue(e.currentTarget.value);
+                  customQuery(userId, false, e.currentTarget.value);
+                } else {
+                  setValue(e.currentTarget.value);
+                  customQuery(userId, true, value);
+                }
+              }}
             >
-              <option value="">Newest on Top</option>
-              <option value="">Favourites First</option>
+              <option value="date">Newest on Top</option>
               <option value="votes">Most Votes</option>
+              <option value="favourite">Favourites Only</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
@@ -98,14 +106,14 @@ export default function UserDreamJournal() {
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid
         columns={4}
-        gap="10px"
+        gap="20px"
         minChildWidth={350}
-        p="10px"
+        p="20px"
         mt="-10"
         pt="10"
         pb="12px"
       >
-        {userDreams.map((currentDream) => {
+        {userDreams.map(currentDream => {
           return (
             <UserDreamCard
               setUserDreams={setUserDreams}

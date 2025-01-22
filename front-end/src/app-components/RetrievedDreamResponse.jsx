@@ -151,7 +151,7 @@ export default function RetrievedDreamResponse() {
               )}
             </>
           )}
-          {!currentDream.isPublic && !localIsPublic && (
+          {!currentDream.isPublic && !localIsPublic && deleteButtonMessage === "Delete" && (
             <Button
               size="sm"
               color="black"

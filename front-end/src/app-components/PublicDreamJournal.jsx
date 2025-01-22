@@ -33,14 +33,14 @@ export default function PublicDreamJournal() {
       setLoading(true);
 
       getPublicDreams()
-        .then((fetchedPublicDreams) => {
+        .then(fetchedPublicDreams => {
           setLoading(false);
           return fetchedPublicDreams;
         })
-        .then((publicDreamData) => {
+        .then(publicDreamData => {
           setUserDreams(publicDreamData);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error, "<<<<Error in dream journal catch");
         });
     }
@@ -70,10 +70,10 @@ export default function PublicDreamJournal() {
 
   function customQuery(value) {
     getPublicDreams(value)
-      .then((filteredList) => {
+      .then(filteredList => {
         setUserDreams(filteredList);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error, "<<<< Error in customQuery catch");
       });
   }
@@ -91,13 +91,16 @@ export default function PublicDreamJournal() {
             borderRadius="sm"
           >
             <NativeSelectField
-              placeholder="Sort dreams by:"
+              placeholder="Readings sorted by:"
               variant="outline"
               paddingLeft="20px"
               value={value}
-              onChange={(e) => customQuery(e.currentTarget.value)}
+              onChange={e => {
+                setValue(e.currentTarget.value);
+                customQuery(e.currentTarget.value);
+              }}
             >
-              <option value="">Newest on Top</option>
+              <option value="date">Newest on Top</option>
               <option value="votes">Most Votes</option>
             </NativeSelectField>
           </NativeSelectRoot>
@@ -105,7 +108,7 @@ export default function PublicDreamJournal() {
       </Flex>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid columns={4} gap="20px" minChildWidth={350} p="20px">
-        {userDreams.map((currentDream) => {
+        {userDreams.map(currentDream => {
           return (
             <UserDreamCard
               setUserDreams={setUserDreams}
