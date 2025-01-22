@@ -18,10 +18,11 @@ import {
 import MysticalDate from "./DateDisplay";
 import VoteHandler from "./VoteHandler";
 import DropCap from "./DropCap";
+import RetrievedVoteHandler from "./RetrievedVoteHandler";
 
 export default function RetrievedDreamResponse() {
   const { state } = useLocation();
-  const { currentDream } = state;
+  const { currentDream, voteHappened } = state;
   const { userId } = useContext(UserIdContext);
   const navigate = useNavigate();
 
@@ -94,6 +95,7 @@ export default function RetrievedDreamResponse() {
 
   return (
     <Container
+      key={currentDream.id}
       as="section"
       align="center"
       bg="gray.300"
@@ -168,7 +170,10 @@ export default function RetrievedDreamResponse() {
           )}
         </HStack>
         {localIsPublic && <Text>{isPublicMessage}</Text>}
-        <VoteHandler currentDream={currentDream} />
+        <RetrievedVoteHandler
+          currentDream={currentDream}
+          voteHappened={voteHappened}
+        />
       </VStack>
     </Container>
   );

@@ -29,10 +29,13 @@ export default function UserDreamCard({
   const [currentDreamFavState, setcurrentDreamFavState] = useState(
     currentDream.isFavourited
   );
+  const [voteHappened, setVoteHappened] = useState(0);
 
   const onViewDream = e => {
     e.preventDefault();
-    navigate(`/response/${currentDream.id}`, { state: { currentDream } });
+    navigate(`/response/${currentDream.id}`, {
+      state: { currentDream, voteHappened },
+    });
   };
 
   const handleDeleteClick = () => {
@@ -138,7 +141,11 @@ export default function UserDreamCard({
                   </Button>
                 ) : null}
               </HStack>
-              <VoteHandler currentDream={currentDream} />
+              <VoteHandler
+                currentDream={currentDream}
+                voteHappened={voteHappened}
+                setVoteHappened={setVoteHappened}
+              />
             </VStack>
           </Card.Footer>
         </Card.Root>

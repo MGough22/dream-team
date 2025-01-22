@@ -25,7 +25,6 @@ export default function UserDreamJournal() {
           return fetchedUserDreams;
         })
         .then(userDreamData => {
-          console.log(userDreamData, "<<<dreamData");
           setUserDreams(userDreamData);
         })
         .catch(error => {

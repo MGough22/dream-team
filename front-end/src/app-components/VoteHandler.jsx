@@ -1,8 +1,8 @@
 import { Button, HStack, VStack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { updateDreamVotes } from "../utils/api";
 
-export default function VoteHandler({ currentDream }) {
+export default function VoteHandler({ currentDream, setVoteHappened }) {
   const [localVotes, setLocalVotes] = useState(0);
   const [voteError, setVoteError] = useState(null);
   const [upDisabled, setUpDisabled] = useState(false);
@@ -15,7 +15,7 @@ export default function VoteHandler({ currentDream }) {
 
   const handleClickUp = () => {
     if (upDisabled) return;
-    setLocalVotes((prevVotes) => prevVotes + 1);
+    setLocalVotes(prevVotes => prevVotes + 1);
     localVotes === -1 || 0 ? setUpDisabled(false) : setUpDisabled(true);
     setDownDisabled(false);
     setVoteError(null);
@@ -26,7 +26,7 @@ export default function VoteHandler({ currentDream }) {
     localVotes === -1
       ? updateDreamVotes(currentDream.id, localVotes + 2)
       : updateDreamVotes(currentDream.id, localVotes + 1).catch(() => {
-          setLocalVotes((prevVotes) => prevVotes - 1);
+          setLocalVotes(prevVotes => prevVotes - 1);
           setVoteError("Your vote was not successful (˃̣̣̥ᯅ˂̣̣̥) please try again!");
           setUpDisabled(false);
         });
@@ -34,7 +34,7 @@ export default function VoteHandler({ currentDream }) {
 
   const handleClickDown = () => {
     if (downDisabled) return;
-    setLocalVotes((prevVotes) => prevVotes - 1);
+    setLocalVotes(prevVotes => prevVotes - 1);
     localVotes === 1 || 0 ? setDownDisabled(false) : setDownDisabled(true);
     setUpDisabled(false);
     setVoteError(null);
@@ -45,11 +45,20 @@ export default function VoteHandler({ currentDream }) {
     localVotes === 1
       ? updateDreamVotes(currentDream.id, localVotes - 2)
       : updateDreamVotes(currentDream.id, localVotes - 1).catch(() => {
-          setLocalVotes((prevVotes) => prevVotes + 1);
+          setLocalVotes(prevVotes => prevVotes + 1);
           setVoteError("Your vote was not successful (˃̣̣̥ᯅ˂̣̣̥) please try again!");
           setDownDisabled(false);
         });
   };
+
+  useEffect(() => {
+    setVoteHappened(localVotes === 1 ? 1 : localVotes === -1 ? -1 : 0);
+  }, [localVotes, setVoteHappened]);
+
+  // const updateVoteHappened = () => {
+  //   setVoteHappened(localVotes === 1 ? 1 : localVotes === -1 ? -1 : 0);
+  // };
+  // updateVoteHappened()
 
   return (
     <VStack spacing={2} align="center" mt="2">

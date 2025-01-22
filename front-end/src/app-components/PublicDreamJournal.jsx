@@ -29,7 +29,6 @@ export default function PublicDreamJournal() {
           return fetchedPublicDreams;
         })
         .then(publicDreamData => {
-          console.log(publicDreamData, "<<<dreamData");
           setUserDreams(publicDreamData);
         })
         .catch(error => {
