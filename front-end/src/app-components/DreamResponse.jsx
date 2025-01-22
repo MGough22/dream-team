@@ -105,11 +105,13 @@ export default function DreamResponse() {
     <Container
       as="section"
       align="center"
-      bg="gray.300"
+      // bg="gray.300"
       maxW="2xl"
       my="2vh"
       p="5vh"
       borderRadius={10}
+      bg="gray.400/20"
+      backdropFilter="blur(7px)"
     >
       <VStack spacing="1" align="center">
         <Heading mt="0" mb="-4" p="0" textAlign="center" as="h3" fontSize={30}>

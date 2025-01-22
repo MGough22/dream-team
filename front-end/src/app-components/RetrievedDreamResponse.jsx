@@ -98,11 +98,13 @@ export default function RetrievedDreamResponse() {
       key={currentDream.id}
       as="section"
       align="center"
-      bg="gray.300"
+      // bg="gray.300"
       maxW="2xl"
       my="1vh"
       p="6"
       borderRadius={8}
+      bg="gray.400/20"
+      backdropFilter="blur(7px)"
     >
       <VStack spacing="1" align="center">
         <Container textAlign="center" align="center" p="2">

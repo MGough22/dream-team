@@ -13,12 +13,15 @@ export default function UserSettings() {
 
   return (
     <Container
-      bg="gray.300"
+      //bg="gray.300"
       maxW="lg"
       my="5vh"
       p="5vh"
       textAlign="center" // Centers text and inline-block elements
       as="h3"
+      bg="gray.400/20"
+      backdropFilter="blur(7px)"
+      borderRadius={10}
     >
       <Text as="h2">Welcome {username} to your settings</Text>
       <AccountDeleteButton

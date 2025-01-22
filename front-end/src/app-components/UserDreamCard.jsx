@@ -79,7 +79,7 @@ export default function UserDreamCard({
     <>
       <Box
         border="2px solid"
-        bg="gray.300"
+        // bg="gray.300"
         p="5"
         textAlign="center"
         width="100%"
@@ -89,6 +89,8 @@ export default function UserDreamCard({
         display="flex"
         flexDirection="column"
         minHeight="450px"
+        bg="gray.400/20"
+        backdropFilter="blur(7px)"
       >
         <Card.Root
           width="auto"

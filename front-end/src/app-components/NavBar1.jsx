@@ -43,7 +43,8 @@ export default function NavBar1() {
         <NavItemJournal as={Link} to={`/publicdreamjournal`}>
           Public Dreams
         </NavItemJournal>
-        <NavItemJournal to="/symbolguide">Symbol Guide</NavItemJournal>
+        {/* <NavItemJournal to="/symbolguide">Symbol Guide</NavItemJournal> */}
+        <NavItemJournal to="/symbolguide">About</NavItemJournal>
         {user === "Guest" ? null : (
           <NavItemUser to={`/settings`}>{username}'s Account</NavItemUser>
         )}
