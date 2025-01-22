@@ -21,9 +21,9 @@ export default function NavBar1() {
 
   return (
     <Grid as="nav" p="1" gap="1vw">
-      <HStack spacing="1vw" flexWrap="wrap" className="navBar">
+      <HStack spacing="1vw" className="navBar">
         <Box as={Link} to="/">
-          <Heading color="white" as="h1">
+          <Heading color="white" as="h1" pb="2">
             Nocturne
           </Heading>
         </Box>

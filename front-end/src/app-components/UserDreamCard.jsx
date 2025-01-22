@@ -52,7 +52,7 @@ export default function UserDreamCard({
   return (
     <>
       <Box
-        bg="white"
+        // bg="white"
         border="1px solid"
         p="5"
         textAlign="center"
@@ -63,6 +63,8 @@ export default function UserDreamCard({
         display="flex"
         flexDirection="column"
         minHeight="450px"
+        bg="gray.400/20"
+        backdropFilter="blur(7px)"
       >
         <Card.Root
           width="auto"
@@ -77,16 +79,16 @@ export default function UserDreamCard({
               textAlign="center"
               as="h1"
               fontSize={25}
-              color="black"
+              color="white"
             >
               <b>"{currentDream.dreamText}"</b>
             </Card.Title>
             <Card.Description textAlign="center" fontSize="2">
-              <Heading fontSize="4" as="h3" color="black">
+              <Heading fontSize="4" as="h3" color="white">
                 {/* {" "} */}
                 Interpretation:
               </Heading>
-              <Text fontSize={18} color="black">
+              <Text fontSize={18} color="white">
                 {currentDream.interpretations}
               </Text>
             </Card.Description>
@@ -97,7 +99,7 @@ export default function UserDreamCard({
           </Box>
           <Card.Footer justifyContent="center" mt="auto">
             <HStack spacing={4} flexWrap="wrap" justifyContent="center">
-              <Button variant="outline" onClick={onViewDream}>
+              <Button variant="outline" onClick={onViewDream} color="white">
                 View
               </Button>
               {userId === currentDream.userId ? (
@@ -105,6 +107,7 @@ export default function UserDreamCard({
                   variant="outline"
                   onClick={handleDeleteClick}
                   disabled={deleteButtonDisabled}
+                  color="white"
                 >
                   {deleteButtonMessage}
                 </Button>
@@ -112,7 +115,7 @@ export default function UserDreamCard({
               {!isPublic ? <Button variant="outline">Favourite</Button> : null}
             </HStack>
           </Card.Footer>
-          <VoteHandler currentDream={currentDream}/>
+          <VoteHandler currentDream={currentDream} />
         </Card.Root>
       </Box>
     </>

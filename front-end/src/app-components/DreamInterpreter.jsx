@@ -50,25 +50,27 @@ export default function DreamInterpreter() {
   return (
     <Container
       as="section"
-      bg="gray.400/2000"
+      bg="gray.400/20"
       maxW="2xl"
-      my="2"
+      my="10"
       p="8"
-      backdropFilter="blur(10px)"
+      backdropFilter="blur(7px)"
       borderRadius={15}
-      position="relative"
-      overflow="hidden"
-      _after={{
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: "linear-gradient(transparent, rgba(255, 255, 255, 0.2))",
-        zIndex: -10,
-        filter: "blur(90px)",
-      }}
+      // border="1px inset white"
+      // border="1px solid rgba(255, 255, 255, 0.7)"
+      // position="relative"
+      // overflow="hidden"
+      // _after={{
+      //   content: '""',
+      //   position: "absolute",
+      //   top: 0,
+      //   left: 0,
+      //   right: 0,
+      //   bottom: 0,
+      //   background: "linear-gradient(transparent, rgba(255, 255, 255, 0.2))",
+      //   zIndex: -10,
+      //   filter: "blur(90px)",
+      // }}
     >
       <VStack spacing="2" align="center">
         <Heading id="interpret-heading" my="0" p="0" color="white">
@@ -86,17 +88,24 @@ export default function DreamInterpreter() {
         </Text>
         <Textarea
           as="form"
-          type="dream"
+          // all="unset"
+          // type="dream"
+          // height="auto"
+          border="1px solid lightgray" /* Faint border */
+          border-radius="4px" /* Optional: rounded corners */
+          // padding="4px"
           my="2"
           p="5vh"
-          bg="white"
+          color="white"
+          bg="white.400/2000"
           fontSize="1.3rem"
           lineHeight="2rem"
           placeholder="eg: I had a dream that all the Northcoders staff had been replaced by ai..."
           _placeholder={{
-            color: "gray.500",
+            color: "white",
             fontStyle: "italic",
-            fontFamily: "cursive",
+            fontWeight: "light",
+            fontFamily: "frenchFell",
           }}
           onChange={e => {
             setEnteredDream(e.target.value);
@@ -154,8 +163,8 @@ export default function DreamInterpreter() {
             >
               <Button
                 size="sm"
-                color={responseType === "jungianMystic" ? "black" : "grey"}
-                bg={responseType === "jungianMystic" ? "grey" : null}
+                color="white"
+                bg="transparent"
                 onClick={() => handleResponseTypeChange("jungianMystic")}
               >
                 Mystic
@@ -170,8 +179,8 @@ export default function DreamInterpreter() {
             >
               <Button
                 size="sm"
-                color={responseType === "balanced" ? "black" : "grey"}
-                bg={responseType === "balanced" ? "grey" : null}
+                color="white"
+                bg="transparent"
                 onClick={() => handleResponseTypeChange("balanced")}
               >
                 Balanced
@@ -181,7 +190,8 @@ export default function DreamInterpreter() {
         </VStack>
         <Button
           onClick={onInterpret}
-          color="black"
+          bg="transparent"
+          color="white"
           size="xl"
           mx="auto"
           display="block"

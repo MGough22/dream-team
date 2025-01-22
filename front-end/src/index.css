@@ -13,6 +13,21 @@ Serifs */
 @import url("https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:wght@400;500&display=swap");
 /* Sans-serif */
 
+@font-face {
+  font-family: "jenson";
+  src: url("./assets/fonts/1470_jenson.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "centaur";
+  src: url("./assets/fonts/centaur.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "frenchFell";
+  src: url("./assets/fonts/FeFCit2.woff2") format("woff2");
+}
+
 :root {
   color-scheme: light;
   height: 100%;
@@ -24,7 +39,8 @@ body {
   color: black;
   height: 100%;
   margin: 0;
-  font-family: "EB Garamond", serif;
+  /* font-family: "EB Garamond", serif; */
+  font-family: "centaur";
   font-size: 1.2rem;
   /* font-family: "Spectral", serif; */
   /* font-family: "Lora", serif; */
@@ -62,14 +78,16 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   color: #ffffff;
-  font-family: "Almendra SC", serif;
+  /* font-family: "Almendra SC", serif; */
+  font-family: "jenson";
 }
 /* Dream quotes */
 h2 {
   font-size: 2rem;
   color: #ffffff;
   /* line-height: 1.1; */
-  font-family: "Almendra SC", serif;
+  /* font-family: "Almendra SC", serif; */
+  font-family: "jenson";
 }
 
 /* Info titles */
@@ -78,6 +96,9 @@ h3 {
   color: #ffffff;
   /* line-height: 1.1; */
   font-family: "IM Fell DW Pica SC", serif;
+  /* font-family: "centaur"; */
+  /* font-family: "frenchFell";
+  font-style: "italic"; */
 }
 
 /* Small display */
@@ -86,6 +107,7 @@ h4 {
   color: #ffffff;
   /* line-height: 1.1; */
   font-family: "EB Garamond", serif;
+  /* font-family: "centaur"; */
 }
 
 button {
@@ -95,6 +117,7 @@ button {
   font-size: 1.3em;
   font-weight: 500;
   font-family: "IM Fell DW Pica SC", serif;
+  /* font-family: "centaur"; */
   /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: background-color 0.25s;
@@ -125,7 +148,8 @@ button:focus-visible {
 
 /* Single Title IDS */
 #interpret-heading {
-  font-family: "Almendra SC", serif;
+  /* font-family: "Almendra SC", serif; */
+  font-family: "jenson";
   font-weight: bold;
   font-size: 3rem;
 }
@@ -148,4 +172,10 @@ button:focus-visible {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
 }

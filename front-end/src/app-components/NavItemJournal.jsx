@@ -7,16 +7,19 @@ export default function NavItem({ to, bg = "gray.400", children }) {
     <Box
       as={Link}
       to={to}
-      bg={bg}
+      // bg={bg}
+      bg="gray.400/2000"
       fontFamily="IM Fell DW Pica SC"
       fontSize={20}
+      backdropFilter="blur(1px)"
       p="2"
       color="white"
       borderRadius="md"
+      pt="4"
       transition="all 0.2s"
       _hover={{
-        opacity: 0.8,
-        color: "black",
+        bg: "#606060",
+        color: "white",
         textDecoration: "none",
       }}
     >

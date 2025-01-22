@@ -56,6 +56,7 @@ function App() {
 
       <Container>
         <NavBar1 />
+        <hr></hr>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route
