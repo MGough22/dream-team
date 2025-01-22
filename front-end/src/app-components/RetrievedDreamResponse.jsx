@@ -7,20 +7,17 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import { SkeletonText } from "../components/ui/skeleton";
-import { Blockquote } from "../components/ui/blockquote";
 import React, { useState, useContext } from "react";
-// import { Tag } from "../components/ui/tag";
-// import { Avatar } from "../components/ui/avatar";
-// import suncross from "../assets/dream-tag-symbols/sun-cross.png";
-// import treeoflife from "../assets/dream-tag-symbols/tree-of-life.png";
-// import maze from "../assets/dream-tag-symbols/maze.png";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserIdContext } from "../contexts/UserIdContext";
-import { deleteDream, updateFavouriteStatus } from "../utils/api";
+import {
+  deleteDream,
+  updatePublicStatus,
+  updateFavouriteStatus,
+} from "../utils/api";
 import MysticalDate from "./DateDisplay";
 import VoteHandler from "./VoteHandler";
-import { updatePublicStatus } from "../utils/api";
+import DropCap from "./DropCap";
 
 export default function RetrievedDreamResponse() {
   const { state } = useLocation();
@@ -32,13 +29,14 @@ export default function RetrievedDreamResponse() {
   const [deleteButtonMessage, setDeleteButtonMessage] = useState("Delete");
   const [dreamDeletedError, setDreamDeletedError] = useState(null);
   const [dreamDeletedMessage, setDreamDeletedMessage] = useState(null);
-  
-  const [localIsPublic, setLocalIsPublic] = useState(false)
-  const [isPublicButtonDisabled, setIsPublicButtonDisabled] = useState(false)
-  const [isPublicMessage, setIsPublicMessage] = useState("")
 
+  const [localIsPublic, setLocalIsPublic] = useState(false);
+  const [isPublicButtonDisabled, setIsPublicButtonDisabled] = useState(false);
+  const [isPublicMessage, setIsPublicMessage] = useState("");
 
-  const [currentDreamFavState, setcurrentDreamFavState] = useState(currentDream.isFavourited);
+  const [currentDreamFavState, setcurrentDreamFavState] = useState(
+    currentDream.isFavourited
+  );
 
   const handleDeleteClick = () => {
     setDeleteButtonDisabled(true);
@@ -49,15 +47,15 @@ export default function RetrievedDreamResponse() {
         setDreamDeletedMessage("Dream successfully deleted");
         setDeleteButtonMessage("Deleted");
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         setDeleteButtonMessage("Delete failed. Try again.");
         setDreamDeletedError(
           "Dream deletion not successful (˃̣̣̥ᯅ˂̣̣̥) please try again!"
         );
+        setDeleteButtonDisabled(false);
         setTimeout(() => {
           setDeleteButtonMessage("Delete");
-          setDeleteButtonDisabled(false);
         }, 3000);
       });
   };
@@ -67,29 +65,30 @@ export default function RetrievedDreamResponse() {
   };
 
   const handlePublishToPublic = () => {
-    setIsPublicButtonDisabled(true)
-    setLocalIsPublic(true)
+    setIsPublicButtonDisabled(true);
+    setLocalIsPublic(true);
     updatePublicStatus(currentDream.id, true)
-    .then(()=>{
-      setIsPublicMessage("Dream publicised!")
-      setTimeout(() => {
-        setIsPublicMessage("");
-      }, 3000)
-    }).catch((error)=>{
-      console.log(error, "error in public update catch")
-    })
-  }
+      .then(() => {
+        setIsPublicMessage("Dream published!");
+        setTimeout(() => {
+          setIsPublicMessage("");
+        }, 3000);
+      })
+      .catch(error => {
+        console.log(error, "error in public update catch");
+      });
+  };
 
   const handleFavouriteClick = () => {
     const newFavouriteStatus = !currentDreamFavState;
-    setcurrentDreamFavState(newFavouriteStatus); 
+    setcurrentDreamFavState(newFavouriteStatus);
     updateFavouriteStatus(currentDream.id, newFavouriteStatus)
       .then(() => {
         currentDream.isFavourited = newFavouriteStatus;
       })
-      .catch((error) => {
+      .catch(error => {
         console.log("Error updating favourite status: ", error);
-        setIsFavourited(!newFavouriteStatus); 
+        setIsFavourited(!newFavouriteStatus);
       });
   };
 
@@ -112,20 +111,26 @@ export default function RetrievedDreamResponse() {
         <Heading mt="0" p="0" textAlign="center">
           <MysticalDate dateString={currentDream.interpretationDate} />
         </Heading>
-        <Heading as="h3" my="1vh" mb="-5" p="1" textAlign="center">
+        <Heading as="h3" my="1vh" mb="-3" p="1" textAlign="center">
           Interpretation...
         </Heading>
-        <Box p="4">
-          {currentDream.interpretations ? (
-            <Text textAlign="center" mt="0" as="h4">
-              {currentDream.interpretations}
-            </Text>
-          ) : (
-            <SkeletonText noOfLines={3} gap="4" />
-          )}
+        <Box textAlign="left" mt="0" px="4">
+          <DropCap
+            color="inherit"
+            dropCapStyle={{
+              fontWeight: "500",
+            }}
+            containerStyle={{
+              width: "4.5rem",
+              height: "4rem",
+            }}
+          >
+            {currentDream.interpretations}
+          </DropCap>
         </Box>
+
         <HStack gap="3" p="1rem">
-          {userId === currentDream.userId ? (
+          {userId === currentDream.userId && (
             <>
               <Button
                 size="sm"
@@ -135,12 +140,24 @@ export default function RetrievedDreamResponse() {
               >
                 {deleteButtonMessage}
               </Button>
-              <Button size="sm" color="black" onClick={handleFavouriteClick}>
-              {currentDreamFavState ? "Unfavourite" : "Favourite"}
-              </Button>
+              {!deleteButtonDisabled && (
+                <Button size="sm" color="black" onClick={handleFavouriteClick}>
+                  {currentDreamFavState ? "Unfavourite" : "Favourite"}
+                </Button>
+              )}
             </>
-          ) : null}
-          {deleteButtonMessage === "Deleted" ? (
+          )}
+          {!currentDream.isPublic && !localIsPublic && (
+            <Button
+              size="sm"
+              color="black"
+              disabled={isPublicButtonDisabled}
+              onClick={handlePublishToPublic}
+            >
+              Publish to public
+            </Button>
+          )}
+          {deleteButtonMessage === "Deleted" && (
             <Button
               size="sm"
               color="black"
@@ -148,15 +165,10 @@ export default function RetrievedDreamResponse() {
             >
               Return to Journal
             </Button>
-          ) : null}
-          {currentDream.isPublic ? null : 
-          <Button size="sm"
-          color="black"
-          disabled={isPublicButtonDisabled}
-          onClick={handlePublishToPublic}>{localIsPublic ? 'Published!' : 'Publish to public'}</Button>}
+          )}
         </HStack>
-          {localIsPublic ? <Text>{isPublicMessage}</Text> : null}
-      <VoteHandler currentDream={currentDream}/>
+        {localIsPublic && <Text>{isPublicMessage}</Text>}
+        <VoteHandler currentDream={currentDream} />
       </VStack>
     </Container>
   );
