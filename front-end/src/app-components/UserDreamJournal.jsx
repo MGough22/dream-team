@@ -49,8 +49,8 @@ export default function UserDreamJournal() {
     return "No dreams in your journal yet";
   }
 
-  function customQuery(value) {
-    getUserDreams(userId, null, value)
+  function customQuery(userId, isFavourite, value) {
+    getUserDreams(userId, isFavourite, value)
       .then(queryResult => {
         setUserDreams(queryResult);
       })
@@ -63,26 +63,34 @@ export default function UserDreamJournal() {
     <>
       <NativeSelectRoot size="sm" width="240px">
         <NativeSelectField
-          placeholder="Sort dreams by:"
+          placeholder="Your readings ordered by:"
           variant="outline"
           value={value}
-          onChange={e => customQuery(e.currentTarget.value)}
+          onChange={e => {
+            if(e.currentTarget.value !== "favourite"){
+            setValue(e.currentTarget.value);  
+            customQuery(userId, false, e.currentTarget.value);
+          } else {
+            setValue(e.currentTarget.value);
+            customQuery(userId, true, value);
+          }
+          }}
         >
-          <option value="">Newest on Top</option>
-          <option value="">Favourites First</option>
+          <option value="date">Newest on Top</option>
           <option value="votes">Most Votes</option>
+          <option value="favourite">Favourites Only</option>
         </NativeSelectField>
       </NativeSelectRoot>
       <Text>{dreamDeletedMessage || dreamDeletedError}</Text>
       <SimpleGrid
         columns={4}
-        gap="10px"
+        gap="20px"
         minChildWidth={350}
-        p="10px"
+        p="20px"
         mt="-10"
         pt="10"
         pb="12px"
-      >
+              >
         {userDreams.map(currentDream => {
           return (
             <UserDreamCard
