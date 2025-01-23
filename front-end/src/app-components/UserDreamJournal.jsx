@@ -78,8 +78,9 @@ export default function UserDreamJournal() {
           <NativeSelectRoot
             size="m"
             width="240px"
-            border="2px solid"
-            borderRadius="sm"
+            border="1.9px solid"
+            //borderRadius="sm"
+            borderRadius={6}
           >
             <NativeSelectField
               placeholder="Your readings ordered by:"

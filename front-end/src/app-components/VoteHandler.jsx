@@ -61,7 +61,7 @@ export default function VoteHandler({ currentDream, setVoteHappened }) {
   // updateVoteHappened()
 
   return (
-    <VStack spacing={2} align="center" mt="2">
+    <VStack spacing={2} align="center" mt="2" color="black">
       {showThankYouMessage && <Text>Thank you for voting</Text>}
       <HStack>
         <Text

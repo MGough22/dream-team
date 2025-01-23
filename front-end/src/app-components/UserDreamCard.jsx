@@ -128,12 +128,13 @@ export default function UserDreamCard({
           <Card.Footer justifyContent="center" mt="auto">
             <VStack mb="-2">
               <HStack spacing={4} flexWrap="wrap" justifyContent="center">
-                <Button variant="outline" onClick={onViewDream}>
+                <Button variant="outline" onClick={onViewDream} color="black">
                   View
                 </Button>
                 {userId === currentDream.userId ? (
                   <Button
                     variant="outline"
+                    color="black"
                     onClick={handleDeleteClick}
                     disabled={deleteButtonDisabled}
                   >
@@ -141,7 +142,11 @@ export default function UserDreamCard({
                   </Button>
                 ) : null}
                 {!isPublic && userId === currentDream.userId ? (
-                  <Button variant="outline" onClick={handleFavouriteClick}>
+                  <Button
+                    variant="outline"
+                    onClick={handleFavouriteClick}
+                    color="black"
+                  >
                     {currentDreamFavState ? "Unfavourite" : "Favourite"}
                   </Button>
                 ) : null}
