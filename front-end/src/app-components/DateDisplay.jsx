@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Heading } from "@chakra-ui/react";
 
 export default function MysticalDate({ dateString }) {
-  const convertToRoman = (num) => {
+  const convertToRoman = num => {
     const romanNumerals = [
       { value: 1000, numeral: "M" },
       { value: 900, numeral: "CM" },
@@ -29,7 +29,7 @@ export default function MysticalDate({ dateString }) {
     return result;
   };
 
-  const formatMysticalDate = (dateStr) => {
+  const formatMysticalDate = dateStr => {
     // Parse the date string "DD/MM/YYYY, HH:mm:ss"
     const [datePart, timePart] = dateStr.split(", ");
     const [day, month, year] = datePart.split("/");
@@ -64,7 +64,7 @@ export default function MysticalDate({ dateString }) {
     )} ${hour12}.${minute}${ampm}`;
   };
 
-  const getDaySuffix = (day) => {
+  const getDaySuffix = day => {
     if (day > 3 && day < 21) return "th";
     switch (day % 10) {
       case 1:
@@ -79,7 +79,7 @@ export default function MysticalDate({ dateString }) {
   };
 
   return (
-    <Heading textAlign="center" as="h3" fontSize={22}>
+    <Heading textAlign="center" as="h3" fontSize={22} color="black">
       {formatMysticalDate(dateString)}
     </Heading>
   );

@@ -73,7 +73,9 @@ button {
   transition: background-color 0.25s;
 }
 button:hover {
-  background-color: rgb(176, 176, 176);
+  background-color: white;
+  backdrop-filter: blur(7px);
+  color: black;
 }
 button:focus,
 button:focus-visible {
@@ -111,4 +113,8 @@ button:focus-visible {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+#interpret {
+  margin-top: 1%;
 }
