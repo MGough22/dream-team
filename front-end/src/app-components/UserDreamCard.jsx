@@ -113,7 +113,7 @@ export default function UserDreamCard({
             </Card.Title>
             <Card.Description textAlign="center" fontSize="2">
               <Heading fontSize="4" as="h3" color="black">
-                {currentDreamFavState
+                {currentDreamFavState && userId === currentDream.userId
                   ? "☆ Interpretation  ☆"
                   : "Interpretation:"}
               </Heading>

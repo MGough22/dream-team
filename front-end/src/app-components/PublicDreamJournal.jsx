@@ -24,7 +24,7 @@ export default function PublicDreamJournal() {
   const { userId } = useContext(UserIdContext);
   const [userDreams, setUserDreams] = useState([]);
   const [value, setValue] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [dreamDeletedMessage, setDreamDeletedMessage] = useState(null);
   const [dreamDeletedError, setDreamDeletedError] = useState(null);
 
