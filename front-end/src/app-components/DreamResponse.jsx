@@ -31,7 +31,6 @@ export default function DreamResponse() {
   const [isFavorited, setIsFavorited] = useState(false);
   const [localIsPublic, setLocalIsPublic] = useState(isPublic);
 
-  //  Defines which response type to render
   const responseTypeDisplay = {
     jungianMystic: "Mystic",
     balanced: "balanced",

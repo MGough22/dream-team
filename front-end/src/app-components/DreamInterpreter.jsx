@@ -47,7 +47,6 @@ export default function DreamInterpreter() {
       maxW="2xl"
       borderRadius={10}
       bg="gray.400/20"
-      // bg="gray.400/16"
       backdropFilter="blur(7px)"
       my="2"
       p="8"
@@ -75,7 +74,6 @@ export default function DreamInterpreter() {
           p="5vh"
           bg="white/70"
           backdropFilter="blur(7px)"
-          // fontSize="1.3rem"
           fontSize="larger"
           lineHeight="2rem"
           color="black"
