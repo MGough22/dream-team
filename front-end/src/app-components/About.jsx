@@ -46,7 +46,7 @@ export default function About() {
         </HStack>
         <Card.Description>
           <Strong color="fg">Tom Glencross </Strong>
-          is a junior software and JavaScript developer.
+          built Nocture's front-end components and functionality, and provided integration with back-end systems. 
         </Card.Description>
       </Card.Body>
       <Card.Footer>
@@ -76,7 +76,7 @@ export default function About() {
         </HStack>
         <Card.Description>
           <Strong color="fg">Mike Winnard </Strong>
-          is a junior software and JavaScript developer.
+          worked with machine learning and fine-tuned custom AI model deployment, and Nocturne's visual language. 
         </Card.Description>
       </Card.Body>
       <Card.Footer>
@@ -103,7 +103,7 @@ export default function About() {
         </HStack>
         <Card.Description>
           <Strong color="fg">Marcus Gough </Strong>
-          is a junior software and JavaScript developer.
+          focussed on Nocturne's front-end and our dynamic visuals with Motion and tsParticles.
         </Card.Description>
       </Card.Body>
       <Card.Footer>
@@ -130,7 +130,7 @@ export default function About() {
         </HStack>
         <Card.Description>
           <Strong color="fg">Zoltan Mozga </Strong>
-          is a junior software and JavaScript developer.
+          implemented authentication and responsive UI elements on this project.
         </Card.Description>
       </Card.Body>
       <Card.Footer>
@@ -156,7 +156,7 @@ export default function About() {
           </Stack>
         </HStack>
         <Card.Description>
-          <Strong color="fg">Seif Hok</Strong> is a junior software and JavaScript developer.
+          <Strong color="fg">Seif Hok</Strong> developed and engineered the database for Nocturne. 
         </Card.Description>
       </Card.Body>
       <Card.Footer>
