@@ -7,7 +7,7 @@ const defaultStyles = {
   dropCapContainer: {
     position: "relative",
     float: "left",
-    width: "4rem", // container size
+    width: "4rem",
     height: "4rem",
     marginRight: "-0.5rem",
     marginBottom: "-1rem",
@@ -16,7 +16,7 @@ const defaultStyles = {
     alignItems: "flex-start",
     paddingTop: "0",
     shapeOutside: "content-box",
-    shapeMargin: "0.1rem", // Reduced shape margin to bring text closer
+    shapeMargin: "0.1rem",
   },
   dropCapLetter: {
     fontSize: "3.75rem",

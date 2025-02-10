@@ -12,7 +12,6 @@ export async function fetchDreamResponse(userDream, responseType) {
   const modelType = MODEL_TYPES[responseType] || MODEL_TYPES.default;
 
   try {
-    // Test predict endpoint - DEV
     console.log("\nFetching dream response...");
     const predictData = {
       model: modelType,
@@ -29,10 +28,8 @@ export async function fetchDreamResponse(userDream, responseType) {
         },
       }
     );
-    // console.log("Predict response:", predictResponse.data);
     return predictResponse.data.generated_text;
   } catch (error) {
-    // Verbose debugging error logging
     console.error("Error details:", {
       endpoint: error.config?.url,
       status: error.response?.status,
@@ -44,5 +41,3 @@ export async function fetchDreamResponse(userDream, responseType) {
     throw error;
   }
 }
-
-// console.log(fetchDreamResponse(userDream, responseType));

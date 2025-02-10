@@ -78,9 +78,7 @@ export default function UserDreamCard({
   return (
     <>
       <Box
-        // border={currentDreamFavState ? "2px solid" : null}
         border="2px solid"
-        // bg="gray.300"
         p="5"
         textAlign="center"
         width="100%"
@@ -91,7 +89,6 @@ export default function UserDreamCard({
         flexDirection="column"
         minHeight="450px"
         bg="gray.400/20"
-        //  bg="gray.400/16"
         backdropFilter="blur(7px)"
       >
         <Card.Root

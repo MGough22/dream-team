@@ -1,4 +1,3 @@
-// src/components/DeleteButton.jsx
 import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
