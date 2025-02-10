@@ -35,7 +35,12 @@ export default function About() {
             <HStack mb="6" gap="3">
               <Avatar src={tomglencross} name="Tom Glencross" size="2xl" />
               <Stack gap="0">
-                <Text as="h3" fontWeight="semibold" textStyle="sm">
+                <Text
+                  as="h3"
+                  fontWeight="semibold"
+                  textStyle="sm"
+                  color="black"
+                >
                   Tom Glencross
                 </Text>
                 <Text
@@ -71,7 +76,12 @@ export default function About() {
             <HStack mb="6" gap="3">
               <Avatar src={mike} name="Mike Winnard" size="2xl" />
               <Stack gap="0">
-                <Text as="h3" fontWeight="semibold" textStyle="sm">
+                <Text
+                  as="h3"
+                  fontWeight="semibold"
+                  textStyle="sm"
+                  color="black"
+                >
                   Mike Winnard
                 </Text>
                 <Text
@@ -107,7 +117,12 @@ export default function About() {
             <HStack mb="6" gap="3">
               <Avatar src={marcus} name="Marcus Gough" size="2xl" />
               <Stack gap="0">
-                <Text as="h3" fontWeight="semibold" textStyle="sm">
+                <Text
+                  as="h3"
+                  fontWeight="semibold"
+                  textStyle="sm"
+                  color="black"
+                >
                   Marcus Gough
                 </Text>
                 <Text
@@ -135,7 +150,12 @@ export default function About() {
             <HStack mb="6" gap="3">
               <Avatar src={zoltan} name="Zoltan Mozga" size="2xl" />
               <Stack gap="0">
-                <Text as="h3" fontWeight="semibold" textStyle="sm">
+                <Text
+                  as="h3"
+                  fontWeight="semibold"
+                  textStyle="sm"
+                  color="black"
+                >
                   Zoltan Mozga
                 </Text>
                 <Text
@@ -162,7 +182,12 @@ export default function About() {
             <HStack mb="6" gap="3">
               <Avatar src={seif} name="Seif Hok" size="2xl" />
               <Stack gap="0">
-                <Text as="h3" fontWeight="semibold" textStyle="sm">
+                <Text
+                  as="h3"
+                  fontWeight="semibold"
+                  textStyle="sm"
+                  color="black"
+                >
                   Seif Hok
                 </Text>
                 <Text
