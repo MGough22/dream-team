@@ -13,7 +13,7 @@ import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { addDream, updateFavouriteStatus } from "../utils/api";
+import { addDream } from "../utils/api";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { fetchDreamResponse } from "../utils/nidra-api";
 import { LoadingAnimation } from "./LoadingAnimation";
@@ -29,7 +29,6 @@ export default function DreamResponse() {
   const [loading, setLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-  // Experiment
   const [localIsPublic, setLocalIsPublic] = useState(isPublic);
 
   //  Defines which response type to render
@@ -105,7 +104,6 @@ export default function DreamResponse() {
     <Container
       as="section"
       align="center"
-      // bg="gray.300"
       maxW="2xl"
       my="2vh"
       p="5vh"

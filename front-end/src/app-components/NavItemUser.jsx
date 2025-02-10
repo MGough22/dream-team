@@ -13,6 +13,7 @@ export default function NavItemUser({ to, bg = "gray.400", children }) {
       color="black"
       borderRadius="md"
       bg="gray.400/20"
+      // bg="gray.400/16"
       backdropFilter="blur(7px)"
       transition="all 0.2s"
       _hover={{

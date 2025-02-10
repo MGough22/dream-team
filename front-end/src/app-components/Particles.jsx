@@ -54,19 +54,13 @@ export default function Particle() {
             },
             particles: {
               color: {
-                // value: "#bae6fd",
-                // value: "#415661",
-                // value: "#ffffff",
                 value: "#111212",
               },
               links: {
-                // color: "#e0f2fe",
                 color: "#111212",
-                // color: "#93a3ad",
-                // color: "#c9c9c9",
                 distance: 150,
                 enable: true,
-                opacity: 0.81, //0.5
+                opacity: 0.81,
                 width: 0.4,
               },
               move: {
@@ -84,10 +78,10 @@ export default function Particle() {
                   enable: true,
                   area: 800,
                 },
-                value: 320, // 160
+                value: 320,
               },
               opacity: {
-                value: 1.5, //0.5
+                value: 1.5,
               },
               shape: {
                 type: "circle",

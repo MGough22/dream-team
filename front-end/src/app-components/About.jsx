@@ -1,7 +1,6 @@
 import {
   Container,
   Text,
-  Button,
   Card,
   HStack,
   Stack,
@@ -10,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { Avatar } from "../components/ui/avatar";
 import React from "react";
-import { LuCheck, LuX } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import tomglencross from "../assets/team/tom g.png";
 import seif from "../assets/team/seif.png";
@@ -22,18 +20,17 @@ export default function About() {
   return (
     <Container
       as="section"
-      // bg="gray.300"
       maxW="md"
       my="5vh"
       p="5vh"
-      bg="gray.400/10"
+      bg="gray.400/16"
       backdropFilter="blur(7px)"
       borderRadius={10}
       textAlign="center"
     >
       {/* TOMS CARD */}
       <VStack>
-        <Card.Root width="320px">
+        <Card.Root width="320px" bg="white/70" backdropFilter="blur(7px)">
           <Card.Body>
             <HStack mb="6" gap="3">
               <Avatar src={tomglencross} name="Tom Glencross" size="2xl" />
@@ -69,7 +66,7 @@ export default function About() {
         </Card.Root>
 
         {/* MIKES CARD */}
-        <Card.Root width="320px">
+        <Card.Root width="320px" bg="white/70" backdropFilter="blur(7px)">
           <Card.Body>
             <HStack mb="6" gap="3">
               <Avatar src={mike} name="Mike Winnard" size="2xl" />
@@ -105,7 +102,7 @@ export default function About() {
         </Card.Root>
 
         {/* MARCUS' CARD */}
-        <Card.Root width="320px">
+        <Card.Root width="320px" bg="white/70" backdropFilter="blur(7px)">
           <Card.Body>
             <HStack mb="6" gap="3">
               <Avatar src={marcus} name="Marcus Gough" size="2xl" />
@@ -125,14 +122,15 @@ export default function About() {
             </HStack>
             <Card.Description>
               <Strong color="fg">Marcus Gough </Strong>
-              Machine learning, Nocturne's front-end, visuals and animation.
+              Nocturne's front-end, Machine learning, visual language, and
+              animation.
             </Card.Description>
           </Card.Body>
           <Card.Footer></Card.Footer>
         </Card.Root>
 
         {/* ZOLTAN CARD */}
-        <Card.Root width="320px">
+        <Card.Root width="320px" bg="white/70" backdropFilter="blur(7px)">
           <Card.Body>
             <HStack mb="6" gap="3">
               <Avatar src={zoltan} name="Zoltan Mozga" size="2xl" />
@@ -159,7 +157,7 @@ export default function About() {
         </Card.Root>
 
         {/* SEIF CARD */}
-        <Card.Root width="320px">
+        <Card.Root width="320px" bg="white/70" backdropFilter="blur(7px)">
           <Card.Body>
             <HStack mb="6" gap="3">
               <Avatar src={seif} name="Seif Hok" size="2xl" />
@@ -178,7 +176,7 @@ export default function About() {
               </Stack>
             </HStack>
             <Card.Description>
-              <Strong color="fg">Seif Hok</Strong> Database, and API for
+              <Strong color="fg">Seif Hok</Strong> Database and API for
               Nocturne.
             </Card.Description>
           </Card.Body>

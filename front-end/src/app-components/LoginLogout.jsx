@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Container,
   Heading,
@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 
 export default function LoginLogout() {
-  //Login Code
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,11 +24,7 @@ export default function LoginLogout() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        // Signed in
         const user = userCredential.user;
-        //wait before navigating to the homepage
-        //message user successfully logged in
-        //then navigate
         navigate("/");
         console.log(user);
         setSuccessfulLogin("You have logged in successfully");
@@ -46,14 +41,10 @@ export default function LoginLogout() {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
-        //wait to navigate to homepage
-        //display message sign-out successful
         navigate("/");
         console.log("Signed out successfully");
       })
       .catch(error => {
-        // An error happened
         console.log(error, "error in logout");
       });
   };
@@ -62,7 +53,6 @@ export default function LoginLogout() {
     <>
       <Container
         as="section"
-        // bg="gray.300"
         maxW="md"
         my="4"
         p="4"
@@ -141,12 +131,11 @@ export default function LoginLogout() {
 
       <Container
         as="section"
-        // bg="gray.300"
         maxW="md"
         mt="4"
         p="8"
         borderRadius="md"
-        bg="gray.400/20"
+        bg="gray.400/16"
         backdropFilter="blur(7px)"
       >
         <VStack spacing="4" align="center">

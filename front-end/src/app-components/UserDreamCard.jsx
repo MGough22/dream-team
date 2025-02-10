@@ -91,6 +91,7 @@ export default function UserDreamCard({
         flexDirection="column"
         minHeight="450px"
         bg="gray.400/20"
+        //  bg="gray.400/16"
         backdropFilter="blur(7px)"
       >
         <Card.Root

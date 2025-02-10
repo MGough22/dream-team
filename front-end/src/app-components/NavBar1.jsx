@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  HStack,
-  Spacer,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Grid, Heading, HStack, Spacer } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";

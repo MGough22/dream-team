@@ -16,7 +16,6 @@ import {
   updateFavouriteStatus,
 } from "../utils/api";
 import MysticalDate from "./DateDisplay";
-import VoteHandler from "./VoteHandler";
 import DropCap from "./DropCap";
 import RetrievedVoteHandler from "./RetrievedVoteHandler";
 
@@ -104,6 +103,7 @@ export default function RetrievedDreamResponse() {
       p="6"
       borderRadius={8}
       bg="gray.400/20"
+      //  bg="gray.400/16"
       backdropFilter="blur(7px)"
     >
       <VStack spacing="1" align="center">
@@ -151,16 +151,18 @@ export default function RetrievedDreamResponse() {
               )}
             </>
           )}
-          {!currentDream.isPublic && !localIsPublic && deleteButtonMessage === "Delete" && (
-            <Button
-              size="sm"
-              color="black"
-              disabled={isPublicButtonDisabled}
-              onClick={handlePublishToPublic}
-            >
-              Publish to public
-            </Button>
-          )}
+          {!currentDream.isPublic &&
+            !localIsPublic &&
+            deleteButtonMessage === "Delete" && (
+              <Button
+                size="sm"
+                color="black"
+                disabled={isPublicButtonDisabled}
+                onClick={handlePublishToPublic}
+              >
+                Publish to public
+              </Button>
+            )}
           {deleteButtonMessage === "Deleted" && (
             <Button
               size="sm"

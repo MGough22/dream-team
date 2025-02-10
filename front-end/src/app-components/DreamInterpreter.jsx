@@ -47,6 +47,7 @@ export default function DreamInterpreter() {
       maxW="2xl"
       borderRadius={10}
       bg="gray.400/20"
+      // bg="gray.400/16"
       backdropFilter="blur(7px)"
       my="2"
       p="8"

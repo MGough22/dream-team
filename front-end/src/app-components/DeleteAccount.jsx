@@ -1,7 +1,7 @@
-import { Button, Container, Heading, Input, Text } from "@chakra-ui/react";
+import { Container, Heading, Input, Text } from "@chakra-ui/react";
 import { getAuth, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AccountDeleteButton from "./AccountDeleteButton";
 
 export default function DeleteAccount() {
@@ -10,8 +10,6 @@ export default function DeleteAccount() {
   const [error, setError] = useState("");
   const [successfulDelete, setSuccessfulDelete] = useState("");
   const navigate = useNavigate();
-
-  //NOTE FROM TOM - we have state for whether account deletion has been sucessful or not, we could use this state to generate Toast style messages, or perhaps on new pages/components ie. if we successfully delete account we're taken to a new page with a component that says "account deleted" and then a clickable link to the home page.
 
   const handleDeleteAccount = () => {
     const auth = getAuth();
@@ -37,8 +35,6 @@ export default function DeleteAccount() {
 
   return (
     <Container
-      // as="section"
-      // bg="gray.300"
       maxW="md"
       my="1vh"
       p="2vh"
@@ -71,12 +67,7 @@ export default function DeleteAccount() {
         onChange={e => setPassword(e.target.value)}
         placeholder="Enter password"
       ></Input>
-      <AccountDeleteButton
-        // Added this custom button component
-
-        onClick={handleDeleteAccount}
-        // isDisabled={!email || !password}
-      >
+      <AccountDeleteButton onClick={handleDeleteAccount}>
         Delete account
       </AccountDeleteButton>
     </Container>

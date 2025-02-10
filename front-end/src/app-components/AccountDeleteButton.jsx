@@ -12,8 +12,8 @@ export default function AccountDeleteButton({ onClick }) {
       onClick={onClick}
       mt="5"
       fontSize={35}
-      p="6" // Added more padding
-      borderRadius="md" // Rounded corners
+      p="6"
+      borderRadius="md"
       fontWeight="bold"
       transition="all 0.2s"
       _hover={{

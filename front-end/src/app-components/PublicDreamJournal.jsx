@@ -1,15 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Card,
-  SimpleGrid,
-  Box,
-  Button,
-  Text,
-  Heading,
-  HStack,
-  Flex,
-} from "@chakra-ui/react";
-import { UsernameContext } from "../contexts/UsernameContext";
+import { SimpleGrid, Box, Text, Heading, Flex } from "@chakra-ui/react";
 import { UserIdContext } from "../contexts/UserIdContext";
 import { getPublicDreams } from "../utils/api";
 import UserDreamCard from "./UserDreamCard";
@@ -20,7 +10,6 @@ import {
 } from "../components/ui/native-select";
 
 export default function PublicDreamJournal() {
-  const { username } = useContext(UsernameContext);
   const { userId } = useContext(UserIdContext);
   const [userDreams, setUserDreams] = useState([]);
   const [value, setValue] = useState("");
