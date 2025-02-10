@@ -1,4 +1,3 @@
-// src/components/NavItem.jsx
 import { Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -7,7 +6,6 @@ export default function NavItem({ to, bg = "gray.400", children }) {
     <Box
       as={Link}
       to={to}
-      // bg={bg}
       fontFamily="IM Fell DW Pica SC"
       fontSize={20}
       p="2"

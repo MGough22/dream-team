@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 import {
@@ -21,19 +21,17 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [localUsername, setLocalUsername] = useState("");
-  const [error, setError] = useState("");
   const [successfulSignUp, setSuccessfulSignUp] = useState("");
 
   const { setUsername } = useContext(UsernameContext);
 
-  const onSignUp = (e) => {
+  const onSignUp = e => {
     e.preventDefault();
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        // console.log("user in line 22 of sign up>>>>>", user);
         updateProfile(user, { displayName: localUsername }).then(() => {
           setUsername(localUsername);
 
@@ -44,9 +42,8 @@ export default function SignUp() {
           });
           navigate("/");
         });
-        // ...
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -54,13 +51,13 @@ export default function SignUp() {
           title: `Error: ${errorCode}`,
           type: "error",
         });
-        // ..
       });
   };
   return (
     <Container
       as="section"
-      bg="gray.300"
+      bg="gray.400/16"
+      backdropFilter="blur(7px)"
       maxW="md"
       my="4"
       p="4"
@@ -78,7 +75,7 @@ export default function SignUp() {
           <Input
             type="username"
             value={localUsername}
-            onChange={(e) => setLocalUsername(e.target.value)}
+            onChange={e => setLocalUsername(e.target.value)}
             placeholder="Enter username"
             bg="white"
             as="h4"
@@ -95,7 +92,7 @@ export default function SignUp() {
           <Input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             placeholder="Enter email address"
             bg="white"
             as="h4"
@@ -112,7 +109,7 @@ export default function SignUp() {
           <Input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             placeholder="Enter password"
             bg="white"
             as="h4"

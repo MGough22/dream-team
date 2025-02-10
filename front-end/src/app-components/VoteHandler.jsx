@@ -1,4 +1,4 @@
-import { Button, HStack, VStack, Text } from "@chakra-ui/react";
+import { HStack, VStack, Text } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { updateDreamVotes } from "../utils/api";
 
@@ -54,11 +54,6 @@ export default function VoteHandler({ currentDream, setVoteHappened }) {
   useEffect(() => {
     setVoteHappened(localVotes === 1 ? 1 : localVotes === -1 ? -1 : 0);
   }, [localVotes, setVoteHappened]);
-
-  // const updateVoteHappened = () => {
-  //   setVoteHappened(localVotes === 1 ? 1 : localVotes === -1 ? -1 : 0);
-  // };
-  // updateVoteHappened()
 
   return (
     <VStack spacing={2} align="center" mt="2" color="black">

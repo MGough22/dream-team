@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Heading } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 
 export default function MysticalDate({ dateString }) {
   const convertToRoman = num => {
@@ -30,12 +30,10 @@ export default function MysticalDate({ dateString }) {
   };
 
   const formatMysticalDate = dateStr => {
-    // Parse the date string "DD/MM/YYYY, HH:mm:ss"
     const [datePart, timePart] = dateStr.split(", ");
     const [day, month, year] = datePart.split("/");
     const [hour, minute] = timePart.split(":");
 
-    // Convert month number to name
     const months = [
       "January",
       "February",
@@ -52,7 +50,6 @@ export default function MysticalDate({ dateString }) {
     ];
     const monthName = months[parseInt(month) - 1];
 
-    // Format hour to 12-hour format with am/pm
     const hourNum = parseInt(hour);
     const hour12 = hourNum % 12 || 12;
     const ampm = hourNum >= 12 ? "pm" : "am";

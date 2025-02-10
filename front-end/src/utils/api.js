@@ -131,21 +131,6 @@ export async function getUserDreams(
   }
 }
 
-// export async function deleteDream(dreamId) { //delete dream from database
-//   try {
-//     if (!dreamId) {
-//       throw new Error("Dream ID is required.");
-//     }
-//     const dreamRef = doc(db, "dreams", dreamId);
-//     await deleteDoc(dreamRef);
-//     console.log(`Dream with ID: ${dreamId} has been deleted.`);
-//   }
-//   catch (error) {
-//     console.error("error in delete api", error);
-//     return Promise.reject(new Error("Error deleting dream"))
-//   }
-// }
-
 //new delete function which allows optimistic rendering. the timeout stops firebase from making the same request over and over when the network fails, which will never deliver a rejected promise, and cannot pass errors to our frontend. now promise.race checks which process resolves first, the timeout or the deletion, and if the timeout occurs, a rejected promise is made and passed to the catch block.
 export async function deleteDream(dreamId) {
   try {
@@ -216,7 +201,8 @@ export async function updatePublicStatus(dreamId, isPublic) {
   }
 }
 
-export async function updateFavouriteStatus(dreamId, isFavourited) { //takes dreamID and boolean.
+export async function updateFavouriteStatus(dreamId, isFavourited) {
+  //takes dreamID and boolean.
   try {
     if (!dreamId) {
       throw new Error("Dream ID is required.");

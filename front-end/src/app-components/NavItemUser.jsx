@@ -8,7 +8,6 @@ export default function NavItemUser({ to, bg = "gray.400", children }) {
       to={to}
       fontFamily="IM Fell DW Pica SC"
       fontSize={20}
-      // bg="#808080"
       p="1vh"
       color="black"
       borderRadius="md"

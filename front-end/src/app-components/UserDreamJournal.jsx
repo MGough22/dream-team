@@ -1,21 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Card,
-  SimpleGrid,
-  Box,
-  Button,
-  Text,
-  Flex,
-  Heading,
-} from "@chakra-ui/react";
+import { SimpleGrid, Box, Text, Flex, Heading } from "@chakra-ui/react";
 import { UserIdContext } from "../contexts/UserIdContext";
-import { UsernameContext } from "../contexts/UsernameContext";
 import { getUserDreams } from "../utils/api";
 import UserDreamCard from "./UserDreamCard";
 import { NativeSelectRoot, NativeSelectField } from "@chakra-ui/react";
 
 export default function UserDreamJournal() {
-  const { username } = useContext(UsernameContext);
   const { userId } = useContext(UserIdContext);
   const [userDreams, setUserDreams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +69,6 @@ export default function UserDreamJournal() {
             size="m"
             width="240px"
             border="1.9px solid"
-            //borderRadius="sm"
             borderRadius={6}
           >
             <NativeSelectField

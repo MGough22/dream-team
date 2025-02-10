@@ -78,9 +78,7 @@ export default function UserDreamCard({
   return (
     <>
       <Box
-        // border={currentDreamFavState ? "2px solid" : null}
         border="2px solid"
-        // bg="gray.300"
         p="5"
         textAlign="center"
         width="100%"

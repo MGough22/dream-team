@@ -74,7 +74,6 @@ export default function DreamInterpreter() {
           p="5vh"
           bg="white/70"
           backdropFilter="blur(7px)"
-          // fontSize="1.3rem"
           fontSize="larger"
           lineHeight="2rem"
           color="black"
