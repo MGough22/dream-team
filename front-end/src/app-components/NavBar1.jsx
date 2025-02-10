@@ -1,25 +1,45 @@
-import { Box, Button, Flex, Heading, HStack, Spacer, Text } from '@chakra-ui/react'
-import React, { useContext} from 'react'
-import { Link } from 'react-router-dom'
-import { UserContext } from '../contexts/UserContext'
+import { Box, Grid, Heading, HStack, Spacer } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+import { UsernameContext } from "../contexts/UsernameContext";
+import NavItemUser from "./NavItemUser";
+import NavItemJournal from "./NavItemJournal";
 
 export default function NavBar1() {
-const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
+  const { username } = useContext(UsernameContext);
 
   return (
-    <Flex as="nav" p="1vw" alignItems="center" gap="1vw">
-    <Box as={Link} to="/">
-    <Heading color="black" as="h1" >DreamApp</Heading>
-    </Box>
-    <Spacer/>
-<HStack spacing="1vw" flexWrap="wrap">
-<Box as={Link} to={`/signup`} bg="gray.300" p="1vh" color="white">Create Account</Box>
-<Box as={Link} to={`/${user}/dreamjournal`} bg="gray.400" p="1vh" color="white">{`${user}'s Dream Journal`}</Box>
-<Box as={Link} to={`/publicdreamjournal`} bg="gray.500" p="1vh" color="white">Public Dream Journal</Box>
-<Box as={Link} to="/symbolguide" bg="gray.600" p="1vh" color="white">Symbol Guide</Box>
-<Text as={Link} to={`/${user}/settings`} bg="gray.700" p="1vh" color="white">Logged in user/settings: Welcome, {user}</Text>
-<Button as={Link} to={`/login`} bg="gray.800" p="1vh" color="white"> Login/Logout</Button>
-</HStack>
-</Flex>
-  )
+    <Grid as="nav" p="1" gap="1vw">
+      <HStack spacing="1vw" flexWrap="wrap" className="navBar">
+        <Box as={Link} to="/">
+          <Heading color="black" as="h1">
+            Nocturne
+          </Heading>
+        </Box>
+        <Spacer />
+        {user === "Guest" ? (
+          <NavItemUser to={`/signup`}>Create Account</NavItemUser>
+        ) : null}
+        {user === "Guest" ? (
+          <NavItemUser
+            to={`/login`}
+          >{`Login to access your dream journal`}</NavItemUser>
+        ) : (
+          <NavItemJournal
+            to={`/dreamjournal`}
+          >{`${username}'s Dream Journal`}</NavItemJournal>
+        )}
+        <NavItemJournal as={Link} to={`/publicdreamjournal`}>
+          Public Dreams
+        </NavItemJournal>
+        <NavItemJournal to="/about">About</NavItemJournal>
+        {user === "Guest" ? null : (
+          <NavItemUser to={`/settings`}>{username}'s Account</NavItemUser>
+        )}
+        <NavItemUser to={`/login`}> Login/Logout</NavItemUser>
+      </HStack>
+    </Grid>
+  );
 }
