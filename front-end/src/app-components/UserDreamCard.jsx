@@ -153,6 +153,7 @@ export default function UserDreamCard({
                 currentDream={currentDream}
                 voteHappened={voteHappened}
                 setVoteHappened={setVoteHappened}
+                userId={userId}
               />
             </VStack>
           </Card.Footer>

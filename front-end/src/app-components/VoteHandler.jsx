@@ -2,18 +2,15 @@ import { HStack, VStack, Text } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { updateDreamVotes } from "../utils/api";
 
-export default function VoteHandler({ currentDream, setVoteHappened }) {
+export default function VoteHandler({ currentDream, setVoteHappened, userId }) {
   const [localVotes, setLocalVotes] = useState(0);
   const [voteError, setVoteError] = useState(null);
   const [upDisabled, setUpDisabled] = useState(false);
   const [downDisabled, setDownDisabled] = useState(false);
   const [showThankYouMessage, setShowThankYouMessage] = useState(false);
 
-  const thankYouMessage = () => {
-    setShowThankYouMessage(true);
-  };
-
   const handleClickUp = () => {
+    console.log(userId);
     if (upDisabled) return;
     setLocalVotes(prevVotes => prevVotes + 1);
     localVotes === -1 || 0 ? setUpDisabled(false) : setUpDisabled(true);
@@ -33,6 +30,7 @@ export default function VoteHandler({ currentDream, setVoteHappened }) {
   };
 
   const handleClickDown = () => {
+    console.log(userId);
     if (downDisabled) return;
     setLocalVotes(prevVotes => prevVotes - 1);
     localVotes === 1 || 0 ? setDownDisabled(false) : setDownDisabled(true);
@@ -57,7 +55,9 @@ export default function VoteHandler({ currentDream, setVoteHappened }) {
 
   return (
     <VStack spacing={2} align="center" mt="2" color="black">
-      {showThankYouMessage && <Text>Thank you for voting</Text>}
+      {showThankYouMessage && (
+        <Text>{userId !== "guestId" ? "Thank you for voting" : ""}</Text>
+      )}
       <HStack>
         <Text
           color={upDisabled ? "green" : null}
@@ -90,7 +90,13 @@ export default function VoteHandler({ currentDream, setVoteHappened }) {
         >
           ⇟
         </Text>
-        {voteError && <Text>{voteError}</Text>}
+        {voteError && (
+          <Text>
+            {userId !== "guestId"
+              ? voteError
+              : "Unsuccesful (˃̣̣̥ᯅ˂̣̣̥) Log in or sign up to vote!"}
+          </Text>
+        )}
       </HStack>
     </VStack>
   );

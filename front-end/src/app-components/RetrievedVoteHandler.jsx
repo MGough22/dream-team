@@ -2,18 +2,19 @@ import { HStack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { updateDreamVotes } from "../utils/api";
 
-export default function RetrievedVoteHandler({ currentDream, voteHappened }) {
+export default function RetrievedVoteHandler({
+  currentDream,
+  voteHappened,
+  userId,
+}) {
   const [localVotes, setLocalVotes] = useState(0);
   const [voteError, setVoteError] = useState(null);
   const [upDisabled, setUpDisabled] = useState(false);
   const [downDisabled, setDownDisabled] = useState(false);
   const [showThankYouMessage, setShowThankYouMessage] = useState(false);
 
-  const thankYouMessage = () => {
-    setShowThankYouMessage(true);
-  };
-
   const handleClickUp = () => {
+    console.log(userId);
     if (upDisabled) return;
     setLocalVotes(prevVotes => prevVotes + 1);
     localVotes === -1 || 0 ? setUpDisabled(false) : setUpDisabled(true);
@@ -33,6 +34,7 @@ export default function RetrievedVoteHandler({ currentDream, voteHappened }) {
   };
 
   const handleClickDown = () => {
+    console.log(userId);
     if (downDisabled) return;
     setLocalVotes(prevVotes => prevVotes - 1);
     localVotes === 1 || 0 ? setDownDisabled(false) : setDownDisabled(true);
@@ -84,8 +86,16 @@ export default function RetrievedVoteHandler({ currentDream, voteHappened }) {
       >
         ⇟
       </Text>
-      {voteError ? <Text>{voteError}</Text> : null}
-      {showThankYouMessage ? <Text>Thank you for voting</Text> : null}
+      {voteError ? (
+        <Text>
+          {userId !== "guestId"
+            ? voteError
+            : "Unsuccesful (˃̣̣̥ᯅ˂̣̣̥) Log in or sign up to vote!"}
+        </Text>
+      ) : null}
+      {showThankYouMessage ? (
+        <Text>{userId !== "guestId" ? "Thank you for voting" : ""}</Text>
+      ) : null}
     </HStack>
   );
 }
