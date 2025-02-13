@@ -2,6 +2,8 @@
 
 Welcome to the Team Project repository! This document outlines the workflow, branch structure, and best practices for collaborating effectively on this project.
 
+## See the live site here : https://nocturne-journal.netlify.app
+
 ## 📂 Branch Structure
 
 - main: The stable, production-ready branch. Only thoroughly reviewed and tested code is merged here.

@@ -175,6 +175,7 @@ export default function RetrievedDreamResponse() {
         <RetrievedVoteHandler
           currentDream={currentDream}
           voteHappened={voteHappened}
+          userId={userId}
         />
       </VStack>
     </Container>
